@@ -1,0 +1,42 @@
+/* Klinova — global base styles.
+   Most component styling lives inline in app/page.jsx for production reliability.
+   This file sets a clean baseline only. */
+
+:root {
+  --green: #0E6B4F;
+  --green-deep: #0A5440;
+  --ivory: #F5EFE3;
+  --ink: #15302A;
+  --gold: #D99A2B;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
