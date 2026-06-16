@@ -21,15 +21,15 @@ export async function POST(request) {
     .eq('id', callerId)
     .single()
 
-  if (callerProfile?.role !== 'admin') {
-    return NextResponse.json({ error: 'Forbidden — admins only' }, { status: 403 })
+  if (!['admin', 'owner'].includes(callerProfile?.role)) {
+    return NextResponse.json({ error: 'Forbidden — admins and owners only' }, { status: 403 })
   }
 
   // 3. Parse and validate body
   const body = await request.json()
   const { email, full_name, role, temp_password, pharmacy_id } = body
 
-  const VALID_ROLES = ['patient', 'doctor', 'pharmacist', 'admin', 'analyst']
+  const VALID_ROLES = ['patient', 'doctor', 'pharmacist', 'admin', 'analyst', 'nurse', 'marketing', 'frontdesk', 'owner']
   if (!email || !role || !temp_password || !full_name) {
     return NextResponse.json({ error: 'email, full_name, role, and temp_password are required' }, { status: 400 })
   }

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
 import { StatCard, StatusBadge } from './PatientDashboard'
+import MyPaySection from './MyPaySection'
 
 const C = '#D99A2B'
 
@@ -101,6 +102,8 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
           </div>
         )}
       </section>
+
+      <MyPaySection userId={userId} />
     </div>
   )
 }

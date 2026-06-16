@@ -6,44 +6,81 @@ import { createClient } from '@/lib/supabase-client'
 
 const ROLE_META = {
   patient:    { label: 'Patient',     color: '#0E6B4F', nav: [
-    { href: '/dashboard',         label: 'Home'             },
-    { href: '/dashboard#consult', label: 'Talk to a doctor' },
-    { href: '/dashboard#rx',      label: 'Prescriptions'    },
-    { href: '/dashboard#pharmacy',label: 'Find pharmacy'    },
-    { href: '/dashboard#payments',label: 'Payments'         },
-    { href: '/account',           label: 'Account'          },
+    { href: '/dashboard',          label: 'Home'             },
+    { href: '/dashboard#consult',  label: 'Talk to a doctor' },
+    { href: '/dashboard#rx',       label: 'Prescriptions'    },
+    { href: '/dashboard#pharmacy', label: 'Find pharmacy'    },
+    { href: '/dashboard#pay',      label: 'My Pay'           },
+    { href: '/account',            label: 'Account'          },
   ]},
   doctor:     { label: 'Doctor',      color: '#2C6E8F', nav: [
-    { href: '/dashboard',         label: 'Queue'            },
+    { href: '/dashboard',         label: 'Queue'             },
     { href: '/dashboard#rx',      label: 'Write prescription'},
-    { href: '/account',           label: 'Account'          },
+    { href: '/dashboard#pay',     label: 'My Pay'            },
+    { href: '/account',           label: 'Account'           },
   ]},
   pharmacist: { label: 'Pharmacist',  color: '#D99A2B', nav: [
-    { href: '/dashboard',         label: 'Prescriptions'    },
-    { href: '/account',           label: 'Account'          },
+    { href: '/dashboard',         label: 'Prescriptions'     },
+    { href: '/dashboard#pay',     label: 'My Pay'            },
+    { href: '/account',           label: 'Account'           },
   ]},
   admin:      { label: 'Admin',       color: '#6A4C93', nav: [
-    { href: '/dashboard',         label: 'Overview'         },
-    { href: '/dashboard#users',   label: 'Users'            },
-    { href: '/dashboard#create',  label: 'Create account'   },
-    { href: '/account',           label: 'Account'          },
+    { href: '/dashboard',         label: 'Overview'          },
+    { href: '/dashboard#users',   label: 'Users'             },
+    { href: '/dashboard#create',  label: 'Create account'    },
+    { href: '/dashboard#pay',     label: 'My Pay'            },
+    { href: '/account',           label: 'Account'           },
   ]},
   analyst:    { label: 'Analyst',     color: '#2C8C99', nav: [
-    { href: '/dashboard',         label: 'Overview'         },
-    { href: '/dashboard#consults',label: 'Consultations'    },
-    { href: '/dashboard#rx',      label: 'Prescriptions'    },
-    { href: '/dashboard#revenue', label: 'Revenue'          },
-    { href: '/dashboard#geo',     label: 'Geography'        },
-    { href: '/dashboard#exports', label: 'Exports'          },
+    { href: '/dashboard',          label: 'Overview'         },
+    { href: '/dashboard#consults', label: 'Consultations'    },
+    { href: '/dashboard#rx',       label: 'Prescriptions'    },
+    { href: '/dashboard#revenue',  label: 'Revenue'          },
+    { href: '/dashboard#geo',      label: 'Geography'        },
+    { href: '/dashboard#exports',  label: 'Exports'          },
+    { href: '/dashboard#pay',      label: 'My Pay'           },
+  ]},
+  nurse:      { label: 'Nurse',       color: '#2E7D6B', nav: [
+    { href: '/dashboard',          label: 'Overview'         },
+    { href: '/dashboard#triage',   label: 'Triage queue'     },
+    { href: '/dashboard#vitals',   label: 'Record vitals'    },
+    { href: '/dashboard#pay',      label: 'My Pay'           },
+    { href: '/account',            label: 'Account'          },
+  ]},
+  marketing:  { label: 'Marketing',   color: '#B45309', nav: [
+    { href: '/dashboard',           label: 'Overview'        },
+    { href: '/dashboard#campaigns', label: 'Campaigns'       },
+    { href: '/dashboard#leads',     label: 'Leads'           },
+    { href: '/dashboard#pay',       label: 'My Pay'          },
+    { href: '/account',             label: 'Account'         },
+  ]},
+  frontdesk:  { label: 'Front Desk',  color: '#1565C0', nav: [
+    { href: '/dashboard',           label: 'Overview'        },
+    { href: '/dashboard#patients',  label: 'Patient lookup'  },
+    { href: '/dashboard#book',      label: 'Book consult'    },
+    { href: '/dashboard#pay',       label: 'My Pay'          },
+    { href: '/account',             label: 'Account'         },
+  ]},
+  owner:      { label: 'Owner',       color: '#4A1942', nav: [
+    { href: '/dashboard',         label: 'Overview'          },
+    { href: '/dashboard#users',   label: 'Users'             },
+    { href: '/dashboard#create',  label: 'Create account'    },
+    { href: '/dashboard#pay',     label: 'My Pay'            },
+    { href: '/account',           label: 'Account'           },
   ]},
 }
 
-export default function DashboardLayout({ role, userName, children }) {
+export default function DashboardLayout({ role, userName, children, financeAdmin = false }) {
   const router = useRouter()
   const meta = ROLE_META[role] ?? ROLE_META.patient
   const initials = userName
     ? userName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
     : '?'
+
+  const nav = [
+    ...meta.nav,
+    ...(financeAdmin ? [{ href: '/dashboard#financials', label: 'Company Financials' }] : []),
+  ]
 
   async function signOut() {
     const supabase = createClient()
@@ -59,14 +96,12 @@ export default function DashboardLayout({ role, userName, children }) {
       overflow: 'hidden',
       fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
     }}>
-      {/* ── Sidebar ── */}
       <aside style={{
         background: meta.color,
         display: 'flex',
         flexDirection: 'column',
         overflowY: 'auto',
       }}>
-        {/* Logo */}
         <div style={{ padding: '24px 24px 16px', borderBottom: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }}>
           <Link href="/dashboard" style={{ textDecoration: 'none' }}>
             <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: '#fff', letterSpacing: '-0.02em' }}>
@@ -78,7 +113,6 @@ export default function DashboardLayout({ role, userName, children }) {
           </span>
         </div>
 
-        {/* Avatar */}
         <div style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
           <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
             {initials}
@@ -91,9 +125,8 @@ export default function DashboardLayout({ role, userName, children }) {
           </div>
         </div>
 
-        {/* Nav */}
         <nav style={{ flex: 1, padding: '8px 12px', overflowY: 'auto' }}>
-          {meta.nav.map(item => (
+          {nav.map(item => (
             <Link
               key={item.href + item.label}
               href={item.href}
@@ -106,7 +139,6 @@ export default function DashboardLayout({ role, userName, children }) {
           ))}
         </nav>
 
-        {/* Sign out */}
         <div style={{ padding: '8px 12px 24px', borderTop: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }}>
           <button
             onClick={signOut}
@@ -122,7 +154,6 @@ export default function DashboardLayout({ role, userName, children }) {
         </div>
       </aside>
 
-      {/* ── Main ── */}
       <main style={{ overflowY: 'auto', padding: '2rem', background: '#F5EFE3' }}>
         {children}
       </main>

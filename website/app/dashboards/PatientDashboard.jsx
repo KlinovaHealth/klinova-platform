@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
+import MyPaySection from './MyPaySection'
 
 const C = '#0E6B4F'
 const CHANNELS = ['video', 'audio', 'chat']
@@ -211,6 +212,8 @@ export default function PatientDashboard({ userId, name }) {
         <h3 className="font-semibold text-ink mb-1">Payments</h3>
         <p className="text-sm text-ink/50">Mobile money payments — coming soon.</p>
       </section>
+
+      <MyPaySection userId={userId} />
     </div>
   )
 }

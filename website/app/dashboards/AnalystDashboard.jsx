@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
 import { StatCard } from './PatientDashboard'
+import MyPaySection from './MyPaySection'
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
@@ -323,6 +324,8 @@ export default function AnalystDashboard({ userId, name }) {
           <ExportBtn label="Top reasons CSV"     onClick={() => exportCSV(topReasons,  'klinova_top_reasons')} />
         </div>
       </section>
+
+      <MyPaySection userId={userId} />
     </div>
   )
 }
