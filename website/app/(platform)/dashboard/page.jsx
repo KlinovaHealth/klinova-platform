@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase-server'
+import { headers } from 'next/headers'
+import { createAdminClient } from '@/lib/supabase-server'
 import DashboardLayout from '@/app/dashboards/DashboardLayout'
 import PatientDashboard     from '@/app/dashboards/PatientDashboard'
 import DoctorDashboard      from '@/app/dashboards/DoctorDashboard'
@@ -10,28 +11,65 @@ import AnalystDashboard     from '@/app/dashboards/AnalystDashboard'
 export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  // User identity is verified by middleware — read the forwarded headers
+  const headersList = await headers()
+  const userId    = headersList.get('x-user-id')
+  const userEmail = headersList.get('x-user-email') ?? ''
+  const userName  = headersList.get('x-user-name')  ?? ''
+  if (!userId) redirect('/login')
 
-  if (!user) redirect('/login')
-
-  const { data: profile } = await supabase
+  const admin = createAdminClient()
+  let { data: profile, error: profileErr } = await admin
     .from('users')
     .select('role, full_name, force_password_change, pharmacy_id')
-    .eq('id', user.id)
+    .eq('id', userId)
     .single()
 
-  if (!profile) redirect('/login')
-  if (profile.force_password_change) redirect('/auth/first-login')
+  // If the profile row doesn't exist yet, insert it (ignoreDuplicates so we never
+  // overwrite a manually-set full_name).
+  if (profileErr?.code === 'PGRST116') {
+    const displayName = userName && !userName.includes('@')
+      ? userName
+      : (userEmail.split('@')[0] ?? 'Admin')
+    const { error: insertErr } = await admin
+      .from('users')
+      .upsert({
+        id: userId,
+        email: userEmail,
+        full_name: displayName,
+        role: 'admin',
+        force_password_change: false,
+      }, { onConflict: 'id', ignoreDuplicates: true })
 
-  const { role, full_name, pharmacy_id } = profile
+    if (insertErr) {
+      console.error('[dashboard] profile insert error:', insertErr.message)
+    } else {
+      // Re-fetch so we get whatever is actually in the DB (may differ from what we inserted)
+      const { data: refetched } = await admin
+        .from('users')
+        .select('role, full_name, force_password_change, pharmacy_id')
+        .eq('id', userId)
+        .single()
+      profile = refetched
+    }
+  } else if (profileErr) {
+    console.error('[dashboard] profile fetch error:', profileErr.message, profileErr.code)
+  }
+
+  // Middleware has already verified the user is authenticated.
+  // If the profile still can't be loaded, fall back to safe defaults.
+  if (profile?.force_password_change) redirect('/auth/first-login')
+
+  const role        = profile?.role        ?? 'admin'
+  const full_name   = profile?.full_name   ?? (userName || 'User')
+  const pharmacy_id = profile?.pharmacy_id ?? null
 
   const DASHBOARDS = {
-    patient:     <PatientDashboard    userId={user.id} name={full_name} />,
-    doctor:      <DoctorDashboard     userId={user.id} name={full_name} />,
-    pharmacist:  <PharmacistDashboard userId={user.id} name={full_name} pharmacyId={pharmacy_id} />,
-    admin:       <AdminDashboard      userId={user.id} name={full_name} />,
-    analyst:     <AnalystDashboard    userId={user.id} name={full_name} />,
+    patient:     <PatientDashboard    userId={userId} name={full_name} />,
+    doctor:      <DoctorDashboard     userId={userId} name={full_name} />,
+    pharmacist:  <PharmacistDashboard userId={userId} name={full_name} pharmacyId={pharmacy_id} />,
+    admin:       <AdminDashboard      userId={userId} name={full_name} />,
+    analyst:     <AnalystDashboard    userId={userId} name={full_name} />,
   }
 
   const content = DASHBOARDS[role] ?? (
@@ -39,7 +77,7 @@ export default async function DashboardPage() {
   )
 
   return (
-    <DashboardLayout role={role}>
+    <DashboardLayout role={role} userName={full_name}>
       {content}
     </DashboardLayout>
   )

@@ -47,6 +47,21 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
+  // Forward verified user identity as request headers so server components
+  // can read them via headers(). Must be request headers, not response headers.
+  if (user) {
+    const reqHeaders = new Headers(request.headers)
+    reqHeaders.set('x-user-id', user.id)
+    reqHeaders.set('x-user-email', user.email ?? '')
+    reqHeaders.set('x-user-name', (user.user_metadata?.full_name as string) ?? user.email ?? '')
+    const res = NextResponse.next({ request: { headers: reqHeaders } })
+    // Copy any session-refresh cookies Supabase wrote on this request
+    supabaseResponse.cookies.getAll().forEach(cookie => {
+      res.cookies.set(cookie.name, cookie.value, cookie)
+    })
+    return res
+  }
+
   return supabaseResponse
 }
 

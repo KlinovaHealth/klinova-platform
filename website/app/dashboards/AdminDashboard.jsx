@@ -1,49 +1,24 @@
 'use client'
 import { useState } from 'react'
 import useSWR from 'swr'
-import { createClient } from '@/lib/supabase-client'
 import { StatCard, Table, StatusBadge, Alert } from './PatientDashboard'
 
 const C = '#6A4C93'
 const ROLES = ['patient', 'doctor', 'pharmacist', 'admin', 'analyst']
 
+const fetchStats = () => fetch('/api/admin/stats').then(r => r.json())
+
 export default function AdminDashboard({ userId, name }) {
-  const supabase = createClient()
+  // All data comes from the admin API route (uses service key, bypasses RLS)
+  const { data, mutate: mutateAll } = useSWR('admin-stats', fetchStats, { refreshInterval: 30000 })
 
-  // ── System stats ──────────────────────────────────────────
-  const { data: userCount = 0 } = useSWR('admin-user-count', async () => {
-    const { count } = await supabase.from('users').select('*', { count: 'exact', head: true })
-    return count ?? 0
-  }, { refreshInterval: 30000 })
+  const userCount     = data?.userCount     ?? 0
+  const activeCon     = data?.activeConsults ?? 0
+  const pharmacyCount = data?.pharmacyCount  ?? 0
+  const recentUsers   = data?.recentUsers    ?? []
+  const pharmacies    = data?.pharmacies     ?? []
 
-  const { data: activeCon = 0 } = useSWR('admin-active-consults', async () => {
-    const { count } = await supabase
-      .from('consultations')
-      .select('*', { count: 'exact', head: true })
-      .in('status', ['waiting', 'active'])
-    return count ?? 0
-  }, { refreshInterval: 15000 })
-
-  const { data: pharmacyCount = 0 } = useSWR('admin-pharmacy-count', async () => {
-    const { count } = await supabase.from('pharmacies').select('*', { count: 'exact', head: true })
-    return count ?? 0
-  }, { refreshInterval: 60000 })
-
-  // ── Recent users ──────────────────────────────────────────
-  const { data: recentUsers = [], mutate: mutateUsers } = useSWR('admin-recent-users', async () => {
-    const { data } = await supabase
-      .from('users')
-      .select('id, full_name, email, role, created_at')
-      .order('created_at', { ascending: false })
-      .limit(20)
-    return data ?? []
-  }, { refreshInterval: 30000 })
-
-  // ── Pharmacies list (for assigning pharmacist) ────────────
-  const { data: pharmacies = [] } = useSWR('pharmacies-list', async () => {
-    const { data } = await supabase.from('pharmacies').select('id, name').order('name')
-    return data ?? []
-  })
+  function mutateUsers() { mutateAll() }
 
   // ── Create user form ──────────────────────────────────────
   const empty = { email: '', full_name: '', role: 'patient', temp_password: '', pharmacy_id: '' }

@@ -255,3 +255,21 @@ alter publication supabase_realtime add table public.prescriptions;
 
 insert into public.pharmacies (name, district, address, phone)
 values ('Klinova Central Pharmacy', 'Lomé', '12 Rue de la Santé, Lomé', '+228 90 00 00 00');
+
+
+-- ============================================================
+-- ROLE GRANTS  (required for PostgREST + RLS to work)
+-- ============================================================
+
+grant usage on schema public to service_role, authenticated, anon;
+
+-- service_role: full access, bypasses RLS (used by admin server-side client)
+grant all on all tables in schema public to service_role;
+grant all on all sequences in schema public to service_role;
+
+-- authenticated: full DML, RLS enforced
+grant select, insert, update, delete on all tables in schema public to authenticated;
+grant usage, select on all sequences in schema public to authenticated;
+
+-- anon: public read on pharmacies only
+grant select on public.pharmacies to anon;

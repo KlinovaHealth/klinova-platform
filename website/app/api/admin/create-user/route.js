@@ -1,23 +1,24 @@
 import { NextResponse } from 'next/server'
-import { createClient as createServerClient } from '@/lib/supabase-server'
+import { headers } from 'next/headers'
 import { createAdminClient } from '@/lib/supabase-server'
 
 // POST /api/admin/create-user
 // Body: { email, full_name, role, temp_password, pharmacy_id? }
-// Only admins may call this; we verify the caller's session + role server-side.
+// Only admins may call this; identity verified via middleware-forwarded x-user-id header.
 export async function POST(request) {
-  // 1. Authenticate the requesting user via their session (anon key + cookie)
-  const supabase = await createServerClient()
-  const { data: { user: caller } } = await supabase.auth.getUser()
-  if (!caller) {
+  // 1. Identify the caller from the middleware-verified header
+  const headersList = await headers()
+  const callerId = headersList.get('x-user-id')
+  if (!callerId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  // 2. Confirm caller is an admin
-  const { data: callerProfile } = await supabase
+  // 2. Confirm caller is an admin (service key — safe server-side)
+  const adminSupabase = createAdminClient()
+  const { data: callerProfile } = await adminSupabase
     .from('users')
     .select('role')
-    .eq('id', caller.id)
+    .eq('id', callerId)
     .single()
 
   if (callerProfile?.role !== 'admin') {
@@ -37,7 +38,6 @@ export async function POST(request) {
   }
 
   // 4. Create auth user via service key (server-side only — never in the browser)
-  const adminSupabase = createAdminClient()
   const { data: newAuthUser, error: createErr } = await adminSupabase.auth.admin.createUser({
     email,
     password: temp_password,
