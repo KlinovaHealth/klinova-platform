@@ -1,0 +1,41 @@
+/* Tailwind for the platform (dashboard, login, account).
+   Preflight is disabled in tailwind.config.js so this doesn't reset
+   the existing marketing page styles. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Platform-wide custom properties */
+:root {
+  --font-fraunces: 'Fraunces', Georgia, serif;
+  --font-jakarta:  'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* Force both fonts on platform subtree */
+.platform-root * {
+  font-family: var(--font-jakarta);
+}
+.platform-root .font-fraunces,
+.platform-root h1,
+.platform-root h2 {
+  font-family: var(--font-fraunces);
+}
+
+/* Smooth transitions everywhere */
+.platform-root * {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Visible keyboard focus */
+.platform-root *:focus-visible {
+  outline: 2px solid #0E6B4F;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scrollbar */
+.platform-root ::-webkit-scrollbar { width: 6px; }
+.platform-root ::-webkit-scrollbar-track { background: #F5EFE3; }
+.platform-root ::-webkit-scrollbar-thumb { background: #E7DECC; border-radius: 3px; }
