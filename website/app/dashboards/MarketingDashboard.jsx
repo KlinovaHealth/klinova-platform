@@ -1,44 +1,15 @@
 'use client'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
-import { StatCard, Table, StatusBadge, Alert } from './PatientDashboard'
+import { StatCard, Table, StatusBadge, getGreeting } from './PatientDashboard'
+import { useLanguage } from '@/contexts/LanguageContext'
 import MyPaySection from './MyPaySection'
 
-const C = '#B45309'
-
-function getGreeting(name) {
-  const h = new Date().getHours()
-  const p = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'
-  return `Good ${p}${name ? `, ${name.split(' ')[0]}` : ''}`
-}
-
-function fmtDate(ts) {
-  if (!ts) return '—'
-  return new Date(ts).toLocaleDateString('fr-TG', { day: '2-digit', month: 'short', year: 'numeric' })
-}
-
-function fmt(n) {
-  if (n == null) return '—'
-  return new Intl.NumberFormat('fr-TG', { maximumFractionDigits: 0 }).format(n)
-}
-
-function LeadStatusBadge({ status }) {
-  const map = {
-    new:       { bg: '#E8F0F5', color: '#2C6E8F', label: 'New'       },
-    contacted: { bg: '#FBF4E5', color: '#D99A2B', label: 'Contacted' },
-    converted: { bg: '#E8F3EF', color: '#0E6B4F', label: 'Converted' },
-  }
-  const s = map[status] ?? { bg: '#F5EFE3', color: '#15302A', label: status }
-  return (
-    <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
-      style={{ background: s.bg, color: s.color }}>
-      {s.label}
-    </span>
-  )
-}
+const C = '#E0A23B'
 
 export default function MarketingDashboard({ userId, name }) {
   const supabase = createClient()
+  const { t } = useLanguage()
 
   const { data: campaigns = [], error: campaignsErr } = useSWR('marketing-campaigns', async () => {
     const { data, error } = await supabase
@@ -67,29 +38,29 @@ export default function MarketingDashboard({ userId, name }) {
     <div className="space-y-6">
       <div>
         <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-          className="text-2xl font-semibold text-ink">{getGreeting(name)}</h2>
-        <p className="text-sm text-ink/60 mt-0.5">Campaigns, leads, and outreach.</p>
+          className="text-2xl font-semibold text-ink">{getGreeting(name, t)}</h2>
+        <p className="text-sm text-ink/60 mt-0.5">{t('marketing.subtitle')}</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <StatCard label="Total campaigns"  value={totalCampaigns}  color={C} sub="all time" />
-        <StatCard label="Active campaigns" value={activeCampaigns} color={C} sub="running now" />
-        <StatCard label="Total leads"      value={totalLeads}      color={C} sub="captured" />
-        <StatCard label="Converted"        value={convertedLeads}  color={C} sub="leads" />
+        <StatCard label={t('marketing.stats.totalCampaigns')}  value={totalCampaigns}  color={C} sub={t('marketing.stats.totalCampaignsSub')} />
+        <StatCard label={t('marketing.stats.activeCampaigns')} value={activeCampaigns} color={C} sub={t('marketing.stats.activeCampaignsSub')} />
+        <StatCard label={t('marketing.stats.totalLeads')}      value={totalLeads}      color={C} sub={t('marketing.stats.totalLeadsSub')} />
+        <StatCard label={t('marketing.stats.converted')}       value={convertedLeads}  color={C} sub={t('marketing.stats.convertedSub')} />
       </div>
 
       <section id="campaigns" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">Campaigns</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('marketing.campaigns')}</h3>
         {campaignsErr ? (
-          <p className="text-sm text-ink/50">No data yet.</p>
+          <p className="text-sm text-ink/50">{t('marketing.noData')}</p>
         ) : campaigns.length === 0 ? (
-          <p className="text-sm text-ink/50">No campaigns yet.</p>
+          <p className="text-sm text-ink/50">{t('marketing.noCampaigns')}</p>
         ) : (
           <Table
-            cols={['Title', 'Channel', 'Status', 'Reach', 'Conversions', 'Budget']}
+            cols={[t('col.title'), t('col.channel'), t('col.status'), t('col.reach'), t('col.conversions'), t('col.budget')]}
             rows={campaigns.map(c => [
               c.title ?? '—',
-              c.channel ?? '—',
+              t(`channels.${c.channel}`) !== `channels.${c.channel}` ? t(`channels.${c.channel}`) : (c.channel ?? '—'),
               <StatusBadge key={c.id} status={c.status} />,
               c.reach ?? '—',
               c.conversions ?? '—',
@@ -100,19 +71,19 @@ export default function MarketingDashboard({ userId, name }) {
       </section>
 
       <section id="leads" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">Leads</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('marketing.leads')}</h3>
         {leadsErr ? (
-          <p className="text-sm text-ink/50">No data yet.</p>
+          <p className="text-sm text-ink/50">{t('marketing.noData')}</p>
         ) : leads.length === 0 ? (
-          <p className="text-sm text-ink/50">No leads yet.</p>
+          <p className="text-sm text-ink/50">{t('marketing.noLeads')}</p>
         ) : (
           <Table
-            cols={['Name', 'Phone', 'Source', 'Status', 'Created']}
+            cols={[t('col.name'), t('col.phone'), t('col.source'), t('col.status'), t('col.created')]}
             rows={leads.map(l => [
               l.name ?? '—',
               l.phone ?? '—',
               l.source ?? '—',
-              <LeadStatusBadge key={l.id} status={l.status} />,
+              <LeadStatusBadge key={l.id} status={l.status} t={t} />,
               fmtDate(l.created_at),
             ])}
           />
@@ -122,4 +93,30 @@ export default function MarketingDashboard({ userId, name }) {
       <MyPaySection userId={userId} />
     </div>
   )
+}
+
+function LeadStatusBadge({ status, t }) {
+  const map = {
+    new:       { bg: '#EDE4D2', color: '#6E7F76' },
+    contacted: { bg: '#F4E2BC', color: '#D99A2B' },
+    converted: { bg: '#E3EFE8', color: '#0E6B4F' },
+  }
+  const s = map[status] ?? { bg: '#F5EFE3', color: '#15302A' }
+  const label = t(`status.${status}`) !== `status.${status}` ? t(`status.${status}`) : status
+  return (
+    <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
+      style={{ background: s.bg, color: s.color }}>
+      {label}
+    </span>
+  )
+}
+
+function fmt(n) {
+  if (n == null) return '—'
+  return new Intl.NumberFormat('fr-TG', { maximumFractionDigits: 0 }).format(n)
+}
+
+function fmtDate(ts) {
+  if (!ts) return '—'
+  return new Date(ts).toLocaleDateString('fr-TG', { day: '2-digit', month: 'short', year: 'numeric' })
 }

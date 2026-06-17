@@ -655,7 +655,7 @@ export default function Home() {
 
   return (
     <>
-      <style>{`
+      <style suppressHydrationWarning>{`
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: ${ui}; color: ${C.ink}; background: ${C.ivory}; line-height: 1.6; -webkit-font-smoothing: antialiased; }

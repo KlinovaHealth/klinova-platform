@@ -2,20 +2,21 @@
 import { useState, useCallback } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
-import { StatCard } from './PatientDashboard'
+import { StatCard, getGreeting } from './PatientDashboard'
+import { useLanguage } from '@/contexts/LanguageContext'
 import MyPaySection from './MyPaySection'
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts'
 
-const C = '#2C8C99'
+const C = '#6E7F76'
 
 // All analyst data comes exclusively from analytics_* views — never from raw tables.
 // The views are created by an admin/DB migration and contain only aggregated,
 // de-identified data. No patient names, phone numbers, or exact addresses.
 
-const COLORS = ['#0E6B4F', '#2C6E8F', '#D99A2B', '#6A4C93', '#2C8C99', '#E7DECC']
+const COLORS = ['#0E6B4F', '#0A5440', '#D99A2B', '#E0A23B', '#CF5A3C', '#6E7F76']
 
 function useDateRange() {
   const today = new Date()
@@ -27,6 +28,7 @@ function useDateRange() {
 
 export default function AnalystDashboard({ userId, name }) {
   const supabase = createClient()
+  const { t } = useLanguage()
   const { from, to, setFrom, setTo } = useDateRange()
   const [district, setDistrict] = useState('')
   const [channel,  setChannel]  = useState('')
@@ -128,11 +130,7 @@ export default function AnalystDashboard({ userId, name }) {
     return tot > 0 ? Math.round((ful / tot) * 100) : 0
   })()
 
-  const greet = () => {
-    const h = new Date().getHours()
-    const p = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'
-    return `Good ${p}${name ? `, ${name.split(' ')[0]}` : ''}`
-  }
+  const greet = () => getGreeting(name, t)
 
   // ── Export helpers ────────────────────────────────────────
   function exportCSV(data, filename) {
@@ -160,23 +158,21 @@ export default function AnalystDashboard({ userId, name }) {
       <div>
         <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }}
           className="text-2xl font-semibold text-ink">{greet()}</h2>
-        <p className="text-sm text-ink/60 mt-0.5">
-          All data is aggregated and de-identified. No patient names or personal details.
-        </p>
+        <p className="text-sm text-ink/60 mt-0.5">{t('analyst.subtitle')}</p>
       </div>
 
       {/* Filters */}
       <div className="bg-white rounded-xl border border-border shadow-card p-4">
-        <p className="text-xs font-semibold text-ink/50 uppercase tracking-wide mb-3">Filters</p>
+        <p className="text-xs font-semibold text-ink/50 uppercase tracking-wide mb-3">{t('analyst.filters')}</p>
         <div className="flex flex-wrap gap-3">
           <div className="flex items-center gap-2">
-            <label className="text-sm text-ink/70">From</label>
+            <label className="text-sm text-ink/70">{t('analyst.from')}</label>
             <input type="date" value={from} onChange={e => setFrom(e.target.value)}
               className="px-3 py-1.5 rounded-lg border border-border bg-ivory text-sm text-ink
                          focus:outline-none focus:ring-2 focus:ring-kteal" />
           </div>
           <div className="flex items-center gap-2">
-            <label className="text-sm text-ink/70">To</label>
+            <label className="text-sm text-ink/70">{t('analyst.to')}</label>
             <input type="date" value={to} onChange={e => setTo(e.target.value)}
               className="px-3 py-1.5 rounded-lg border border-border bg-ivory text-sm text-ink
                          focus:outline-none focus:ring-2 focus:ring-kteal" />
@@ -184,19 +180,19 @@ export default function AnalystDashboard({ userId, name }) {
           <select value={district} onChange={e => setDistrict(e.target.value)}
             className="px-3 py-1.5 rounded-lg border border-border bg-ivory text-sm text-ink
                        focus:outline-none focus:ring-2 focus:ring-kteal">
-            <option value="">All districts</option>
+            <option value="">{t('analyst.allDistricts')}</option>
             {districts.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
           <select value={channel} onChange={e => setChannel(e.target.value)}
             className="px-3 py-1.5 rounded-lg border border-border bg-ivory text-sm text-ink
                        focus:outline-none focus:ring-2 focus:ring-kteal">
-            <option value="">All channels</option>
-            {['video', 'audio', 'chat'].map(ch => <option key={ch} value={ch}>{ch}</option>)}
+            <option value="">{t('analyst.allChannels')}</option>
+            {['video', 'audio', 'chat'].map(ch => <option key={ch} value={ch}>{t(`channels.${ch}`)}</option>)}
           </select>
           {(district || channel) && (
             <button onClick={() => { setDistrict(''); setChannel('') }}
               className="text-sm text-kteal hover:underline">
-              Clear filters
+              {t('analyst.clearFilters')}
             </button>
           )}
         </div>
@@ -204,24 +200,24 @@ export default function AnalystDashboard({ userId, name }) {
 
       {/* Summary stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard label="Consultations"    value={totalConsults}                  color={C} sub="in period" />
-        <StatCard label="Fulfillment rate" value={`${fulfillRate}%`}              color={C} sub="prescriptions fulfilled" />
-        <StatCard label="Revenue"          value={fmtAmount(totalRevenue)}        color={C} sub="XOF in period" />
+        <StatCard label={t('analyst.stats.consultations')}   value={totalConsults}           color={C} sub={t('analyst.stats.consultationsSub')} />
+        <StatCard label={t('analyst.stats.fulfillmentRate')} value={`${fulfillRate}%`}       color={C} sub={t('analyst.stats.fulfillmentRateSub')} />
+        <StatCard label={t('analyst.stats.revenue')}         value={fmtAmount(totalRevenue)} color={C} sub={t('analyst.stats.revenueSub')} />
       </div>
 
       {/* Consult volume chart */}
       <section id="consults" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">Consultation volume over time</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('analyst.charts.volumeOverTime')}</h3>
         {volume.length === 0 ? (
           <Empty />
         ) : (
           <ResponsiveContainer width="100%" height={240}>
             <LineChart data={volume} margin={{ top: 4, right: 16, bottom: 0, left: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E7DECC" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#EDE4D2" />
               <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#15302A99' }}
                 tickFormatter={d => d?.slice(5)} />
               <YAxis tick={{ fontSize: 11, fill: '#15302A99' }} allowDecimals={false} />
-              <Tooltip contentStyle={{ borderRadius: 8, borderColor: '#E7DECC', fontSize: 12 }} />
+              <Tooltip contentStyle={{ borderRadius: 8, borderColor: '#EDE4D2', fontSize: 12 }} />
               <Line type="monotone" dataKey="count" stroke={C} strokeWidth={2}
                 dot={false} name="Consultations" />
             </LineChart>
@@ -232,15 +228,15 @@ export default function AnalystDashboard({ userId, name }) {
       {/* By district + by channel (2 col) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <section id="geo" className="bg-white rounded-xl border border-border shadow-card p-5">
-          <h3 className="font-semibold text-ink mb-4">By district</h3>
+          <h3 className="font-semibold text-ink mb-4">{t('analyst.charts.byDistrict')}</h3>
           {byDistrict.length === 0 ? <Empty /> : (
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={byDistrict} layout="vertical"
                 margin={{ top: 0, right: 16, bottom: 0, left: 60 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E7DECC" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#EDE4D2" />
                 <XAxis type="number" tick={{ fontSize: 11, fill: '#15302A99' }} allowDecimals={false} />
                 <YAxis type="category" dataKey="district" tick={{ fontSize: 11, fill: '#15302A99' }} width={56} />
-                <Tooltip contentStyle={{ borderRadius: 8, borderColor: '#E7DECC', fontSize: 12 }} />
+                <Tooltip contentStyle={{ borderRadius: 8, borderColor: '#EDE4D2', fontSize: 12 }} />
                 <Bar dataKey="count" fill={C} name="Consults" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -248,7 +244,7 @@ export default function AnalystDashboard({ userId, name }) {
         </section>
 
         <section className="bg-white rounded-xl border border-border shadow-card p-5">
-          <h3 className="font-semibold text-ink mb-4">Prescription fulfillment</h3>
+          <h3 className="font-semibold text-ink mb-4">{t('analyst.charts.fulfillment')}</h3>
           {fulfillment.length === 0 ? <Empty /> : (
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
@@ -259,7 +255,7 @@ export default function AnalystDashboard({ userId, name }) {
                     <Cell key={i} fill={COLORS[i % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ borderRadius: 8, borderColor: '#E7DECC', fontSize: 12 }} />
+                <Tooltip contentStyle={{ borderRadius: 8, borderColor: '#EDE4D2', fontSize: 12 }} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
               </PieChart>
             </ResponsiveContainer>
@@ -269,7 +265,7 @@ export default function AnalystDashboard({ userId, name }) {
 
       {/* Top reasons */}
       <section className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">Top consultation reasons</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('analyst.charts.topReasons')}</h3>
         {topReasons.length === 0 ? <Empty /> : (
           <div className="space-y-2">
             {topReasons.map((r, i) => {
@@ -291,17 +287,17 @@ export default function AnalystDashboard({ userId, name }) {
 
       {/* Revenue chart */}
       <section id="revenue" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">Revenue over time (XOF)</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('analyst.charts.revenueOverTime')}</h3>
         {revenue.length === 0 ? <Empty /> : (
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={revenue} margin={{ top: 4, right: 16, bottom: 0, left: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E7DECC" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#EDE4D2" />
               <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#15302A99' }}
                 tickFormatter={d => d?.slice(5)} />
               <YAxis tick={{ fontSize: 11, fill: '#15302A99' }}
                 tickFormatter={v => fmtAmount(v)} />
               <Tooltip
-                contentStyle={{ borderRadius: 8, borderColor: '#E7DECC', fontSize: 12 }}
+                contentStyle={{ borderRadius: 8, borderColor: '#EDE4D2', fontSize: 12 }}
                 formatter={(v) => [fmtAmount(v), 'Revenue']} />
               <Bar dataKey="amount" fill={C} name="Revenue (XOF)" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -311,17 +307,15 @@ export default function AnalystDashboard({ userId, name }) {
 
       {/* Exports */}
       <section id="exports" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-1">Export</h3>
-        <p className="text-sm text-ink/55 mb-4">
-          Downloads contain only the currently filtered, aggregated, de-identified data. No PII.
-        </p>
+        <h3 className="font-semibold text-ink mb-1">{t('analyst.export')}</h3>
+        <p className="text-sm text-ink/55 mb-4">{t('analyst.exportDesc')}</p>
         <div className="flex flex-wrap gap-3">
-          <ExportBtn label="Consult volume CSV"  onClick={() => exportCSV(volume,      'klinova_consult_volume')} />
-          <ExportBtn label="Consult volume JSON" onClick={() => exportJSON(volume,     'klinova_consult_volume')} />
-          <ExportBtn label="By district CSV"     onClick={() => exportCSV(byDistrict,  'klinova_by_district')} />
-          <ExportBtn label="Fulfillment CSV"     onClick={() => exportCSV(fulfillment, 'klinova_fulfillment')} />
-          <ExportBtn label="Revenue CSV"         onClick={() => exportCSV(revenue,     'klinova_revenue')} />
-          <ExportBtn label="Top reasons CSV"     onClick={() => exportCSV(topReasons,  'klinova_top_reasons')} />
+          <ExportBtn label={t('analyst.exportBtns.volumeCSV')}      onClick={() => exportCSV(volume,      'klinova_consult_volume')} />
+          <ExportBtn label={t('analyst.exportBtns.volumeJSON')}     onClick={() => exportJSON(volume,     'klinova_consult_volume')} />
+          <ExportBtn label={t('analyst.exportBtns.districtCSV')}    onClick={() => exportCSV(byDistrict,  'klinova_by_district')} />
+          <ExportBtn label={t('analyst.exportBtns.fulfillmentCSV')} onClick={() => exportCSV(fulfillment, 'klinova_fulfillment')} />
+          <ExportBtn label={t('analyst.exportBtns.revenueCSV')}     onClick={() => exportCSV(revenue,     'klinova_revenue')} />
+          <ExportBtn label={t('analyst.exportBtns.topReasonsCSV')}  onClick={() => exportCSV(topReasons,  'klinova_top_reasons')} />
         </div>
       </section>
 
@@ -342,7 +336,8 @@ function ExportBtn({ label, onClick }) {
 }
 
 function Empty() {
-  return <p className="text-sm text-ink/40 py-4 text-center">No data for the selected period.</p>
+  const { t } = useLanguage()
+  return <p className="text-sm text-ink/40 py-4 text-center">{t('analyst.noData')}</p>
 }
 
 function fmtAmount(v) {

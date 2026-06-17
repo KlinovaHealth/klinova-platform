@@ -10,7 +10,7 @@ export async function GET() {
   const admin = createAdminClient()
 
   const { data: caller } = await admin.from('users').select('role').eq('id', callerId).single()
-  if (!['admin', 'analyst'].includes(caller?.role)) {
+  if (!['admin', 'analyst', 'owner'].includes(caller?.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 

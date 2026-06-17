@@ -1,85 +1,99 @@
 'use client'
-import { useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase-client'
+import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext'
 
 const ROLE_META = {
-  patient:    { label: 'Patient',     color: '#0E6B4F', nav: [
-    { href: '/dashboard',          label: 'Home'             },
-    { href: '/dashboard#consult',  label: 'Talk to a doctor' },
-    { href: '/dashboard#rx',       label: 'Prescriptions'    },
-    { href: '/dashboard#pharmacy', label: 'Find pharmacy'    },
-    { href: '/dashboard#pay',      label: 'My Pay'           },
-    { href: '/account',            label: 'Account'          },
+  patient:    { portalKey: 'rolePortal.patient',    color: '#0E6B4F', nav: [
+    { href: '/dashboard',          key: 'nav.home'         },
+    { href: '/dashboard#consult',  key: 'nav.talkToDoctor' },
+    { href: '/dashboard#rx',       key: 'nav.prescriptions'},
+    { href: '/dashboard#pharmacy', key: 'nav.findPharmacy' },
+    { href: '/dashboard#pay',      key: 'nav.myPay'        },
+    { href: '/account',            key: 'nav.account'      },
   ]},
-  doctor:     { label: 'Doctor',      color: '#2C6E8F', nav: [
-    { href: '/dashboard',         label: 'Queue'             },
-    { href: '/dashboard#rx',      label: 'Write prescription'},
-    { href: '/dashboard#pay',     label: 'My Pay'            },
-    { href: '/account',           label: 'Account'           },
+  doctor:     { portalKey: 'rolePortal.doctor',     color: '#0A5440', nav: [
+    { href: '/dashboard',         key: 'nav.queue'             },
+    { href: '/dashboard#rx',      key: 'nav.writePrescription' },
+    { href: '/dashboard#pay',     key: 'nav.myPay'             },
+    { href: '/account',           key: 'nav.account'           },
   ]},
-  pharmacist: { label: 'Pharmacist',  color: '#D99A2B', nav: [
-    { href: '/dashboard',         label: 'Prescriptions'     },
-    { href: '/dashboard#pay',     label: 'My Pay'            },
-    { href: '/account',           label: 'Account'           },
+  pharmacist: { portalKey: 'rolePortal.pharmacist', color: '#D99A2B', nav: [
+    { href: '/dashboard',         key: 'nav.prescriptions' },
+    { href: '/dashboard#pay',     key: 'nav.myPay'         },
+    { href: '/account',           key: 'nav.account'       },
   ]},
-  admin:      { label: 'Admin',       color: '#6A4C93', nav: [
-    { href: '/dashboard',         label: 'Overview'          },
-    { href: '/dashboard#users',   label: 'Users'             },
-    { href: '/dashboard#create',  label: 'Create account'    },
-    { href: '/dashboard#pay',     label: 'My Pay'            },
-    { href: '/account',           label: 'Account'           },
+  admin:      { portalKey: 'rolePortal.admin',      color: '#15302A', nav: [
+    { href: '/dashboard',          key: 'nav.overview'      },
+    { href: '/dashboard#users',    key: 'nav.users'         },
+    { href: '/dashboard#create',   key: 'nav.createAccount' },
+    { href: '/dashboard#payroll',  key: 'nav.payroll'       },
+    { href: '/dashboard#pay',      key: 'nav.myPay'         },
+    { href: '/account',            key: 'nav.account'       },
   ]},
-  analyst:    { label: 'Analyst',     color: '#2C8C99', nav: [
-    { href: '/dashboard',          label: 'Overview'         },
-    { href: '/dashboard#consults', label: 'Consultations'    },
-    { href: '/dashboard#rx',       label: 'Prescriptions'    },
-    { href: '/dashboard#revenue',  label: 'Revenue'          },
-    { href: '/dashboard#geo',      label: 'Geography'        },
-    { href: '/dashboard#exports',  label: 'Exports'          },
-    { href: '/dashboard#pay',      label: 'My Pay'           },
+  analyst:    { portalKey: 'rolePortal.analyst',    color: '#6E7F76', nav: [
+    { href: '/dashboard',          key: 'nav.overview'       },
+    { href: '/dashboard#consults', key: 'nav.consultations'  },
+    { href: '/dashboard#rx',       key: 'nav.prescriptions'  },
+    { href: '/dashboard#revenue',  key: 'nav.revenue'        },
+    { href: '/dashboard#geo',      key: 'nav.geography'      },
+    { href: '/dashboard#exports',  key: 'nav.exports'        },
+    { href: '/dashboard#pay',      key: 'nav.myPay'          },
   ]},
-  nurse:      { label: 'Nurse',       color: '#2E7D6B', nav: [
-    { href: '/dashboard',          label: 'Overview'         },
-    { href: '/dashboard#triage',   label: 'Triage queue'     },
-    { href: '/dashboard#vitals',   label: 'Record vitals'    },
-    { href: '/dashboard#pay',      label: 'My Pay'           },
-    { href: '/account',            label: 'Account'          },
+  nurse:      { portalKey: 'rolePortal.nurse',      color: '#0E6B4F', nav: [
+    { href: '/dashboard',          key: 'nav.overview'      },
+    { href: '/dashboard#triage',   key: 'nav.triageQueue'   },
+    { href: '/dashboard#vitals',   key: 'nav.recordVitals'  },
+    { href: '/dashboard#pay',      key: 'nav.myPay'         },
+    { href: '/account',            key: 'nav.account'       },
   ]},
-  marketing:  { label: 'Marketing',   color: '#B45309', nav: [
-    { href: '/dashboard',           label: 'Overview'        },
-    { href: '/dashboard#campaigns', label: 'Campaigns'       },
-    { href: '/dashboard#leads',     label: 'Leads'           },
-    { href: '/dashboard#pay',       label: 'My Pay'          },
-    { href: '/account',             label: 'Account'         },
+  marketing:  { portalKey: 'rolePortal.marketing',  color: '#E0A23B', nav: [
+    { href: '/dashboard',           key: 'nav.overview'   },
+    { href: '/dashboard#campaigns', key: 'nav.campaigns'  },
+    { href: '/dashboard#leads',     key: 'nav.leads'      },
+    { href: '/dashboard#pay',       key: 'nav.myPay'      },
+    { href: '/account',             key: 'nav.account'    },
   ]},
-  frontdesk:  { label: 'Front Desk',  color: '#1565C0', nav: [
-    { href: '/dashboard',           label: 'Overview'        },
-    { href: '/dashboard#patients',  label: 'Patient lookup'  },
-    { href: '/dashboard#book',      label: 'Book consult'    },
-    { href: '/dashboard#pay',       label: 'My Pay'          },
-    { href: '/account',             label: 'Account'         },
+  frontdesk:  { portalKey: 'rolePortal.frontdesk',  color: '#CF5A3C', nav: [
+    { href: '/dashboard',           key: 'nav.overview'      },
+    { href: '/dashboard#patients',  key: 'nav.patientLookup' },
+    { href: '/dashboard#book',      key: 'nav.bookConsult'   },
+    { href: '/dashboard#pay',       key: 'nav.myPay'         },
+    { href: '/account',             key: 'nav.account'       },
   ]},
-  owner:      { label: 'Owner',       color: '#4A1942', nav: [
-    { href: '/dashboard',         label: 'Overview'          },
-    { href: '/dashboard#users',   label: 'Users'             },
-    { href: '/dashboard#create',  label: 'Create account'    },
-    { href: '/dashboard#pay',     label: 'My Pay'            },
-    { href: '/account',           label: 'Account'           },
+  owner:      { portalKey: 'rolePortal.owner',      color: '#0A5440', nav: [
+    { href: '/dashboard',          key: 'nav.overview'      },
+    { href: '/dashboard#users',    key: 'nav.users'         },
+    { href: '/dashboard#create',   key: 'nav.createAccount' },
+    { href: '/dashboard#payroll',  key: 'nav.payroll'       },
+    { href: '/dashboard#pay',      key: 'nav.myPay'         },
+    { href: '/account',            key: 'nav.account'       },
   ]},
 }
 
 export default function DashboardLayout({ role, userName, children, financeAdmin = false }) {
+  return (
+    <LanguageProvider>
+      <Inner role={role} userName={userName} financeAdmin={financeAdmin}>
+        {children}
+      </Inner>
+    </LanguageProvider>
+  )
+}
+
+function Inner({ role, userName, children, financeAdmin }) {
   const router = useRouter()
+  const { t, lang, toggleLang } = useLanguage()
+
   const meta = ROLE_META[role] ?? ROLE_META.patient
   const initials = userName
     ? userName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
     : '?'
 
   const nav = [
-    ...meta.nav,
-    ...(financeAdmin ? [{ href: '/dashboard#financials', label: 'Company Financials' }] : []),
+    ...meta.nav.map(item => ({ href: item.href, label: t(item.key) })),
+    ...(financeAdmin ? [{ href: '/dashboard#financials', label: t('nav.companyFinancials') }] : []),
   ]
 
   async function signOut() {
@@ -102,6 +116,7 @@ export default function DashboardLayout({ role, userName, children, financeAdmin
         flexDirection: 'column',
         overflowY: 'auto',
       }}>
+        {/* Logo */}
         <div style={{ padding: '24px 24px 16px', borderBottom: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }}>
           <Link href="/dashboard" style={{ textDecoration: 'none' }}>
             <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: '#fff', letterSpacing: '-0.02em' }}>
@@ -109,10 +124,11 @@ export default function DashboardLayout({ role, userName, children, financeAdmin
             </span>
           </Link>
           <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', display: 'block', marginTop: 2 }}>
-            {meta.label} Portal
+            {t(meta.portalKey)}
           </span>
         </div>
 
+        {/* Avatar */}
         <div style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
           <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
             {initials}
@@ -121,10 +137,11 @@ export default function DashboardLayout({ role, userName, children, financeAdmin
             <p style={{ fontSize: 14, fontWeight: 500, color: '#fff', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {userName || 'User'}
             </p>
-            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)' }}>{meta.label}</span>
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)' }}>{t(meta.portalKey)}</span>
           </div>
         </div>
 
+        {/* Nav */}
         <nav style={{ flex: 1, padding: '8px 12px', overflowY: 'auto' }}>
           {nav.map(item => (
             <Link
@@ -139,6 +156,7 @@ export default function DashboardLayout({ role, userName, children, financeAdmin
           ))}
         </nav>
 
+        {/* Footer: sign out + language toggle */}
         <div style={{ padding: '8px 12px 24px', borderTop: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }}>
           <button
             onClick={signOut}
@@ -149,8 +167,35 @@ export default function DashboardLayout({ role, userName, children, financeAdmin
               <polyline points="16 17 21 12 16 7"/>
               <line x1="21" y1="12" x2="9" y2="12"/>
             </svg>
-            Sign out
+            {t('signOut')}
           </button>
+
+          {/* Language toggle */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '6px 12px' }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+            </svg>
+            {['en', 'fr'].map(l => (
+              <button
+                key={l}
+                onClick={() => { if (l !== lang) toggleLang() }}
+                style={{
+                  fontSize: 12,
+                  fontWeight: l === lang ? 700 : 400,
+                  color: l === lang ? '#fff' : 'rgba(255,255,255,0.45)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: l === lang ? 'default' : 'pointer',
+                  padding: '2px 4px',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
         </div>
       </aside>
 

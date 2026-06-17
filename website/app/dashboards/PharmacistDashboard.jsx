@@ -2,25 +2,22 @@
 import { useEffect } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
-import { StatCard, StatusBadge } from './PatientDashboard'
+import { StatCard, StatusBadge, getGreeting } from './PatientDashboard'
+import { useLanguage } from '@/contexts/LanguageContext'
 import MyPaySection from './MyPaySection'
 
 const C = '#D99A2B'
 
 export default function PharmacistDashboard({ userId, name, pharmacyId }) {
   const supabase = createClient()
+  const { t } = useLanguage()
 
-  // Prescriptions for this pharmacy
   const { data: prescriptions = [], mutate } = useSWR(
     pharmacyId ? `rx-pharmacy-${pharmacyId}` : null,
     async () => {
       const { data } = await supabase
         .from('prescriptions')
-        .select(`
-          *,
-          users!patient_id(full_name, email),
-          users!doctor_id(full_name)
-        `)
+        .select(`*, users!patient_id(full_name, email), users!doctor_id(full_name)`)
         .eq('pharmacy_id', pharmacyId)
         .order('created_at', { ascending: false })
         .limit(50)
@@ -29,7 +26,6 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
     { refreshInterval: 8000 }
   )
 
-  // Real-time subscription
   useEffect(() => {
     if (!pharmacyId) return
     const ch = supabase
@@ -47,7 +43,7 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
       .from('prescriptions')
       .update({ status })
       .eq('id', id)
-      .eq('pharmacy_id', pharmacyId) // RLS double-check
+      .eq('pharmacy_id', pharmacyId)
     if (!error) mutate()
   }
 
@@ -55,17 +51,11 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
   const ready     = prescriptions.filter(p => p.status === 'ready').length
   const fulfilled = prescriptions.filter(p => p.status === 'fulfilled').length
 
-  const greet = () => {
-    const h = new Date().getHours()
-    const p = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'
-    return `Good ${p}${name ? `, ${name.split(' ')[0]}` : ''}`
-  }
-
   if (!pharmacyId) {
     return (
       <div className="p-8 text-center">
-        <p className="text-ink/60">Your account is not linked to a pharmacy yet.</p>
-        <p className="text-xs text-ink/40 mt-1">Ask your administrator to assign a pharmacy_id.</p>
+        <p className="text-ink/60">{t('pharmacist.notLinked')}</p>
+        <p className="text-xs text-ink/40 mt-1">{t('pharmacist.askAdmin')}</p>
       </div>
     )
   }
@@ -74,30 +64,28 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
     <div className="space-y-6">
       <div>
         <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-          className="text-2xl font-semibold text-ink">{greet()}</h2>
-        <p className="text-sm text-ink/60 mt-0.5">Incoming prescriptions — live.</p>
+          className="text-2xl font-semibold text-ink">{getGreeting(name, t)}</h2>
+        <p className="text-sm text-ink/60 mt-0.5">{t('pharmacist.subtitle')}</p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard label="Pending"   value={pending}   color={C} sub="to prepare" />
-        <StatCard label="Ready"     value={ready}     color={C} sub="for pickup" />
-        <StatCard label="Fulfilled" value={fulfilled} color={C} sub="today (all time shown)" />
+        <StatCard label={t('pharmacist.stats.pending')}   value={pending}   color={C} sub={t('pharmacist.stats.pendingSub')} />
+        <StatCard label={t('pharmacist.stats.ready')}     value={ready}     color={C} sub={t('pharmacist.stats.readySub')} />
+        <StatCard label={t('pharmacist.stats.fulfilled')} value={fulfilled} color={C} sub={t('pharmacist.stats.fulfilledSub')} />
       </div>
 
-      {/* Incoming prescriptions */}
       <section className="bg-white rounded-xl border border-border shadow-card p-5">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-ink">Incoming prescriptions</h3>
-          <span className="text-xs text-ink/40">Live · refreshes every 8s</span>
+          <h3 className="font-semibold text-ink">{t('pharmacist.incomingRx')}</h3>
+          <span className="text-xs text-ink/40">{t('pharmacist.liveRefresh8s')}</span>
         </div>
 
         {prescriptions.length === 0 ? (
-          <p className="text-sm text-ink/50">No prescriptions yet.</p>
+          <p className="text-sm text-ink/50">{t('pharmacist.noRx')}</p>
         ) : (
           <div className="space-y-3">
             {prescriptions.map(rx => (
-              <RxCard key={rx.id} rx={rx} onUpdate={updateStatus} color={C} />
+              <RxCard key={rx.id} rx={rx} onUpdate={updateStatus} color={C} t={t} />
             ))}
           </div>
         )}
@@ -108,7 +96,7 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
   )
 }
 
-function RxCard({ rx, onUpdate, color }) {
+function RxCard({ rx, onUpdate, color, t }) {
   const patientName = rx.users?.full_name ?? rx.users?.email ?? 'Patient'
   const doctorName  = rx.users_1?.full_name ?? '—'
   const meds        = formatMeds(rx.medications)
@@ -122,29 +110,27 @@ function RxCard({ rx, onUpdate, color }) {
             <span className="text-xs text-ink/40">{fmtDate(rx.created_at)}</span>
           </div>
           <p className="text-sm font-medium text-ink">{patientName}</p>
-          <p className="text-xs text-ink/50 mt-0.5">Prescribed by Dr. {doctorName}</p>
+          <p className="text-xs text-ink/50 mt-0.5">{t('pharmacist.prescribedBy')} {t('drTitle')} {doctorName}</p>
           <p className="text-xs text-ink/70 mt-2 leading-relaxed">{meds}</p>
           {rx.notes && <p className="text-xs text-ink/50 mt-1 italic">{rx.notes}</p>}
         </div>
         <div className="flex flex-col gap-2 shrink-0">
           {rx.status === 'pending' && (
-            <button
-              onClick={() => onUpdate(rx.id, 'ready')}
+            <button onClick={() => onUpdate(rx.id, 'ready')}
               className="px-3 py-1.5 rounded-lg text-xs font-medium text-white hover:opacity-90"
               style={{ background: color }}>
-              Mark ready
+              {t('pharmacist.markReady')}
             </button>
           )}
           {rx.status === 'ready' && (
-            <button
-              onClick={() => onUpdate(rx.id, 'fulfilled')}
+            <button onClick={() => onUpdate(rx.id, 'fulfilled')}
               className="px-3 py-1.5 rounded-lg text-xs font-medium text-white hover:opacity-90"
               style={{ background: '#0E6B4F' }}>
-              Mark fulfilled
+              {t('pharmacist.markFulfilled')}
             </button>
           )}
           {rx.status === 'fulfilled' && (
-            <span className="text-xs text-ink/40 text-right">Done</span>
+            <span className="text-xs text-ink/40 text-right">{t('pharmacist.done')}</span>
           )}
         </div>
       </div>

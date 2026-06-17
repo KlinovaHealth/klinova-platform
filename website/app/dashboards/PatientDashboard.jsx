@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
+import { useLanguage } from '@/contexts/LanguageContext'
 import MyPaySection from './MyPaySection'
 
 const C = '#0E6B4F'
@@ -9,9 +10,8 @@ const CHANNELS = ['video', 'audio', 'chat']
 
 export default function PatientDashboard({ userId, name }) {
   const supabase = createClient()
-  const greeting = getGreeting(name)
+  const { t } = useLanguage()
 
-  // ── Live data ─────────────────────────────────────────────
   const { data: consultations = [], mutate: mutateCon } = useSWR(
     `consultations-${userId}`,
     async () => {
@@ -49,7 +49,6 @@ export default function PatientDashboard({ userId, name }) {
     { refreshInterval: 60000 }
   )
 
-  // Real-time subscription for this patient's consultations
   useEffect(() => {
     const channel = supabase
       .channel(`patient-consultations-${userId}`)
@@ -61,9 +60,8 @@ export default function PatientDashboard({ userId, name }) {
     return () => supabase.removeChannel(channel)
   }, [userId])
 
-  // ── "Talk to a doctor" form state ─────────────────────────
-  const [reason, setReason]     = useState('')
-  const [channel, setChannel]   = useState('video')
+  const [reason, setReason]       = useState('')
+  const [channel, setChannel]     = useState('video')
   const [submitting, setSubmitting] = useState(false)
   const [talkError, setTalkError]   = useState('')
   const [talkSuccess, setTalkSuccess] = useState(false)
@@ -72,10 +70,7 @@ export default function PatientDashboard({ userId, name }) {
     e.preventDefault()
     setSubmitting(true); setTalkError(''); setTalkSuccess(false)
     const { error } = await supabase.from('consultations').insert({
-      patient_id: userId,
-      status: 'waiting',
-      reason: reason.trim(),
-      channel,
+      patient_id: userId, status: 'waiting', reason: reason.trim(), channel,
     })
     if (error) { setTalkError(error.message) } else {
       setTalkSuccess(true); setReason(''); setChannel('video')
@@ -84,48 +79,47 @@ export default function PatientDashboard({ userId, name }) {
     setSubmitting(false)
   }
 
-  const waiting  = consultations.filter(c => c.status === 'waiting').length
-  const active   = consultations.filter(c => c.status === 'active').length
-  const pendRx   = prescriptions.filter(p => p.status === 'pending').length
+  const waiting = consultations.filter(c => c.status === 'waiting').length
+  const active  = consultations.filter(c => c.status === 'active').length
+  const pendRx  = prescriptions.filter(p => p.status === 'pending').length
+
+  const greeting = getGreeting(name, t)
 
   return (
     <div className="space-y-6">
-      {/* Greeting */}
       <div>
         <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }}
           className="text-2xl font-semibold text-ink">{greeting}</h2>
-        <p className="text-sm text-ink/60 mt-0.5">Your health, at a glance.</p>
+        <p className="text-sm text-ink/60 mt-0.5">{t('patient.subtitle')}</p>
       </div>
 
-      {/* Stat cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard label="Consultations"    value={consultations.length} color={C} sub="total" />
-        <StatCard label="In progress"      value={waiting + active}     color={C} sub="waiting or active" />
-        <StatCard label="Pending Rx"       value={pendRx}               color={C} sub="awaiting pickup" />
+        <StatCard label={t('patient.stats.consultations')} value={consultations.length} color={C} sub={t('patient.stats.consultationsSub')} />
+        <StatCard label={t('patient.stats.inProgress')}    value={waiting + active}     color={C} sub={t('patient.stats.inProgressSub')} />
+        <StatCard label={t('patient.stats.pendingRx')}     value={pendRx}               color={C} sub={t('patient.stats.pendingRxSub')} />
       </div>
 
-      {/* Talk to a doctor */}
       <section id="consult" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-1">Talk to a doctor</h3>
-        <p className="text-sm text-ink/55 mb-4">Describe your concern and choose how to connect.</p>
+        <h3 className="font-semibold text-ink mb-1">{t('patient.talkToDoctor')}</h3>
+        <p className="text-sm text-ink/55 mb-4">{t('patient.talkToDoctorDesc')}</p>
 
-        {talkError && <Alert type="error" msg={talkError} />}
-        {talkSuccess && <Alert type="success" msg="Your request has been sent — a doctor will connect with you shortly." />}
+        {talkError   && <Alert type="error"   msg={talkError} />}
+        {talkSuccess && <Alert type="success" msg={t('patient.consultSuccess')} />}
 
         <form onSubmit={handleTalkToDoctor} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-ink mb-1">Reason / symptoms</label>
+            <label className="block text-sm font-medium text-ink mb-1">{t('patient.reasonLabel')}</label>
             <textarea
               required value={reason} onChange={e => setReason(e.target.value)}
               rows={3}
               className="w-full px-3 py-2.5 rounded-lg border border-border bg-ivory text-ink text-sm
                          focus:outline-none focus:ring-2 resize-none"
               style={{ '--tw-ring-color': C }}
-              placeholder="E.g. I have had a fever for two days…"
+              placeholder={t('patient.reasonPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-ink mb-2">Channel</label>
+            <label className="block text-sm font-medium text-ink mb-2">{t('patient.channelLabel')}</label>
             <div className="flex gap-2">
               {CHANNELS.map(ch => (
                 <button key={ch} type="button"
@@ -135,7 +129,7 @@ export default function PatientDashboard({ userId, name }) {
                                 ? 'border-transparent text-white'
                                 : 'border-border text-ink/60 hover:border-ink/30'}`}
                   style={channel === ch ? { background: C } : {}}>
-                  {ch.charAt(0).toUpperCase() + ch.slice(1)}
+                  {t(`channels.${ch}`)}
                 </button>
               ))}
             </div>
@@ -144,19 +138,18 @@ export default function PatientDashboard({ userId, name }) {
             className="px-6 py-2.5 rounded-lg text-white font-semibold text-sm
                        hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
             style={{ background: C }}>
-            {submitting ? 'Sending…' : 'Request consultation'}
+            {submitting ? t('patient.sending') : t('patient.requestConsult')}
           </button>
         </form>
       </section>
 
-      {/* My consultations */}
       <section id="rx" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">My consultations</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('patient.myConsultations')}</h3>
         {consultations.length === 0 ? (
-          <p className="text-sm text-ink/50">No consultations yet.</p>
+          <p className="text-sm text-ink/50">{t('patient.noConsultations')}</p>
         ) : (
           <Table
-            cols={['Date', 'Reason', 'Channel', 'Status']}
+            cols={[t('col.date'), t('col.reason'), t('col.channel'), t('col.status')]}
             rows={consultations.map(c => [
               fmtDate(c.created_at),
               c.reason ?? '—',
@@ -167,14 +160,13 @@ export default function PatientDashboard({ userId, name }) {
         )}
       </section>
 
-      {/* Prescriptions */}
       <section className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">My prescriptions</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('patient.myPrescriptions')}</h3>
         {prescriptions.length === 0 ? (
-          <p className="text-sm text-ink/50">No prescriptions yet.</p>
+          <p className="text-sm text-ink/50">{t('patient.noPrescriptions')}</p>
         ) : (
           <Table
-            cols={['Date', 'Pharmacy', 'Medications', 'Status']}
+            cols={[t('col.date'), t('col.pharmacy'), t('col.medications'), t('col.status')]}
             rows={prescriptions.map(p => [
               fmtDate(p.created_at),
               p.pharmacies?.name ?? '—',
@@ -185,11 +177,10 @@ export default function PatientDashboard({ userId, name }) {
         )}
       </section>
 
-      {/* Find pharmacy */}
       <section id="pharmacy" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-4">Find a pharmacy</h3>
+        <h3 className="font-semibold text-ink mb-4">{t('patient.findPharmacy')}</h3>
         {pharmacies.length === 0 ? (
-          <p className="text-sm text-ink/50">No pharmacies on record yet.</p>
+          <p className="text-sm text-ink/50">{t('patient.noPharmacies')}</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {pharmacies.map(ph => (
@@ -199,7 +190,7 @@ export default function PatientDashboard({ userId, name }) {
                 {ph.phone && <p className="text-xs text-ink/50">{ph.phone}</p>}
                 <span className={`inline-block mt-2 text-xs px-2 py-0.5 rounded-full
                   ${ph.open_now ? 'bg-kgreen-light text-kgreen' : 'bg-red-50 text-red-600'}`}>
-                  {ph.open_now ? 'Open' : 'Closed'}
+                  {ph.open_now ? t('patient.open') : t('patient.closed')}
                 </span>
               </div>
             ))}
@@ -207,10 +198,9 @@ export default function PatientDashboard({ userId, name }) {
         )}
       </section>
 
-      {/* Payments placeholder */}
       <section id="payments" className="bg-white rounded-xl border border-border shadow-card p-5">
-        <h3 className="font-semibold text-ink mb-1">Payments</h3>
-        <p className="text-sm text-ink/50">Mobile money payments — coming soon.</p>
+        <h3 className="font-semibold text-ink mb-1">{t('patient.payments')}</h3>
+        <p className="text-sm text-ink/50">{t('patient.paymentsSoon')}</p>
       </section>
 
       <MyPaySection userId={userId} />
@@ -218,7 +208,8 @@ export default function PatientDashboard({ userId, name }) {
   )
 }
 
-// ── Shared helpers ──────────────────────────────────────────
+// ── Shared helpers (exported for other dashboards) ──────────────────────────
+
 export function StatCard({ label, value, color, sub }) {
   return (
     <div className="bg-white rounded-xl border border-border shadow-card p-5">
@@ -259,38 +250,40 @@ export function Table({ cols, rows }) {
 }
 
 export function StatusBadge({ status }) {
+  const { t } = useLanguage()
   const map = {
-    waiting:   { bg: '#FBF4E5', color: '#D99A2B', label: 'Waiting'   },
-    active:    { bg: '#E8F0F5', color: '#2C6E8F', label: 'Active'    },
-    completed: { bg: '#E8F3EF', color: '#0E6B4F', label: 'Completed' },
-    cancelled: { bg: '#FEF2F2', color: '#DC2626', label: 'Cancelled' },
-    pending:   { bg: '#FBF4E5', color: '#D99A2B', label: 'Pending'   },
-    ready:     { bg: '#E8F0F5', color: '#2C6E8F', label: 'Ready'     },
-    fulfilled: { bg: '#E8F3EF', color: '#0E6B4F', label: 'Fulfilled' },
+    waiting:   { bg: '#F4E2BC', color: '#D99A2B' },
+    active:    { bg: '#E3EFE8', color: '#0A5440' },
+    completed: { bg: '#E3EFE8', color: '#0E6B4F' },
+    cancelled: { bg: '#FBEEE8', color: '#CF5A3C' },
+    pending:   { bg: '#F4E2BC', color: '#D99A2B' },
+    ready:     { bg: '#E3EFE8', color: '#0A5440' },
+    fulfilled: { bg: '#E3EFE8', color: '#0E6B4F' },
   }
-  const s = map[status] ?? { bg: '#F5EFE3', color: '#15302A', label: status }
+  const s = map[status] ?? { bg: '#F5EFE3', color: '#15302A' }
+  const label = t(`status.${status}`) !== `status.${status}` ? t(`status.${status}`) : status
   return (
     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
       style={{ background: s.bg, color: s.color }}>
-      {s.label}
+      {label}
     </span>
   )
 }
 
 export function Alert({ type, msg }) {
   const styles = {
-    error:   'bg-red-50 border-red-200 text-red-700',
-    success: 'bg-[#E8F3EF] border-[#0E6B4F]/20 text-[#0E6B4F]',
+    error:   'bg-[#FBEEE8] border-[#CF5A3C]/20 text-[#CF5A3C]',
+    success: 'bg-[#E3EFE8] border-[#0E6B4F]/20 text-[#0E6B4F]',
   }
   return (
     <div className={`mb-4 px-4 py-3 rounded-lg border text-sm ${styles[type]}`}>{msg}</div>
   )
 }
 
-function getGreeting(name) {
+export function getGreeting(name, t) {
   const h = new Date().getHours()
-  const part = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'
-  return `Good ${part}${name ? `, ${name.split(' ')[0]}` : ''}`
+  const key = h < 12 ? 'goodMorning' : h < 17 ? 'goodAfternoon' : 'goodEvening'
+  return `${t(key)}${name ? `, ${name.split(' ')[0]}` : ''}`
 }
 
 function fmtDate(ts) {
