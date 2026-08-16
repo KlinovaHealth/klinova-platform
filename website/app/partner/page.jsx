@@ -128,7 +128,7 @@ export default function PartnersPage() {
         .btn-ghost:hover{border-color:${C.green};color:${C.greenDeep};background:#fff}
         /* NAV */
         header{position:sticky;top:0;z-index:100;background:rgba(232,224,208,.95);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid rgba(210,200,182,.7)}
-        nav{display:flex;align-items:center;gap:6px;height:66px;padding:0 28px;max-width:1200px;margin:0 auto}
+        nav{display:flex;align-items:center;justify-content:space-between;gap:6px;height:66px;padding:0 28px;max-width:1200px;margin:0 auto}
         .nav-links{display:flex;align-items:center;gap:2px;flex:1;justify-content:center}
         .nav-links a{font-size:13.5px;font-weight:600;color:${C.mute};padding:7px 12px;border-radius:8px;transition:color .15s,background .15s}
         .nav-links a:hover,.nav-links a.active{color:${C.ink};background:rgba(14,107,79,.07)}
@@ -139,9 +139,9 @@ export default function PartnersPage() {
         .lp-btn{border:none;background:transparent;font-family:${ui};font-size:12px;font-weight:700;letter-spacing:.06em;color:${C.mute};padding:5px 11px;cursor:pointer;transition:background .15s,color .15s}
         .lp-btn:hover{background:rgba(14,107,79,.10);color:${C.ink}}
         .lp-btn.lp-on{background:${C.green};color:#fff}
-        .hamburger{display:none;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
+        .hamburger{display:flex;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
         .hamburger:hover{background:rgba(14,107,79,.08)}
-        .mob-drawer{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:300;background:rgba(21,48,42,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+        .mob-drawer{display:block;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:300;background:rgba(21,48,42,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
         .mob-nav{position:absolute;top:0;right:0;bottom:0;width:min(320px,88vw);background:${C.ivory};padding:80px 24px 32px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:-8px 0 32px rgba(0,0,0,.15)}
         .mob-nav a{font-size:17px;font-weight:600;color:${C.ink};text-decoration:none;padding:12px 0;border-bottom:1px solid ${C.line}}
         .mob-nav a:hover{color:${C.green}}
@@ -224,10 +224,6 @@ export default function PartnersPage() {
           .footer-grid{grid-template-columns:1fr 1fr}
           nav{padding:0 14px;height:58px;justify-content:space-between}
           .nav-links{display:none}
-          .hamburger{display:flex}
-          .nav-right a{font-size:12px!important;padding:7px 10px!important}
-          .nav-lang{display:none}
-          .mob-drawer{display:block}
           .pilot{padding:28px 20px}
           .dash-preview{position:static}
         }
@@ -259,14 +255,6 @@ export default function PartnersPage() {
             <a href="mailto:contact@klinova.co">{t('nav_contact')}</a>
           </div>
           <div className="nav-right">
-            <span className="nav-lang">
-              <span className="lang-pill">
-                <button className={lang==='en'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('en')}>EN</button>
-                <button className={lang==='fr'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('fr')}>FR</button>
-              </span>
-            </span>
-            <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>{t('nav_login')}</a>
-            <a href="mailto:contact@klinova.co?subject=Partner Application" className="btn btn-primary" style={{ fontSize:13, padding:'10px 18px', whiteSpace:'nowrap' }}>{t('nav_cta')}</a>
             <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
               {menuOpen
                 ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -283,11 +271,13 @@ export default function PartnersPage() {
             <a href="/governments" onClick={() => setMenuOpen(false)}>{t('nav_gov')}</a>
             <a href="/patients" onClick={() => setMenuOpen(false)}>{t('nav_ind')}</a>
             <a href="/partner" onClick={() => setMenuOpen(false)}>{t('nav_par')}</a>
-            <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>{t('nav_contact')}</a>
-            <div style={{ display:'flex', gap:8, justifyContent:'center', marginTop:16 }}>
+            <div style={{ borderTop:`1px solid ${C.line}`, margin:'8px 0' }} />
+            <div style={{ display:'flex', gap:8, justifyContent:'center', padding:'8px 0' }}>
               <button className={lang==='en'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('en')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>EN</button>
               <button className={lang==='fr'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('fr')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>FR</button>
             </div>
+            <a href="/login" onClick={() => setMenuOpen(false)} style={{ color:C.mute }}>{t('nav_login')}</a>
+            <a href="mailto:contact@klinova.co?subject=Partner Application" onClick={() => setMenuOpen(false)} style={{ color:C.green, fontWeight:700 }}>{t('nav_cta')}</a>
           </nav>
         </div>
       )}

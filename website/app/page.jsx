@@ -766,7 +766,7 @@ export default function Home() {
 
         /* NAV */
         header { position: sticky; top: 0; z-index: 100; background: rgba(232,224,208,.95); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom: 1px solid rgba(210,200,182,.7); }
-        nav { display: flex; align-items: center; gap: 6px; height: 66px; padding: 0 28px; max-width: 1200px; margin: 0 auto; }
+        nav { display: flex; align-items: center; justify-content: space-between; gap: 6px; height: 66px; padding: 0 28px; max-width: 1200px; margin: 0 auto; }
         .nav-logo { display: inline-flex; align-items: center; gap: 10px; flex: none; outline: none; text-decoration: none; }
         .nav-logo:focus-visible { outline: 2px solid ${C.green}; outline-offset: 4px; border-radius: 6px; }
         .nav-logo-name { font-family: ${display}; font-weight: 700; font-size: 20px; letter-spacing: -.02em; color: ${C.greenDeep}; }
@@ -911,10 +911,10 @@ export default function Home() {
         /* Nav logo sizing */
         .nav-logo-img { height: 64px; }
         /* Hamburger */
-        .hamburger { display: none; background: none; border: none; cursor: pointer; color: ${C.ink}; padding: 6px; border-radius: 8px; line-height: 0; }
+        .hamburger { display: flex; background: none; border: none; cursor: pointer; color: ${C.ink}; padding: 6px; border-radius: 8px; line-height: 0; }
         .hamburger:hover { background: rgba(14,107,79,.08); }
         /* Mobile drawer */
-        .mob-drawer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: 300; background: rgba(21,48,42,.45); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+        .mob-drawer { display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: 300; background: rgba(21,48,42,.45); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
         .mob-nav { position: absolute; top: 0; right: 0; bottom: 0; width: min(320px, 88vw); background: ${C.ivory}; padding: 80px 24px 32px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; -webkit-overflow-scrolling: touch; box-shadow: -8px 0 32px rgba(0,0,0,.15); }
         .mob-nav a { font-size: 17px; font-weight: 600; color: ${C.ink}; text-decoration: none; padding: 12px 0; border-bottom: 1px solid ${C.line}; }
         .mob-nav a:hover { color: ${C.green}; }
@@ -924,8 +924,6 @@ export default function Home() {
         .audience-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
         @media(max-width:960px){
           .nav-links{display:none}
-          .hamburger{display:flex}
-          .nav-lang{display:none}
           nav{justify-content:space-between}
           .nav-logo-img{height:48px}
           .hero-grid{grid-template-columns:1fr;gap:36px}
@@ -949,10 +947,7 @@ export default function Home() {
         @media(max-width:540px){
           nav{padding:0 14px;height:58px;justify-content:space-between}
           .nav-logo-img{height:36px}
-          .nav-cta{font-size:12px!important;padding:8px 11px!important}
-          .nav-login{font-size:12px!important;padding:7px 11px!important}
-          .nav-lang{display:none}
-          .mob-drawer{display:block}
+          nav{padding:0 14px;height:58px;justify-content:space-between}
           .wrap{padding:0 18px}
           section{padding:48px 0}
           .hero{padding:36px 0 52px}
@@ -998,23 +993,6 @@ export default function Home() {
           </div>
 
           <div className="nav-right">
-            <a href="/login" className="nav-login"
-              style={{ fontSize: 13.5, fontWeight: 600, color: C.ink, textDecoration: 'none', padding: '9px 16px', borderRadius: 8, border: `1.5px solid ${C.line}`, background: '#fff', whiteSpace: 'nowrap' }}>
-              {t('nav_login')}
-            </a>
-            <a href="/login?mode=signup&role=patient" className="btn btn-primary nav-cta" style={{ fontSize: 13, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
-              {t('nav_create')}
-            </a>
-            <div className="lang-pill nav-lang" role="group" aria-label="Language">
-              <button
-                className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'}
-                onClick={() => setLang('en')}
-              >EN</button>
-              <button
-                className={lang === 'fr' ? 'lp-btn lp-on' : 'lp-btn'}
-                onClick={() => setLang('fr')}
-              >FR</button>
-            </div>
             <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
               {menuOpen
                 ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1034,11 +1012,13 @@ export default function Home() {
             <a href="/governments" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les gouvernements' : 'For Governments'}</a>
             <a href="/patients" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les individus' : 'For Individuals'}</a>
             <a href="/partner" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les partenaires' : 'For Partners'}</a>
-            <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 16 }}>
+            <div style={{ borderTop: `1px solid ${C.line}`, margin: '8px 0' }} />
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', padding: '8px 0' }}>
               <button className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('en')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 22px' }}>EN</button>
               <button className={lang === 'fr' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('fr')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 22px' }}>FR</button>
             </div>
+            <a href="/login" onClick={() => setMenuOpen(false)} style={{ color: C.mute }}>{t('nav_login')}</a>
+            <a href="/login?mode=signup&role=patient" onClick={() => setMenuOpen(false)} style={{ color: C.green, fontWeight: 700 }}>{t('nav_create')}</a>
           </nav>
         </div>
       )}
