@@ -142,7 +142,7 @@ export default function PartnersPage() {
         .hamburger{display:flex;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
         .hamburger:hover{background:rgba(14,107,79,.08)}
         .mob-drawer{display:block;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:300;background:rgba(21,48,42,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-        .mob-nav{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;background:${C.greenDeep};padding:88px 36px 48px;display:flex;flex-direction:column;gap:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+        .mob-nav{position:fixed;top:0;left:0;width:100%;height:100%;background:${C.greenDeep};padding:88px 36px 48px;display:flex;flex-direction:column;gap:0;overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:301}
         .mob-nav a{font-size:26px;font-weight:600;color:rgba(255,255,255,.9);text-decoration:none;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.12)}
         .mob-nav a:hover{color:#fff}
         .mob-nav a:last-of-type{border-bottom:none}
