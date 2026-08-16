@@ -1,4 +1,4 @@
-const BASE     = 'https://graph.facebook.com/v19.0'
+const BASE     = 'https://graph.facebook.com/v25.0'
 const TOKEN    = process.env.WHATSAPP_ACCESS_TOKEN
 const PHONE_ID = process.env.WHATSAPP_PHONE_NUMBER_ID
 
