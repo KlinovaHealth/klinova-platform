@@ -164,7 +164,7 @@ export default function PartnersPage() {
           <div className="hero-inner">
             <div className="eyebrow">For healthcare partners</div>
             <h1>Join Africa's <span className="accent">healthcare grid.</span></h1>
-            <p className="lede">Clinics, pharmacies, labs, doctors, and transport providers connect to Klinova's patient network. Reach more people, reduce no-shows, and get paid faster.</p>
+            <p className="lede">Clinics, pharmacies, labs, doctors, and transport providers connect to Klinova's patient network to reach more people, reduce no-shows, and get paid faster.</p>
             <div className="cta">
               <a href="#apply" className="btn btn-primary">Apply to be a partner</a>
               <a href="mailto:contact@klinova.co" className="btn btn-ghost">Talk to our team</a>
@@ -182,7 +182,7 @@ export default function PartnersPage() {
       <section id="clinics">
         <div className="wrap">
           <div className="eyebrow">Partner types</div>
-          <h2>Whether you have a clinic, pharmacy, lab, or motorbike, there is a place for you.</h2>
+          <h2>Whether you have a clinic, pharmacy, lab, or motorbike, there's a place for you.</h2>
           <div className="ptype-grid">
             <div className="ptype-card">
               <div className="ptype-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg></div>

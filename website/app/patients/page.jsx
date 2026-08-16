@@ -179,7 +179,7 @@ export default function PatientsPage() {
             <div>
               <div className="eyebrow">For patients</div>
               <h1>Healthcare in <span className="accent">your language,</span> on any phone.</h1>
-              <p className="lede">See a licensed doctor by chat, voice, or video. Get your prescription delivered to your nearest pharmacy. Works on any phone, even without a smartphone.</p>
+              <p className="lede">See a licensed doctor by chat, voice, or video. Get your prescription delivered to your nearest pharmacy. Use the app, the website, or WhatsApp, whichever works best for you.</p>
               <div className="cta">
                 <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none' }}>Get the app</a>
                 <a href="https://wa.me/22890000000" className="btn btn-ghost" style={{ textDecoration:'none' }}>Chat on WhatsApp</a>
@@ -212,7 +212,7 @@ export default function PatientsPage() {
             {[
               { n:'1', h:'Tell us how you feel', p:'Describe your symptoms by text, voice, or photo in any of our fourteen supported languages.' },
               { n:'2', h:'Get guided to the right care', p:'Klinova reviews your symptoms and tells you clearly how urgent your situation is.' },
-              { n:'3', h:'See a doctor', p:'Talk to a licensed doctor by chat, voice, or video, from anywhere, at any time.' },
+              { n:'3', h:'See a doctor', p:'Talk to a licensed doctor by chat, voice, or video from anywhere, anytime.' },
               { n:'4', h:'Get your medicine', p:'Your prescription goes straight to the nearest pharmacy. Pick it up or have it delivered.' },
             ].map(s => (
               <div className="step" key={s.n}>
