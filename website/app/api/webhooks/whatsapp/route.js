@@ -588,7 +588,7 @@ Only return valid JSON, no markdown.`,
 // ─── WhatsApp send message ────────────────────────────────────────────────────
 async function sendWhatsAppMessage(to, text) {
   if (!WA_TOKEN || !WA_PHONE_ID) return
-  await fetch(`https://graph.facebook.com/v19.0/${WA_PHONE_ID}/messages`, {
+  await fetch(`https://graph.facebook.com/v25.0/${WA_PHONE_ID}/messages`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${WA_TOKEN}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ messaging_product: 'whatsapp', to, type: 'text', text: { body: text } }),
@@ -597,7 +597,7 @@ async function sendWhatsAppMessage(to, text) {
 
 // ─── Download WhatsApp media ──────────────────────────────────────────────────
 async function downloadWhatsAppMedia(mediaId) {
-  const urlRes  = await fetch(`https://graph.facebook.com/v19.0/${mediaId}`, { headers: { Authorization: `Bearer ${WA_TOKEN}` } })
+  const urlRes  = await fetch(`https://graph.facebook.com/v25.0/${mediaId}`, { headers: { Authorization: `Bearer ${WA_TOKEN}` } })
   const { url } = await urlRes.json()
   const fileRes = await fetch(url, { headers: { Authorization: `Bearer ${WA_TOKEN}` } })
   return Buffer.from(await fileRes.arrayBuffer())
