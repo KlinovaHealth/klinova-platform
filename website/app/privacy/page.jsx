@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'Privacy Policy — Klinova',
   description: 'Klinova Health privacy policy',
+  alternates: { languages: { 'fr': '/privacy/fr' } },
 }
 
 const C = {
@@ -72,6 +73,10 @@ export default function PrivacyPage() {
           </a>
           <span style={{ width: 1, height: 20, background: C.line }} />
           <span style={{ fontSize: 13, color: C.mute }}>Privacy Policy</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: C.ink, padding: '4px 10px', borderRadius: 6, background: C.soft }}>EN</span>
+            <a href="/privacy/fr" style={{ fontSize: 12, fontWeight: 700, color: C.mute, padding: '4px 10px', borderRadius: 6, textDecoration: 'none' }}>FR</a>
+          </div>
         </div>
       </div>
 
