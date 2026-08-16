@@ -203,7 +203,7 @@ function AuthForm() {
               Who are you signing up as?
             </h1>
             <p style={{ fontSize: 13, color: C.mute, textAlign: 'center', marginBottom: 24 }}>
-              Your role shapes your experience — pick what applies to you.
+              Your role shapes your experience; pick what applies to you.
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
               {ROLE_PICKER.map(r => (
