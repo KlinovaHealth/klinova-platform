@@ -172,21 +172,18 @@ export default function PartnersPage() {
             </button>
           </div>
         </nav>
-        {menuOpen && (
-          <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
-            <nav className="mob-nav" onClick={e => e.stopPropagation()}>
-              <a href="/governments" onClick={() => setMenuOpen(false)}>For Governments</a>
-              <a href="/patients" onClick={() => setMenuOpen(false)}>For Individuals</a>
-              <a href="/partner" onClick={() => setMenuOpen(false)}>For Partners</a>
-              <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
-              <div style={{ borderTop:`1px solid ${C.line}`, paddingTop:20, display:'flex', gap:10 }}>
-                <a href="/login" className="btn btn-ghost" style={{ flex:1, textDecoration:'none', justifyContent:'center', fontSize:14 }}>Log in</a>
-                <a href="mailto:contact@klinova.co?subject=Partner Application" className="btn btn-primary" style={{ flex:1, textDecoration:'none', justifyContent:'center', fontSize:13 }}>Become a partner</a>
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
+
+      {menuOpen && (
+        <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
+          <nav className="mob-nav" onClick={e => e.stopPropagation()}>
+            <a href="/governments" onClick={() => setMenuOpen(false)}>For Governments</a>
+            <a href="/patients" onClick={() => setMenuOpen(false)}>For Individuals</a>
+            <a href="/partner" onClick={() => setMenuOpen(false)}>For Partners</a>
+            <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
+          </nav>
+        </div>
+      )}
 
       {/* HERO */}
       <section className="hero" style={{ borderBottom:'none' }}>

@@ -19,10 +19,91 @@ const COUNTRIES = [
   { code:'SN', flag:'🇸🇳', name:'Sénégal',       solo:'1 500 XOF', family:'3 500 XOF' },
 ]
 
+const T = {
+  en: {
+    nav_gov:'For Governments', nav_ind:'For Individuals', nav_par:'For Partners', nav_contact:'Contact',
+    nav_login:'Log in', nav_signup:'Create account',
+    eyebrow:'For patients',
+    h1:'Quality healthcare, ', h1_accent:'on any phone.',
+    lede:'See a licensed doctor by chat, voice, or video. Digital prescriptions, medication delivery, encrypted records. From 1,500 XOF/month or free via a government program if eligible.',
+    cta1:'Get the app', cta2:'Chat on WhatsApp',
+    tr1:'Free for patients via government programs', tr2:'Encrypted and private', tr3:'Works on any phone',
+    emergency:"Not for emergencies. Call 15 (Togo), 195 (Ghana), 15 (Benin), or 185 (Côte d'Ivoire).",
+    how_ey:'How it works', how_h:'From feeling unwell to cared for in minutes.',
+    how_sub:'Four simple steps, in the language you speak and on the phone you already have.',
+    s1h:'Tell us how you feel', s1p:'Describe your symptoms by text, voice, or photo in any of our fourteen supported languages.',
+    s2h:'Get guided to the right care', s2p:'Klinova reviews your symptoms and tells you clearly how urgent your situation is.',
+    s3h:'See a doctor', s3p:'Talk to a licensed doctor by chat, voice, or video from anywhere, anytime.',
+    s4h:'Get your medicine', s4p:'Your prescription goes straight to the nearest pharmacy. Pick it up or have it delivered.',
+    feat_ey:'For patients', feat_h:'Care built around how people actually live here.',
+    f1h:'Care in your language', f1p:'Klinova supports 14 languages including Ewe, Kabiye, Twi, Fon, Dioula, Wolof, Bambara, Hausa, and more.',
+    f2h:'Free via government programs', f2p:'Most patients pay nothing. If your country has a national health program, Klinova is covered. Pay-per-use plans also available.',
+    f3h:'Find care near you', f3p:'See the nearest doctors and pharmacies. Your medicine is routed to the closest location.',
+    f4h:'Records that follow you', f4p:'Your consultations, prescriptions, and results are encrypted and always accessible to you.',
+    f5h:'Reach us anywhere', f5p:'Use the app, the website, or WhatsApp, whichever works best for you.',
+    f6h:'Every phone counts', f6p:'No smartphone? Reach Klinova by SMS or with the help of a community health worker.',
+    price_ey:'Simple pricing', price_h:'Plans that work for real life.',
+    price_sub:"Most patients access Klinova free through government health programs. Individual plans available where government coverage isn't active yet.",
+    period:'/ month', get_started:'Get started',
+    gov_h:'Covered by a government program?',
+    gov_p:"If your country has a national health insurance scheme, Klinova consultations may be fully covered. Ask your local health office or contact us to check.",
+    gov_cta:'Check my coverage',
+    lic_ey:'Medical standards', lic_h:'Licensed physicians, country by country.',
+    lic_sub:'Every doctor on Klinova holds active registration with the national medical licensing authority in their country before they can see patients.',
+    tru_h1:'Built on clinical expertise.', tru_p1:"Klinova's triage logic, prescription workflows, and patient safety standards are developed alongside practicing physicians and public health professionals across the region.",
+    tru_h2:'Your data, protected by law.', tru_p2:"We comply with GDPR, HIPAA, and applicable national health data laws in Togo, Ghana, Benin, and Côte d'Ivoire. All records are end-to-end encrypted. You own your data.",
+    cta_h:'Ready to see a doctor?', cta_p:'Create a free account and speak with a licensed doctor today.',
+    cta_b1:'Create free account', cta_b2:'WhatsApp us',
+    ft_blurb:'The Invisible Grid powering African healthcare. Lomé, Togo.', ft_tag:'Born in Africa. Built for Life.',
+    ft_product:'Product', ft_partners:'Partners', ft_company:'Company',
+    ft_copy:'© 2026 Klinova. All rights reserved.',
+  },
+  fr: {
+    nav_gov:'Pour les gouvernements', nav_ind:'Pour les individus', nav_par:'Pour les partenaires', nav_contact:'Contact',
+    nav_login:'Connexion', nav_signup:'Créer un compte',
+    eyebrow:'Pour les patients',
+    h1:'Des soins de qualité, ', h1_accent:'sur chaque téléphone.',
+    lede:"Consultez un médecin agréé par chat, voix ou vidéo. Ordonnances numériques, livraison de médicaments, dossiers chiffrés. À partir de 1 500 XOF/mois ou gratuit via un programme gouvernemental si éligible.",
+    cta1:"Télécharger l'app", cta2:'Chat sur WhatsApp',
+    tr1:'Gratuit pour les patients via les programmes gouvernementaux', tr2:'Chiffré et privé', tr3:'Fonctionne sur tout téléphone',
+    emergency:"Pas pour les urgences. Appelez le 15 (Togo), 195 (Ghana), 15 (Bénin), ou 185 (Côte d'Ivoire).",
+    how_ey:'Comment ça marche', how_h:'De symptômes à soins en quelques minutes.',
+    how_sub:'Quatre étapes simples, dans votre langue et sur le téléphone que vous avez déjà.',
+    s1h:'Décrivez vos symptômes', s1p:"Décrivez vos symptômes par texte, voix ou photo dans l'une de nos quatorze langues prises en charge.",
+    s2h:'Obtenez une orientation claire', s2p:'Klinova analyse vos symptômes et vous indique clairement l\'urgence de votre situation.',
+    s3h:'Consultez un médecin', s3p:'Parlez à un médecin agréé par chat, voix ou vidéo, de partout, à tout moment.',
+    s4h:'Obtenez vos médicaments', s4p:'Votre ordonnance est transmise directement à la pharmacie la plus proche. Retirez-la ou faites-la livrer.',
+    feat_ey:'Pour les patients', feat_h:'Des soins conçus pour la vie réelle ici.',
+    f1h:'Soins dans votre langue', f1p:'Klinova prend en charge 14 langues dont l\'Ewe, le Kabiye, le Twi, le Fon, le Dioula, le Wolof, le Bambara, le Haoussa, et plus encore.',
+    f2h:'Gratuit via les programmes gouvernementaux', f2p:'La plupart des patients ne paient rien. Si votre pays dispose d\'un programme national de santé, Klinova est couvert.',
+    f3h:'Trouvez des soins près de vous', f3p:'Consultez les médecins et pharmacies les plus proches. Vos médicaments sont acheminés vers le point le plus proche.',
+    f4h:'Dossiers qui vous suivent', f4p:'Vos consultations, ordonnances et résultats sont chiffrés et toujours accessibles.',
+    f5h:'Contactez-nous de partout', f5p:"Utilisez l'application, le site web ou WhatsApp, selon ce qui vous convient le mieux.",
+    f6h:'Chaque téléphone compte', f6p:"Pas de smartphone ? Contactez Klinova par SMS ou avec l'aide d'un agent de santé communautaire.",
+    price_ey:'Tarifs simples', price_h:'Des formules adaptées à la vie réelle.',
+    price_sub:"La plupart des patients accèdent à Klinova gratuitement via les programmes gouvernementaux. Des forfaits individuels disponibles là où la couverture n'est pas encore active.",
+    period:'/ mois', get_started:'Commencer',
+    gov_h:'Couvert par un programme gouvernemental ?',
+    gov_p:"Si votre pays dispose d'un régime national d'assurance maladie, les consultations Klinova peuvent être entièrement prises en charge. Renseignez-vous auprès de votre bureau de santé local.",
+    gov_cta:'Vérifier ma couverture',
+    lic_ey:'Normes médicales', lic_h:'Médecins agréés, pays par pays.',
+    lic_sub:"Chaque médecin de Klinova détient une inscription active auprès de l'autorité nationale d'octroi de licences médicales de son pays.",
+    tru_h1:'Fondé sur l\'expertise clinique.', tru_p1:'La logique de triage, les flux d\'ordonnances et les normes de sécurité des patients de Klinova sont développés avec des médecins praticiens et des professionnels de santé publique de la région.',
+    tru_h2:'Vos données, protégées par la loi.', tru_p2:"Nous respectons le RGPD, l'HIPAA et les lois nationales de santé en vigueur au Togo, Ghana, Bénin et Côte d'Ivoire. Toutes les données sont chiffrées de bout en bout.",
+    cta_h:'Prêt à consulter un médecin ?', cta_p:"Créez un compte gratuit et parlez à un médecin agréé dès aujourd'hui.",
+    cta_b1:'Créer un compte gratuit', cta_b2:'Nous contacter sur WhatsApp',
+    ft_blurb:'La grille invisible qui alimente la santé africaine. Lomé, Togo.', ft_tag:'Né en Afrique. Construit pour la Vie.',
+    ft_product:'Produit', ft_partners:'Partenaires', ft_company:'Entreprise',
+    ft_copy:'© 2026 Klinova. Tous droits réservés.',
+  }
+}
+
 export default function PatientsPage() {
   const [country, setCountry] = useState('TG')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [lang, setLang] = useState('en')
   const selected = COUNTRIES.find(c => c.code === country)
+  const t = k => T[lang]?.[k] ?? T.en[k]
 
   return (
     <>
@@ -54,6 +135,10 @@ export default function PatientsPage() {
         .nav-links a:hover,.nav-links a.active{color:${C.ink};background:rgba(14,107,79,.07)}
         .nav-links a.active{color:${C.greenDeep}}
         .nav-right{display:flex;align-items:center;gap:8px;flex:none}
+        .lang-pill{display:inline-flex;align-items:center;background:rgba(14,107,79,.08);border:1px solid rgba(14,107,79,.15);border-radius:999px;overflow:hidden}
+        .lp-btn{border:none;background:transparent;font-family:${ui};font-size:12px;font-weight:700;letter-spacing:.06em;color:${C.mute};padding:5px 11px;cursor:pointer;transition:background .15s,color .15s}
+        .lp-btn:hover{background:rgba(14,107,79,.10);color:${C.ink}}
+        .lp-btn.lp-on{background:${C.green};color:#fff}
         .hamburger{display:none;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
         .hamburger:hover{background:rgba(14,107,79,.08)}
         .mob-drawer{display:none;position:fixed;inset:0;z-index:300;background:rgba(21,48,42,.45);backdrop-filter:blur(4px)}
@@ -169,14 +254,18 @@ export default function PatientsPage() {
             <img src="/klinova-logo-full.png" alt="Klinova" style={{ height:32, width:'auto', mixBlendMode:'multiply' }} />
           </a>
           <div className="nav-links">
-            <a href="/governments">For Governments</a>
-            <a href="/patients" className="active">For Individuals</a>
-            <a href="/partner">For Partners</a>
-            <a href="mailto:contact@klinova.co">Contact</a>
+            <a href="/governments">{t('nav_gov')}</a>
+            <a href="/patients" className="active">{t('nav_ind')}</a>
+            <a href="/partner">{t('nav_par')}</a>
+            <a href="mailto:contact@klinova.co">{t('nav_contact')}</a>
           </div>
           <div className="nav-right">
-            <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>Log in</a>
-            <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ fontSize:13, padding:'10px 18px', textDecoration:'none', whiteSpace:'nowrap' }}>Create account</a>
+            <div className="lang-pill" role="group" aria-label="Language">
+              <button className={lang==='en'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('en')}>EN</button>
+              <button className={lang==='fr'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('fr')}>FR</button>
+            </div>
+            <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>{t('nav_login')}</a>
+            <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ fontSize:13, padding:'10px 18px', textDecoration:'none', whiteSpace:'nowrap' }}>{t('nav_signup')}</a>
             <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
               {menuOpen
                 ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -185,40 +274,41 @@ export default function PatientsPage() {
             </button>
           </div>
         </nav>
-        {menuOpen && (
-          <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
-            <nav className="mob-nav" onClick={e => e.stopPropagation()}>
-              <a href="/governments" onClick={() => setMenuOpen(false)}>For Governments</a>
-              <a href="/patients" onClick={() => setMenuOpen(false)}>For Individuals</a>
-              <a href="/partner" onClick={() => setMenuOpen(false)}>For Partners</a>
-              <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
-              <div style={{ borderTop:`1px solid ${C.line}`, paddingTop:20, display:'flex', gap:10 }}>
-                <a href="/login" className="btn btn-ghost" style={{ flex:1, textDecoration:'none', justifyContent:'center', fontSize:14 }}>Log in</a>
-                <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ flex:1, textDecoration:'none', justifyContent:'center', fontSize:14 }}>Sign up</a>
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
+
+      {menuOpen && (
+        <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
+          <nav className="mob-nav" onClick={e => e.stopPropagation()}>
+            <a href="/governments" onClick={() => setMenuOpen(false)}>{t('nav_gov')}</a>
+            <a href="/patients" onClick={() => setMenuOpen(false)}>{t('nav_ind')}</a>
+            <a href="/partner" onClick={() => setMenuOpen(false)}>{t('nav_par')}</a>
+            <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>{t('nav_contact')}</a>
+            <div style={{ display:'flex', gap:8, justifyContent:'center', marginTop:16 }}>
+              <button className={lang==='en'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('en')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>EN</button>
+              <button className={lang==='fr'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('fr')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>FR</button>
+            </div>
+          </nav>
+        </div>
+      )}
 
       {/* HERO */}
       <section className="hero" style={{ borderBottom:'none' }}>
         <div className="wrap">
           <div className="hero-grid">
             <div>
-              <div className="eyebrow">For patients</div>
-              <h1>Quality healthcare, <span className="accent">on any phone.</span></h1>
-              <p className="lede">See a licensed doctor by chat, voice, or video. Digital prescriptions, medication delivery, encrypted records. From 1,500 XOF/month or free via a government program if eligible.</p>
+              <div className="eyebrow">{t('eyebrow')}</div>
+              <h1>{t('h1')}<span className="accent">{t('h1_accent')}</span></h1>
+              <p className="lede">{t('lede')}</p>
               <div className="cta">
-                <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none' }}>Get the app</a>
-                <a href="https://wa.me/22890000000" className="btn btn-ghost" style={{ textDecoration:'none' }}>Chat on WhatsApp</a>
+                <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none' }}>{t('cta1')}</a>
+                <a href="https://wa.me/22890000000" className="btn btn-ghost" style={{ textDecoration:'none' }}>{t('cta2')}</a>
               </div>
               <div className="trust">
-                <span className="trust-item"><span className="trust-dot"/><span>Free for patients via government programs</span></span>
-                <span className="trust-item"><span className="trust-dot"/><span>Encrypted and private</span></span>
-                <span className="trust-item"><span className="trust-dot"/><span>Works on any phone</span></span>
+                <span className="trust-item"><span className="trust-dot"/><span>{t('tr1')}</span></span>
+                <span className="trust-item"><span className="trust-dot"/><span>{t('tr2')}</span></span>
+                <span className="trust-item"><span className="trust-dot"/><span>{t('tr3')}</span></span>
               </div>
-              <div className="emergency">Not for emergencies. Call 15 (Togo), 195 (Ghana), 15 (Benin), or 185 (Côte d'Ivoire).</div>
+              <div className="emergency">{t('emergency')}</div>
             </div>
             <div className="hero-visual">
               <div style={{ width:220, height:220, borderRadius:'50%', background:`radial-gradient(circle, rgba(14,107,79,.15) 0%, transparent 70%)`, display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -233,16 +323,16 @@ export default function PatientsPage() {
       <section>
         <div className="wrap">
           <div style={{ textAlign:'center', maxWidth:640, margin:'0 auto' }}>
-            <div className="eyebrow">How it works</div>
-            <h2>From feeling unwell to cared for in minutes.</h2>
-            <p className="sub">Four simple steps, in the language you speak and on the phone you already have.</p>
+            <div className="eyebrow">{t('how_ey')}</div>
+            <h2>{t('how_h')}</h2>
+            <p className="sub">{t('how_sub')}</p>
           </div>
           <div className="steps">
             {[
-              { n:'1', h:'Tell us how you feel', p:'Describe your symptoms by text, voice, or photo in any of our fourteen supported languages.' },
-              { n:'2', h:'Get guided to the right care', p:'Klinova reviews your symptoms and tells you clearly how urgent your situation is.' },
-              { n:'3', h:'See a doctor', p:'Talk to a licensed doctor by chat, voice, or video from anywhere, anytime.' },
-              { n:'4', h:'Get your medicine', p:'Your prescription goes straight to the nearest pharmacy. Pick it up or have it delivered.' },
+              { n:'1', h:t('s1h'), p:t('s1p') },
+              { n:'2', h:t('s2h'), p:t('s2p') },
+              { n:'3', h:t('s3h'), p:t('s3p') },
+              { n:'4', h:t('s4h'), p:t('s4p') },
             ].map(s => (
               <div className="step" key={s.n}>
                 <div className="step-num">{s.n}</div>
@@ -257,16 +347,16 @@ export default function PatientsPage() {
       {/* FEATURES */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">For patients</div>
-          <h2>Care built around how people actually live here.</h2>
+          <div className="eyebrow">{t('feat_ey')}</div>
+          <h2>{t('feat_h')}</h2>
           <div className="feat">
             {[
-              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>, h:'Care in your language', p:'Klinova supports 14 languages including Ewe, Kabiye, Twi, Fon, Dioula, Wolof, Bambara, Hausa, and more.' },
-              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"/></svg>, h:'Free via government programs', p:'Most patients pay nothing. If your country has a national health program, Klinova is covered. Pay-per-use plans are also available.' },
-              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21c-4-4.5-6-7.5-6-10a6 6 0 0 1 12 0c0 2.5-2 5.5-6 10z"/><circle cx="12" cy="11" r="2"/></svg>, h:'Find care near you', p:'See the nearest doctors and pharmacies. Your medicine is routed to the closest location.' },
-              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>, h:'Records that follow you', p:'Your consultations, prescriptions, and results are encrypted and always accessible to you.' },
-              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.5 11c0 4.694-4.253 8.5-9.5 8.5a10.2 10.2 0 0 1-4.2-.9L1.5 20.5l1.6-4.8A8.1 8.1 0 0 1 1.5 11C1.5 6.306 5.753 2.5 11 2.5S20.5 6.306 20.5 11z"/></svg>, h:'Reach us anywhere', p:'Use the app, the website, or WhatsApp, whichever works best for you.' },
-              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="1" width="14" height="22" rx="3"/><path d="M12 18h.01"/></svg>, h:'Every phone counts', p:'No smartphone? Reach Klinova by SMS or with the help of a community health worker.' },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>, h:t('f1h'), p:t('f1p') },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"/></svg>, h:t('f2h'), p:t('f2p') },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21c-4-4.5-6-7.5-6-10a6 6 0 0 1 12 0c0 2.5-2 5.5-6 10z"/><circle cx="12" cy="11" r="2"/></svg>, h:t('f3h'), p:t('f3p') },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>, h:t('f4h'), p:t('f4p') },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.5 11c0 4.694-4.253 8.5-9.5 8.5a10.2 10.2 0 0 1-4.2-.9L1.5 20.5l1.6-4.8A8.1 8.1 0 0 1 1.5 11C1.5 6.306 5.753 2.5 11 2.5S20.5 6.306 20.5 11z"/></svg>, h:t('f5h'), p:t('f5p') },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="1" width="14" height="22" rx="3"/><path d="M12 18h.01"/></svg>, h:t('f6h'), p:t('f6p') },
             ].map(f => (
               <div className="fcard" key={f.h}>
                 <div className="fcard-icon">{f.ico}</div>
@@ -281,9 +371,9 @@ export default function PatientsPage() {
       {/* PRICING */}
       <section id="pricing">
         <div className="wrap">
-          <div className="eyebrow">Simple pricing</div>
-          <h2>Plans that work for real life.</h2>
-          <p className="sub">Most patients access Klinova free through government health programs. Individual plans available where government coverage isn't active yet.</p>
+          <div className="eyebrow">{t('price_ey')}</div>
+          <h2>{t('price_h')}</h2>
+          <p className="sub">{t('price_sub')}</p>
 
           <div className="price-tabs">
             {COUNTRIES.map(c => (
@@ -296,32 +386,38 @@ export default function PatientsPage() {
           <div className="price-cards">
             <div className="pcard">
               <div className="pcard-label">Solo</div>
-              <div><span className="pcard-price">{selected?.solo}</span><span className="pcard-period"> / month</span></div>
+              <div><span className="pcard-price">{selected?.solo}</span><span className="pcard-period"> {t('period')}</span></div>
               <div className="pcard-feats">
-                {['App + WhatsApp triage, 24/7','Video & voice consultations','Digital prescriptions','Health records','1 free medication delivery / month','10% off any partner clinic'].map(f => (
+                {(lang==='fr'
+                  ? ['App + triage WhatsApp, 24h/24','Consultations vidéo et voix','Ordonnances numériques','Dossier de santé','1 livraison de médicaments gratuite / mois','10% de réduction dans toute clinique partenaire']
+                  : ['App + WhatsApp triage, 24/7','Video & voice consultations','Digital prescriptions','Health records','1 free medication delivery / month','10% off any partner clinic']
+                ).map(f => (
                   <div className="pcard-feat" key={f}><span className="pcard-feat-check">✓</span><span>{f}</span></div>
                 ))}
               </div>
-              <a href="/login?mode=signup&role=patient" className="btn btn-ghost" style={{ textDecoration:'none', textAlign:'center', justifyContent:'center' }}>Get started</a>
+              <a href="/login?mode=signup&role=patient" className="btn btn-ghost" style={{ textDecoration:'none', textAlign:'center', justifyContent:'center' }}>{t('get_started')}</a>
             </div>
             <div className="pcard featured">
-              <div className="pcard-label">Family <span style={{ fontWeight:400, fontSize:11, opacity:.7 }}>You + 4 members</span></div>
-              <div><span className="pcard-price">{selected?.family}</span><span className="pcard-period"> / month</span></div>
+              <div className="pcard-label">{lang==='fr'?'Famille':'Family'} <span style={{ fontWeight:400, fontSize:11, opacity:.7 }}>{lang==='fr'?'Vous + 4 membres':'You + 4 members'}</span></div>
+              <div><span className="pcard-price">{selected?.family}</span><span className="pcard-period"> {t('period')}</span></div>
               <div className="pcard-feats">
-                {['All Solo features for you + 4 family members','App + WhatsApp triage, 24/7','Video & voice consultations','Digital prescriptions','Health records','3 free medication deliveries / month','10% off any partner clinic'].map(f => (
+                {(lang==='fr'
+                  ? ['Toutes les fonctionnalités Solo pour vous + 4 membres','App + triage WhatsApp, 24h/24','Consultations vidéo et voix','Ordonnances numériques','Dossier de santé','3 livraisons de médicaments gratuites / mois','10% de réduction dans toute clinique partenaire']
+                  : ['All Solo features for you + 4 family members','App + WhatsApp triage, 24/7','Video & voice consultations','Digital prescriptions','Health records','3 free medication deliveries / month','10% off any partner clinic']
+                ).map(f => (
                   <div className="pcard-feat" key={f}><span className="pcard-feat-check">✓</span><span>{f}</span></div>
                 ))}
               </div>
-              <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none', textAlign:'center', justifyContent:'center' }}>Get started</a>
+              <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none', textAlign:'center', justifyContent:'center' }}>{t('get_started')}</a>
             </div>
           </div>
 
           <div className="gov-banner">
             <div>
-              <h3>Covered by a government program?</h3>
-              <p>If your country has a national health insurance scheme, Klinova consultations may be fully covered. Ask your local health office or contact us to check.</p>
+              <h3>{t('gov_h')}</h3>
+              <p>{t('gov_p')}</p>
             </div>
-            <a href={`mailto:contact@klinova.co?subject=Government Coverage – ${selected?.name}`} className="btn btn-primary" style={{ textDecoration:'none', whiteSpace:'nowrap' }}>Check my coverage</a>
+            <a href={`mailto:contact@klinova.co?subject=Government Coverage – ${selected?.name}`} className="btn btn-primary" style={{ textDecoration:'none', whiteSpace:'nowrap' }}>{t('gov_cta')}</a>
           </div>
         </div>
       </section>
@@ -329,9 +425,9 @@ export default function PatientsPage() {
       {/* MEDICAL STANDARDS */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">Medical standards</div>
-          <h2>Licensed physicians, country by country.</h2>
-          <p className="sub">Every doctor on Klinova holds active registration with the national medical licensing authority in their country before they can see patients.</p>
+          <div className="eyebrow">{t('lic_ey')}</div>
+          <h2>{t('lic_h')}</h2>
+          <p className="sub">{t('lic_sub')}</p>
           <div className="lic-grid">
             {[
               { country:'Togo', body:'Ordre des Médecins du Togo' },
@@ -347,12 +443,12 @@ export default function PatientsPage() {
           </div>
           <div className="trust-cols">
             <div className="trust-col">
-              <h3 style={{ fontFamily:display, fontSize:18, marginBottom:10 }}>Built on clinical expertise.</h3>
-              <p style={{ fontSize:14, color:C.mute, lineHeight:1.7 }}>Klinova's triage logic, prescription workflows, and patient safety standards are developed alongside practicing physicians and public health professionals across the region. No patient is seen without a credentialed provider.</p>
+              <h3 style={{ fontFamily:display, fontSize:18, marginBottom:10 }}>{t('tru_h1')}</h3>
+              <p style={{ fontSize:14, color:C.mute, lineHeight:1.7 }}>{t('tru_p1')}</p>
             </div>
             <div className="trust-col">
-              <h3 style={{ fontFamily:display, fontSize:18, marginBottom:10 }}>Your data, protected by law.</h3>
-              <p style={{ fontSize:14, color:C.mute, lineHeight:1.7, marginBottom:12 }}>We comply with GDPR, HIPAA, and applicable national health data laws in Togo, Ghana, Benin, and Côte d'Ivoire. All records are end-to-end encrypted. You own your data.</p>
+              <h3 style={{ fontFamily:display, fontSize:18, marginBottom:10 }}>{t('tru_h2')}</h3>
+              <p style={{ fontSize:14, color:C.mute, lineHeight:1.7, marginBottom:12 }}>{t('tru_p2')}</p>
               <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
                 {['GDPR','HIPAA','EU 2016/679','45 CFR 160/164'].map(t => (
                   <span key={t} style={{ background:C.greenSoft, color:C.greenDeep, fontSize:11, fontWeight:700, padding:'4px 10px', borderRadius:999 }}>{t}</span>
@@ -366,11 +462,11 @@ export default function PatientsPage() {
       {/* CTA */}
       <section style={{ borderBottom:'none', background:C.greenDeep, padding:'64px 0' }}>
         <div className="wrap" style={{ textAlign:'center' }}>
-          <h2 style={{ color:'#fff' }}>Ready to see a doctor?</h2>
-          <p style={{ color:'rgba(255,255,255,.7)', marginTop:14, fontSize:16 }}>Create a free account and speak with a licensed doctor today.</p>
+          <h2 style={{ color:'#fff' }}>{t('cta_h')}</h2>
+          <p style={{ color:'rgba(255,255,255,.7)', marginTop:14, fontSize:16 }}>{t('cta_p')}</p>
           <div style={{ display:'flex', gap:12, justifyContent:'center', marginTop:28, flexWrap:'wrap' }}>
-            <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none' }}>Create free account</a>
-            <a href="https://wa.me/22890000000" className="btn" style={{ background:'rgba(255,255,255,.15)', color:'#fff', border:'1.5px solid rgba(255,255,255,.2)', textDecoration:'none' }}>WhatsApp us</a>
+            <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none' }}>{t('cta_b1')}</a>
+            <a href="https://wa.me/22890000000" className="btn" style={{ background:'rgba(255,255,255,.15)', color:'#fff', border:'1.5px solid rgba(255,255,255,.2)', textDecoration:'none' }}>{t('cta_b2')}</a>
           </div>
         </div>
       </section>
@@ -380,37 +476,37 @@ export default function PatientsPage() {
           <div className="footer-grid">
             <div>
               <div className="footer-logo-name">KLINOVA</div>
-              <div className="footer-blurb">The Invisible Grid powering African healthcare. Lomé, Togo.</div>
-              <div className="footer-tagline">Born in Africa. Built for Life.</div>
+              <div className="footer-blurb">{t('ft_blurb')}</div>
+              <div className="footer-tagline">{t('ft_tag')}</div>
             </div>
             <div>
-              <div className="footer-col-title">Product</div>
+              <div className="footer-col-title">{t('ft_product')}</div>
               <div className="footer-col">
-                <a href="/patients">For patients</a>
-                <a href="/partner">For partners</a>
-                <a href="/governments">For governments</a>
-                <a href="/#pricing">Pricing</a>
+                <a href="/patients">{lang==='fr'?'Pour les patients':'For patients'}</a>
+                <a href="/partner">{lang==='fr'?'Pour les partenaires':'For partners'}</a>
+                <a href="/governments">{lang==='fr'?'Pour les gouvernements':'For governments'}</a>
+                <a href="/#pricing">{lang==='fr'?'Tarifs':'Pricing'}</a>
               </div>
             </div>
             <div>
-              <div className="footer-col-title">Partners</div>
+              <div className="footer-col-title">{t('ft_partners')}</div>
               <div className="footer-col">
-                <a href="/partner#clinics">Clinics</a>
-                <a href="/partner#pharmacies">Pharmacies</a>
-                <a href="/partner#doctors">Doctors</a>
-                <a href="/governments">Governments</a>
+                <a href="/partner#clinics">{lang==='fr'?'Cliniques':'Clinics'}</a>
+                <a href="/partner#pharmacies">{lang==='fr'?'Pharmacies':'Pharmacies'}</a>
+                <a href="/partner#doctors">{lang==='fr'?'Médecins':'Doctors'}</a>
+                <a href="/governments">{lang==='fr'?'Gouvernements':'Governments'}</a>
               </div>
             </div>
             <div>
-              <div className="footer-col-title">Company</div>
+              <div className="footer-col-title">{t('ft_company')}</div>
               <div className="footer-col">
                 <a href="mailto:contact@klinova.co">Contact</a>
-                <a href="/privacy">Privacy and data</a>
+                <a href="/privacy">{lang==='fr'?'Confidentialité et données':'Privacy and data'}</a>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
-            <span>© 2026 Klinova. All rights reserved.</span>
+            <span>{t('ft_copy')}</span>
             <span>Powered by Klinova</span>
           </div>
         </div>

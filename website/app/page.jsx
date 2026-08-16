@@ -114,7 +114,7 @@ const IconStar = ({ filled }) => (
 /* ─── Translations ──────────────────────────────────────────── */
 const T = {
   en: {
-    eyebrow1: 'Government Healthcare Infrastructure for Africa',
+    eyebrow1: 'The Invisible Grid Powering African Healthcare',
     h1_p1:   'Deploy telemedicine to ',
     h1_accent: 'your citizens.',
     lede: "Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community without building a new clinic in each one. Individuals can also subscribe directly.",
@@ -324,7 +324,7 @@ const T = {
   },
 
   fr: {
-    eyebrow1: "Infrastructure de télémédecine gouvernementale pour l'Afrique",
+    eyebrow1: "La grille invisible qui alimente la santé africaine",
     h1_p1:   'Déployez la télémédecine pour ',
     h1_accent: 'vos citoyens.',
     lede: "Desservez les zones rurales. Réduisez la surpopulation des cliniques. Réduisez les coûts. Klinova fournit aux gouvernements l'infrastructure de télémédecine pour étendre les soins primaires à l'ensemble du territoire. Les particuliers peuvent également s'abonner directement.",
@@ -1019,27 +1019,24 @@ export default function Home() {
           </div>
         </nav>
 
-        {/* MOBILE MENU DRAWER */}
-        {menuOpen && (
-          <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
-            <nav className="mob-nav" onClick={e => e.stopPropagation()}>
-              <a href="#how" onClick={() => setMenuOpen(false)}>{t('nav_how')}</a>
-              <a href="/governments" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les gouvernements' : 'For Governments'}</a>
-              <a href="/patients" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les individus' : 'For Individuals'}</a>
-              <a href="/partner" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les partenaires' : 'For Partners'}</a>
-              <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
-              <div style={{ borderTop: `1px solid ${C.line}`, paddingTop: 20, display: 'flex', gap: 10 }}>
-                <a href="/login" className="btn btn-ghost" style={{ flex: 1, textDecoration: 'none', justifyContent: 'center', fontSize: 14 }}>{t('nav_login')}</a>
-                <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ flex: 1, textDecoration: 'none', justifyContent: 'center', fontSize: 14 }}>{t('nav_create')}</a>
-              </div>
-              <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
-                <button className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('en')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 18px' }}>EN</button>
-                <button className={lang === 'fr' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('fr')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 18px' }}>FR</button>
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
+
+      {/* MOBILE MENU DRAWER — outside header to avoid backdrop-filter clipping */}
+      {menuOpen && (
+        <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
+          <nav className="mob-nav" onClick={e => e.stopPropagation()}>
+            <a href="#how" onClick={() => setMenuOpen(false)}>{t('nav_how')}</a>
+            <a href="/governments" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les gouvernements' : 'For Governments'}</a>
+            <a href="/patients" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les individus' : 'For Individuals'}</a>
+            <a href="/partner" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les partenaires' : 'For Partners'}</a>
+            <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 16 }}>
+              <button className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('en')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 22px' }}>EN</button>
+              <button className={lang === 'fr' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('fr')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 22px' }}>FR</button>
+            </div>
+          </nav>
+        </div>
+      )}
 
       <main id="top">
         {/* HERO */}
