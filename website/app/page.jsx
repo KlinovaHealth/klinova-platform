@@ -730,6 +730,7 @@ export default function Home() {
   /* Language */
   const [lang, setLang] = useState('en')
   const [priceCountry, setPriceCountry] = useState('TG')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   /* Translation helper */
   const t = (key) => T[lang]?.[key] ?? T.en[key]
@@ -904,11 +905,22 @@ export default function Home() {
         .audience-card.audience-primary .btn-primary { background:#fff; color:${C.greenDeep}; box-shadow:none; }
         /* Nav logo sizing */
         .nav-logo-img { height: 64px; }
+        /* Hamburger */
+        .hamburger { display: none; background: none; border: none; cursor: pointer; color: ${C.ink}; padding: 6px; border-radius: 8px; line-height: 0; }
+        .hamburger:hover { background: rgba(14,107,79,.08); }
+        /* Mobile drawer */
+        .mob-drawer { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(21,48,42,.45); backdrop-filter: blur(4px); }
+        .mob-nav { position: absolute; top: 0; right: 0; bottom: 0; width: min(320px, 88vw); background: ${C.ivory}; padding: 80px 24px 32px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; box-shadow: -8px 0 32px rgba(0,0,0,.15); }
+        .mob-nav a { font-size: 17px; font-weight: 600; color: ${C.ink}; text-decoration: none; padding: 12px 0; border-bottom: 1px solid ${C.line}; }
+        .mob-nav a:hover { color: ${C.green}; }
+        .mob-nav a:last-of-type { border-bottom: none; }
 
         /* RESPONSIVE */
         .audience-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
         @media(max-width:960px){
           .nav-links{display:none}
+          .hamburger{display:flex}
+          .nav-lang{display:none}
           .nav-logo-img{height:48px}
           .hero-grid{grid-template-columns:1fr;gap:36px}
           .hero-img-card{order:-1}
@@ -932,22 +944,34 @@ export default function Home() {
           nav{padding:0 14px;height:58px}
           .nav-logo-img{height:36px}
           .nav-cta{display:none!important}
-          .wrap{padding:0 16px}
-          .hero{padding:40px 0 52px}
-          .lede{font-size:15px}
-          .cta{gap:8px}
-          .cta .btn{padding:11px 16px;font-size:13px}
-          .steps,.feat{grid-template-columns:1fr}
+          .nav-login{display:none!important}
+          .mob-drawer{display:block}
+          .wrap{padding:0 18px}
+          section{padding:48px 0}
+          .hero{padding:36px 0 52px}
+          .hero-grid{text-align:center}
+          .hero-img-card{display:none}
+          .lede{font-size:16px;max-width:none;margin-left:auto;margin-right:auto}
+          .trust{flex-direction:column;align-items:center;gap:8px}
+          .emergency-notice{max-width:none;text-align:left}
+          .cta{gap:10px;flex-direction:column;align-items:stretch}
+          .cta .btn{padding:15px 20px;font-size:15px;justify-content:center}
+          .steps{grid-template-columns:1fr 1fr}
+          .feat{grid-template-columns:1fr}
           .fbottom{flex-direction:column}
-          .fgrid{grid-template-columns:1fr}
+          .fgrid{grid-template-columns:1fr 1fr}
           .lchip{flex:1;min-width:calc(50% - 5px)}
-          .nav-login{font-size:12px!important;padding:7px 12px!important}
-.cta-band{padding:22px 18px}
-          .gov{padding:24px 18px}
+          .cta-band{padding:32px 20px;border-radius:18px}
+          .gov{padding:28px 18px;border-radius:18px}
           .audience-grid,.audience-3col{grid-template-columns:1fr}
           .lic-grid{grid-template-columns:1fr 1fr}
           .trust-col{padding:20px}
           footer{padding:44px 0 24px}
+          .impact{gap:24px}
+          h1{font-size:36px;letter-spacing:-.02em}
+          h2{font-size:26px}
+          .band-center{text-align:center}
+          .pilot-wrap{flex-direction:column;gap:24px}
         }
       `}</style>
 
@@ -974,7 +998,7 @@ export default function Home() {
             <a href="/login?mode=signup&role=patient" className="btn btn-primary nav-cta" style={{ fontSize: 13, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
               {t('nav_create')}
             </a>
-            <div className="lang-pill" role="group" aria-label="Language">
+            <div className="lang-pill nav-lang" role="group" aria-label="Language">
               <button
                 className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'}
                 onClick={() => setLang('en')}
@@ -984,8 +1008,35 @@ export default function Home() {
                 onClick={() => setLang('fr')}
               >FR</button>
             </div>
+            <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
+              {menuOpen
+                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+              }
+            </button>
           </div>
         </nav>
+
+        {/* MOBILE MENU DRAWER */}
+        {menuOpen && (
+          <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
+            <nav className="mob-nav" onClick={e => e.stopPropagation()}>
+              <a href="#how" onClick={() => setMenuOpen(false)}>{t('nav_how')}</a>
+              <a href="/governments" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les gouvernements' : 'For Governments'}</a>
+              <a href="/patients" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les individus' : 'For Individuals'}</a>
+              <a href="/partner" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les partenaires' : 'For Partners'}</a>
+              <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
+              <div style={{ borderTop: `1px solid ${C.line}`, paddingTop: 20, display: 'flex', gap: 10 }}>
+                <a href="/login" className="btn btn-ghost" style={{ flex: 1, textDecoration: 'none', justifyContent: 'center', fontSize: 14 }}>{t('nav_login')}</a>
+                <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ flex: 1, textDecoration: 'none', justifyContent: 'center', fontSize: 14 }}>{t('nav_create')}</a>
+              </div>
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+                <button className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('en')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 18px' }}>EN</button>
+                <button className={lang === 'fr' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('fr')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 18px' }}>FR</button>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main id="top">
