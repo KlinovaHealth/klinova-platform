@@ -215,7 +215,7 @@ export default function GovernmentsPage() {
         <div className="wrap">
           <div className="hero-badge">Government &amp; NGO partnerships</div>
           <h1>One doctor. Every<br/><span className="accent">1 in 5,000 villages.</span></h1>
-          <p className="lede">Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community without building a new clinic in each one. Individuals can also subscribe directly.</p>
+          <p className="lede">Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community, without building a new clinic in each one. Individuals can also subscribe directly.</p>
           <div className="cta">
             <a href="#contact" className="btn btn-primary">Request a briefing</a>
             <a href="mailto:contact@klinova.co" className="btn" style={{ background:'rgba(255,255,255,.1)', color:'#fff', border:'1.5px solid rgba(255,255,255,.2)', textDecoration:'none' }}>Download overview</a>
