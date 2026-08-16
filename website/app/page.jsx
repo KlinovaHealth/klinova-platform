@@ -136,16 +136,16 @@ const IconAlignRight = () => (
 /* ─── Translations ──────────────────────────────────────────── */
 const T = {
   en: {
-    eyebrow1: 'The Invisible Grid Powering African Healthcare',
-    h1_p1:   'Healthcare that speaks ',
-    h1_accent: 'your language.',
-    lede: "See a trusted doctor on your phone, get your prescription, and find nearby medicine — through the app, the web, or WhatsApp. Free via government health programs across Togo, Ghana, Benin, and Côte d'Ivoire.",
+    eyebrow1: 'Government Healthcare Infrastructure for Africa',
+    h1_p1:   'Deploy telemedicine to ',
+    h1_accent: 'your citizens.',
+    lede: "Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community — without building a new clinic in each one. Individuals can also subscribe directly.",
     btn1: 'Get the app',
     btn2: 'For clinics and partners',
     nav_login: 'Log in',
     nav_create: 'Create account',
-    trust1: 'Free via government programs',
-    trust2: 'Encrypted and private',
+    trust1: 'Citizens access care at no cost',
+    trust2: 'Deploy in 48 hours from contract',
     trust3: 'Works on any phone',
 
     lband_eyebrow: 'Speak naturally',
@@ -271,8 +271,8 @@ const T = {
     cta_pharmacy_sub: 'For pharmacies',
     cta_gov_btn: 'Request a demo',
     cta_gov_sub: 'For governments and NGOs',
-    price_eyebrow: 'Simple pricing',
-    price_h: 'Plans that work for real life.',
+    price_eyebrow: 'Access for every situation',
+    price_h: 'For governments, individuals, and partners.',
     price_individual: 'Solo',
     price_family: 'Family',
     price_family_sub: 'You + 4 family members',
@@ -346,16 +346,16 @@ const T = {
   },
 
   fr: {
-    eyebrow1: "La Grille Invisible qui Alimente la Santé Africaine",
-    h1_p1:   'Une santé qui parle ',
-    h1_accent: 'votre langue.',
-    lede: "Consultez un médecin de confiance depuis votre téléphone, recevez votre ordonnance et trouvez vos médicaments à proximité — par appli, web ou WhatsApp. Gratuit via les programmes de santé gouvernementaux.",
+    eyebrow1: "Infrastructure de télémédecine gouvernementale pour l'Afrique",
+    h1_p1:   'Déployez la télémédecine pour ',
+    h1_accent: 'vos citoyens.',
+    lede: "Desservez les zones rurales. Réduisez la surpopulation des cliniques. Réduisez les coûts. Klinova fournit aux gouvernements l'infrastructure de télémédecine pour étendre les soins primaires à l'ensemble du territoire. Les particuliers peuvent également s'abonner directement.",
     btn1: "Télécharger l'appli",
     nav_login: 'Connexion',
     nav_create: 'Créer un compte',
     btn2: 'Cliniques et partenaires',
-    trust1: 'Gratuit via les programmes gouvernementaux',
-    trust2: 'Chiffré et confidentiel',
+    trust1: 'Les citoyens accèdent aux soins gratuitement',
+    trust2: 'Déploiement en 48 heures dès la signature',
     trust3: 'Sur tout téléphone',
 
     lband_eyebrow: 'Parlez naturellement',
@@ -481,8 +481,8 @@ const T = {
     cta_pharmacy_sub: 'Pour les pharmacies',
     cta_gov_btn: 'Demander une démonstration',
     cta_gov_sub: 'Pour les gouvernements et ONG',
-    price_eyebrow: 'Tarification simple',
-    price_h: 'Des plans adaptés à la vie réelle.',
+    price_eyebrow: 'Accès pour chaque situation',
+    price_h: 'Pour gouvernements, individus et partenaires.',
     price_individual: 'Solo',
     price_family: 'Famille',
     price_family_sub: 'Vous + 4 membres de la famille',
@@ -1092,10 +1092,10 @@ export default function Home() {
 
           <div className="nav-links">
             <a href="#how">{t('nav_how')}</a>
-            <a href="/patients">{t('nav_patients')}</a>
-            <a href="/partner">{t('nav_partners')}</a>
-            <a href="#pricing">{t('nav_pricing')}</a>
-            <a href="/governments">{t('nav_gov')}</a>
+            <a href="/governments">{lang === 'fr' ? 'Pour les gouvernements' : 'For Governments'}</a>
+            <a href="/patients">{lang === 'fr' ? 'Pour les individus' : 'For Individuals'}</a>
+            <a href="/partner">{lang === 'fr' ? 'Pour les partenaires' : 'For Partners'}</a>
+            <a href="mailto:contact@klinova.co">Contact</a>
           </div>
 
           <div className="nav-right">
@@ -1140,8 +1140,12 @@ export default function Home() {
                 </span>
               </div>
               <div className="cta">
-                <a href="/download" className="btn btn-primary" style={{ textDecoration: 'none' }}>{t('btn1')}</a>
-                <a href="/get-started/clinics" className="btn btn-ghost" style={{ textDecoration: 'none' }}>{t('btn2')}</a>
+                <a href="/governments" className="btn btn-primary" style={{ textDecoration: 'none' }}>
+                  {lang === 'fr' ? 'Programmes gouvernementaux' : 'Government programs'}
+                </a>
+                <a href="/login?mode=signup&role=patient" className="btn btn-ghost" style={{ textDecoration: 'none', fontSize: 13 }}>
+                  {lang === 'fr' ? 'Particuliers : commencer' : 'Individuals: get started'}
+                </a>
               </div>
               <div className="trust">
                 <span className="trust-item"><span className="trust-dot" />{t('trust1')}</span>
@@ -1206,35 +1210,42 @@ export default function Home() {
               <p className="sub">{lang === 'fr' ? 'Patients, professionnels de santé ou gouvernements — Klinova a été conçu pour vous.' : 'Patients, healthcare providers, and governments — each with their own experience on Klinova.'}</p>
             </div>
             <div className="audience-3col">
-              {/* Patients */}
+              {/* Governments — PRIMARY */}
+              <div style={{ background: C.greenDeep, borderRadius: 24, padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 340 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(217,154,43,.18)', display: 'grid', placeItems: 'center', color: C.gold }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+                </div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.gold }}>{lang === 'fr' ? 'Pour les gouvernements et ONG' : 'For governments and NGOs'}</div>
+                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: '#fff', margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Soins primaires pour chaque village rural.' : 'Primary care for every rural village.'}</h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.72)', lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? "Klinova est l'infrastructure de télémédecine qui permet aux gouvernements d'étendre les soins primaires à chaque communauté rurale, sans construire de nouvelles cliniques." : 'Klinova is the telemedicine backbone letting governments extend quality primary care to every remote community, without building new clinics. Citizens access care at no cost.'}</p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <a href="/governments" style={{ display: 'inline-block', background: C.gold, color: '#fff', fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Voir le programme →' : 'View the program →'}</a>
+                  <a href="mailto:contact@klinova.co?subject=Government Partnership" style={{ display: 'inline-block', background: 'rgba(255,255,255,.1)', color: 'rgba(255,255,255,.85)', fontWeight: 600, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.18)', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Nous contacter' : 'Contact us'}</a>
+                </div>
+              </div>
+              {/* Individuals */}
               <div style={{ background: C.green, borderRadius: 24, padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 340 }}>
-                <div style={{ fontSize: 36 }}>🏥</div>
-                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,.6)' }}>{lang === 'fr' ? 'Pour les patients' : 'For patients'}</div>
-                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: '#fff', margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Soins en votre langue, sur votre téléphone.' : 'Healthcare in your language, on any phone.'}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.75)', lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Consultez un médecin agréé par chat, voix ou vidéo. Ordonnances numériques, livraison de médicaments, dossier chiffré.' : 'See a licensed doctor by chat, voice, or video. Digital prescriptions, medication delivery, encrypted records.'}</p>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,.12)', display: 'grid', placeItems: 'center', color: '#fff' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,.6)' }}>{lang === 'fr' ? 'Pour les individus' : 'For individuals'}</div>
+                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: '#fff', margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Soins de qualite, sur votre telephone.' : 'Quality healthcare, on any phone.'}</h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.75)', lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Consultez un medecin agree par chat, voix ou video. Ordonnances numeriques, livraison de medicaments, dossier chiffre. A partir de 1 500 XOF/mois.' : 'See a licensed doctor by chat, voice, or video. Digital prescriptions, medication delivery, encrypted records. From 1,500 XOF/month — or free via a government program if eligible.'}</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <a href="/patients" style={{ display: 'inline-block', background: '#fff', color: C.greenDeep, fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'En savoir plus →' : 'Learn more →'}</a>
-                  <a href="/login?mode=signup&role=patient" style={{ display: 'inline-block', background: 'rgba(255,255,255,.15)', color: '#fff', fontWeight: 600, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.25)', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Créer un compte' : 'Get started'}</a>
+                  <a href="/login?mode=signup&role=patient" style={{ display: 'inline-block', background: 'rgba(255,255,255,.15)', color: '#fff', fontWeight: 600, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.25)', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Commencer' : 'Get started'}</a>
                 </div>
               </div>
               {/* Partners */}
               <div style={{ background: C.sand, border: `1.5px solid ${C.line}`, borderRadius: 24, padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 340 }}>
-                <div style={{ fontSize: 36 }}>🤝</div>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(14,107,79,.1)', display: 'grid', placeItems: 'center', color: C.green }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
                 <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.mute }}>{lang === 'fr' ? 'Pour les partenaires' : 'For partners'}</div>
-                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: C.ink, margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Rejoignez le réseau de santé.' : 'Join Africa\'s healthcare grid.'}</h3>
-                <p style={{ fontSize: 14, color: C.mute, lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Cliniques, pharmacies, médecins et transporteurs — connectez-vous au réseau Klinova et recevez des patients référencés.' : 'Clinics, pharmacies, doctors, and delivery providers — connect to Klinova\'s patient network and receive verified referrals.'}</p>
+                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: C.ink, margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? "Rejoignez le reseau de sante de l'Afrique." : "Join Africa's healthcare grid."}</h3>
+                <p style={{ fontSize: 14, color: C.mute, lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Cliniques, pharmacies, medecins et transporteurs — connectez-vous au reseau Klinova et recevez des patients references.' : 'Clinics, pharmacies, doctors, employers, and delivery providers — join the Klinova network and receive verified patient referrals.'}</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <a href="/partner" style={{ display: 'inline-block', background: C.green, color: '#fff', fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Devenir partenaire →' : 'Become a partner →'}</a>
-                </div>
-              </div>
-              {/* Governments */}
-              <div style={{ background: C.greenDeep, borderRadius: 24, padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 340 }}>
-                <div style={{ fontSize: 36 }}>🏛️</div>
-                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.gold }}>{lang === 'fr' ? 'Pour les gouvernements' : 'For governments'}</div>
-                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: '#fff', margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Soins primaires pour chaque village rural.' : 'Primary care for every rural village.'}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.72)', lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Klinova est l\'infrastructure de télémédecine qui permet aux gouvernements d\'étendre les soins primaires à chaque communauté rurale.' : 'Klinova is the telemedicine backbone letting governments extend quality primary care to every remote community — without building new clinics.'}</p>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <a href="/governments" style={{ display: 'inline-block', background: C.gold, color: '#fff', fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Voir le programme →' : 'View the program →'}</a>
                 </div>
               </div>
             </div>
@@ -1377,6 +1388,44 @@ export default function Home() {
                   ))}
                 </div>
 
+                {/* Government tier — PRIMARY, shown first */}
+                <div style={{ marginBottom: 40, background: C.greenDeep, borderRadius: 20, padding: '32px 36px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', border: `2px solid ${C.gold}` }}>
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.gold, marginBottom: 8 }}>
+                      {lang === 'fr' ? 'Gouvernements, ONG & assureurs' : 'Governments, NGOs & insurers'}
+                    </div>
+                    <div style={{ fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: display, marginBottom: 8, lineHeight: 1.2 }}>
+                      {lang === 'fr' ? 'Accès gratuit pour vos citoyens via les programmes nationaux' : 'Free access for your citizens via national health programs'}
+                    </div>
+                    <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 0 }}>
+                      {(lang === 'fr'
+                        ? ['Modèle capité personnalisé selon le volume de déploiement', 'Nous gérons la télémédecine, le routage des ordonnances et la livraison', 'Tableau de bord gouvernemental en temps réel et rapports', 'Intégration FHIR R4 avec les systèmes du ministère']
+                        : ['Custom capitated model based on deployment size', 'We handle telemedicine, prescription routing, and last-mile delivery', 'Real-time government dashboard and reporting', 'FHIR R4 integration with ministry systems']
+                      ).map(item => (
+                        <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 13.5, color: 'rgba(255,255,255,.78)' }}>
+                          <span style={{ width: 5, height: 5, borderRadius: '50%', background: C.gold, flexShrink: 0, marginTop: 7 }} />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexShrink: 0 }}>
+                    <a href="/governments" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: C.gold, color: '#fff', textDecoration: 'none', padding: '12px 24px', borderRadius: 10, fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap' }}>
+                      {lang === 'fr' ? 'Voir le programme →' : 'View the program →'}
+                    </a>
+                    <a href="mailto:contact@klinova.co?subject=Government Partnership" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.08)', color: 'rgba(255,255,255,.8)', textDecoration: 'none', padding: '10px 24px', borderRadius: 10, fontWeight: 600, fontSize: 13, whiteSpace: 'nowrap', border: '1.5px solid rgba(255,255,255,.15)' }}>
+                      {lang === 'fr' ? 'Contacter notre equipe' : 'Contact our team'}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Individual plans — secondary */}
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.mute, marginBottom: 16, textAlign: 'center' }}>
+                    {lang === 'fr' ? 'Pour les individus qui souscrivent directement' : 'For individuals who subscribe directly'}
+                  </div>
+                </div>
+
                 {/* Plan cards */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20, maxWidth: 640, margin: '0 auto 48px' }}>
                   {/* Individual */}
@@ -1461,24 +1510,6 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                </div>
-
-                {/* Government / institutional tier */}
-                <div style={{ marginTop: 28, background: C.greenDeep, borderRadius: 20, padding: '28px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap' }}>
-                  <div>
-                    <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.gold, marginBottom: 8 }}>
-                      {lang === 'fr' ? 'Gouvernements & ONG' : 'Governments & NGOs'}
-                    </div>
-                    <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', fontFamily: display, marginBottom: 6 }}>
-                      {lang === 'fr' ? 'Accès gratuit via les programmes nationaux' : 'Free access via national health programs'}
-                    </div>
-                    <p style={{ fontSize: 14, color: 'rgba(255,255,255,.68)', margin: 0, maxWidth: 52 + 'ch', lineHeight: 1.6 }}>
-                      {lang === 'fr' ? 'Les gouvernements déploient Klinova comme infrastructure de télémédecine pour leurs citoyens. Les patients n\'ont rien à payer.' : 'Governments deploy Klinova as telemedicine infrastructure for their citizens. Patients pay nothing — the program is covered by a national or NGO contract.'}
-                    </p>
-                  </div>
-                  <a href="/governments" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: C.gold, color: '#fff', textDecoration: 'none', padding: '12px 24px', borderRadius: 10, fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap', flexShrink: 0 }}>
-                    {lang === 'fr' ? 'Voir le programme →' : 'View the program →'}
-                  </a>
                 </div>
 
                 <p style={{ textAlign: 'center', fontSize: 12, color: '#AAA', marginTop: 28 }}>{t('price_note')}</p>
