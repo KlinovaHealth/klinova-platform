@@ -4,7 +4,7 @@ import { createAdminClient } from '@/lib/supabase-server'
 const PUBLIC_ROLES = ['patient', 'doctor', 'pharmacist', 'government', 'frontdesk']
 
 export async function POST(request) {
-  const { email, password, full_name, role } = await request.json()
+  const { email, password, full_name, role, phone } = await request.json()
 
   if (!email || !password || !full_name || !role) {
     return NextResponse.json({ error: 'All fields are required.' }, { status: 400 })
@@ -37,6 +37,7 @@ export async function POST(request) {
     full_name,
     role,
     status,
+    phone: phone ?? null,
     force_password_change: false,
   })
 

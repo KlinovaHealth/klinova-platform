@@ -11,6 +11,14 @@ function logAuditEvent(action, userId, metadata) {
   }).catch(() => {})
 }
 
+function notifyWhatsApp(to, type, payload) {
+  fetch('/api/whatsapp/notify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ to, type, payload }),
+  }).catch(() => {})
+}
+
 export default function LoginPage() {
   return (
     <Suspense fallback={<LoadingCard />}>
@@ -30,7 +38,7 @@ const ROLES = {
     heading: 'Create your account',
     sub: 'Get care in your language, on your phone.',
     color: C.green,
-    fields: ['name', 'email', 'password'],
+    fields: ['name', 'phone', 'email', 'password'],
   },
   doctor: {
     label: 'Doctor / Clinician',
@@ -158,6 +166,7 @@ function AuthForm() {
     const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({ email, password })
     if (signInErr) { setInfo('Account created! Please sign in.'); setMode('login'); setLoading(false); return }
     logAuditEvent('user.created', signInData?.user?.id, { email, role })
+    if (role === 'patient' && phone) notifyWhatsApp(phone, 'welcome', { name, lang: 'fr' })
     router.push('/dashboard')
   }
 
