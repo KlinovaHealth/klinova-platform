@@ -30,56 +30,189 @@ export default function LoginPage() {
 /* ── Brand colours ─────────────────────────────── */
 const C = { green: '#0E6B4F', deep: '#0A5440', ivory: '#F5EFE3', ink: '#15302A', mute: '#6E7F76', line: '#E7DECC', soft: '#E3EFE8', gold: '#D99A2B' }
 
-/* ── Role config ────────────────────────────────── */
-const ROLES = {
-  patient: {
-    label: 'Patient',
-    icon: '🧑‍⚕️',
-    heading: 'Create your account',
-    sub: 'Get care in your language, on your phone.',
-    color: C.green,
-    fields: ['name', 'phone', 'email', 'password'],
+/* ── Translations ───────────────────────────────── */
+const T = {
+  en: {
+    picker_title: 'Who are you signing up as?',
+    picker_sub: 'Your role shapes your experience; pick what applies to you.',
+    already_account: 'Already have an account?',
+    sign_in: 'Sign in',
+
+    role_patient_label: "I'm a patient",
+    role_patient_sub: 'Get care, consultations & prescriptions',
+    role_doctor_label: "I'm a doctor",
+    role_doctor_sub: 'Join as a partner or teledoctor',
+    role_frontdesk_label: 'I manage a clinic',
+    role_frontdesk_sub: 'Register your clinic or hospital',
+    role_pharmacist_label: 'I run a pharmacy',
+    role_pharmacist_sub: 'Register and manage your stock',
+    role_government_label: 'Government / NGO',
+    role_government_sub: 'Access regional health data & intelligence',
+
+    patient_label: 'Patient',
+    doctor_label: 'Doctor / Clinician',
+    frontdesk_label: 'Clinic / Hospital',
+    pharmacist_label: 'Pharmacy',
+    government_label: 'Government / NGO',
+
+    patient_heading: 'Create your account',
+    patient_sub: 'Get care in your language, on your phone.',
+    doctor_heading: 'Apply as a doctor',
+    doctor_sub: 'Join the Klinova network. Your application will be reviewed within 48 hours.',
+    frontdesk_heading: 'Register your clinic',
+    frontdesk_sub: 'List your facility and start receiving pre-triaged referrals.',
+    pharmacist_heading: 'Register your pharmacy',
+    pharmacist_sub: 'Receive electronic prescriptions and list your stock on Klinova.',
+    government_heading: 'Register your organisation',
+    government_sub: 'Access aggregate health data and outbreak intelligence for your region.',
+
+    change: '← Change',
+
+    fld_full_name: 'Full name',
+    fld_specialty: 'Specialty',
+    fld_org_name: 'Organisation name',
+    fld_clinic_name: 'Clinic / Hospital name',
+    fld_pharmacy_name: 'Pharmacy name',
+    fld_city: 'City',
+    fld_country: 'Country',
+    fld_phone: 'Phone number',
+    fld_email: 'Email',
+    fld_password: 'Password',
+
+    ph_name: 'Your name',
+    ph_specialty: 'e.g. General Practice, Pediatrics',
+    ph_org_name: 'e.g. Ministry of Health, Togo',
+    ph_clinic_name: 'e.g. Clinique Saint-Jean',
+    ph_pharmacy_name: 'e.g. Pharmacie Centrale',
+    ph_city: 'e.g. Lomé',
+    ph_country: 'Select country',
+    ph_email: 'you@example.com',
+    ph_password: 'Min. 8 characters',
+
+    btn_create_account: 'Create account',
+    btn_submit_application: 'Submit application',
+    btn_register: 'Register',
+    btn_creating: 'Creating account…',
+
+    privacy: 'By creating an account you agree to our',
+    privacy_link: 'Privacy Policy',
+
+    login_title: 'Welcome back',
+    login_sub: 'Access your Klinova dashboard.',
+    btn_sign_in: 'Sign in',
+    btn_signing_in: 'Signing in…',
+    forgot_password: 'Forgot password?',
+    no_account: "Don't have an account?",
+    create_free: 'Create a free account →',
+
+    forgot_title: 'Reset your password',
+    forgot_sub: "Enter your email and we'll send a reset link.",
+    btn_send_reset: 'Send reset link',
+    btn_sending: 'Sending…',
+    back_to_signin: '← Back to sign in',
+
+    account_created: 'Account created! Please sign in.',
+    reset_sent: 'Check your email — we sent a reset link.',
   },
-  doctor: {
-    label: 'Doctor / Clinician',
-    icon: '👨‍⚕️',
-    heading: 'Apply as a doctor',
-    sub: 'Join the Klinova network. Your application will be reviewed within 48 hours.',
-    color: '#1A6B5A',
-    fields: ['name', 'specialty', 'country', 'email', 'password'],
-  },
-  frontdesk: {
-    label: 'Clinic / Hospital',
-    icon: '🏥',
-    heading: 'Register your clinic',
-    sub: 'List your facility and start receiving pre-triaged referrals.',
-    color: '#CF5A3C',
-    fields: ['name', 'clinic_name', 'city', 'country', 'phone', 'email', 'password'],
-  },
-  pharmacist: {
-    label: 'Pharmacy',
-    icon: '💊',
-    heading: 'Register your pharmacy',
-    sub: 'Receive electronic prescriptions and list your stock on Klinova.',
-    color: '#D99A2B',
-    fields: ['name', 'pharmacy_name', 'city', 'country', 'phone', 'email', 'password'],
-  },
-  government: {
-    label: 'Government / NGO',
-    icon: '🏛️',
-    heading: 'Register your organisation',
-    sub: 'Access aggregate health data and outbreak intelligence for your region.',
-    color: '#15302A',
-    fields: ['name', 'org_name', 'country', 'email', 'password'],
+  fr: {
+    picker_title: 'Vous inscrivez-vous en tant que ?',
+    picker_sub: 'Votre rôle façonne votre expérience ; choisissez ce qui vous correspond.',
+    already_account: 'Vous avez déjà un compte ?',
+    sign_in: 'Se connecter',
+
+    role_patient_label: 'Je suis patient(e)',
+    role_patient_sub: 'Obtenez des soins, consultations et ordonnances',
+    role_doctor_label: 'Je suis médecin',
+    role_doctor_sub: 'Rejoignez en tant que partenaire ou télémédecin',
+    role_frontdesk_label: 'Je gère une clinique',
+    role_frontdesk_sub: 'Enregistrez votre clinique ou hôpital',
+    role_pharmacist_label: 'Je gère une pharmacie',
+    role_pharmacist_sub: 'Enregistrez et gérez votre stock',
+    role_government_label: 'Gouvernement / ONG',
+    role_government_sub: "Accédez aux données de santé régionales et à l'intelligence",
+
+    patient_label: 'Patient',
+    doctor_label: 'Médecin / Clinicien',
+    frontdesk_label: 'Clinique / Hôpital',
+    pharmacist_label: 'Pharmacie',
+    government_label: 'Gouvernement / ONG',
+
+    patient_heading: 'Créez votre compte',
+    patient_sub: 'Recevez des soins dans votre langue, sur votre téléphone.',
+    doctor_heading: 'Postuler en tant que médecin',
+    doctor_sub: 'Rejoignez le réseau Klinova. Votre candidature sera examinée dans les 48 heures.',
+    frontdesk_heading: 'Enregistrez votre clinique',
+    frontdesk_sub: 'Référencez votre établissement et commencez à recevoir des référés pré-triés.',
+    pharmacist_heading: 'Enregistrez votre pharmacie',
+    pharmacist_sub: 'Recevez des ordonnances électroniques et référencez votre stock sur Klinova.',
+    government_heading: 'Enregistrez votre organisation',
+    government_sub: "Accédez aux données de santé agrégées et à l'intelligence épidémique pour votre région.",
+
+    change: '← Changer',
+
+    fld_full_name: 'Nom complet',
+    fld_specialty: 'Spécialité',
+    fld_org_name: "Nom de l'organisation",
+    fld_clinic_name: 'Nom de la clinique / hôpital',
+    fld_pharmacy_name: 'Nom de la pharmacie',
+    fld_city: 'Ville',
+    fld_country: 'Pays',
+    fld_phone: 'Numéro de téléphone',
+    fld_email: 'E-mail',
+    fld_password: 'Mot de passe',
+
+    ph_name: 'Votre nom',
+    ph_specialty: 'ex. Médecine générale, Pédiatrie',
+    ph_org_name: 'ex. Ministère de la Santé, Togo',
+    ph_clinic_name: 'ex. Clinique Saint-Jean',
+    ph_pharmacy_name: 'ex. Pharmacie Centrale',
+    ph_city: 'ex. Lomé',
+    ph_country: 'Sélectionnez un pays',
+    ph_email: 'vous@exemple.com',
+    ph_password: '8 caractères minimum',
+
+    btn_create_account: 'Créer un compte',
+    btn_submit_application: 'Soumettre la candidature',
+    btn_register: "S'inscrire",
+    btn_creating: 'Création du compte…',
+
+    privacy: 'En créant un compte, vous acceptez notre',
+    privacy_link: 'Politique de confidentialité',
+
+    login_title: 'Bon retour',
+    login_sub: 'Accédez à votre tableau de bord Klinova.',
+    btn_sign_in: 'Se connecter',
+    btn_signing_in: 'Connexion…',
+    forgot_password: 'Mot de passe oublié ?',
+    no_account: "Vous n'avez pas de compte ?",
+    create_free: 'Créer un compte gratuit →',
+
+    forgot_title: 'Réinitialisez votre mot de passe',
+    forgot_sub: 'Entrez votre e-mail et nous vous enverrons un lien de réinitialisation.',
+    btn_send_reset: 'Envoyer le lien',
+    btn_sending: 'Envoi…',
+    back_to_signin: '← Retour à la connexion',
+
+    account_created: 'Compte créé ! Veuillez vous connecter.',
+    reset_sent: 'Vérifiez votre e-mail — nous avons envoyé un lien de réinitialisation.',
   },
 }
 
-const ROLE_PICKER = [
-  { key: 'patient',    icon: '🧑‍⚕️', label: 'I\'m a patient',          sub: 'Get care, consultations & prescriptions' },
-  { key: 'doctor',     icon: '👨‍⚕️', label: 'I\'m a doctor',            sub: 'Join as a partner or teledoctor' },
-  { key: 'frontdesk',  icon: '🏥', label: 'I manage a clinic',         sub: 'Register your clinic or hospital' },
-  { key: 'pharmacist', icon: '💊', label: 'I run a pharmacy',          sub: 'Register and manage your stock' },
-  { key: 'government', icon: '🏛️', label: 'Government / NGO',          sub: 'Access regional health data & intelligence', wide: true },
+/* ── Role config ────────────────────────────────── */
+const ROLES = {
+  patient:    { icon: '🧑‍⚕️', color: C.green,    fields: ['name', 'phone', 'email', 'password'] },
+  doctor:     { icon: '👨‍⚕️', color: '#1A6B5A',  fields: ['name', 'specialty', 'country', 'email', 'password'] },
+  frontdesk:  { icon: '🏥',  color: '#CF5A3C',  fields: ['name', 'clinic_name', 'city', 'country', 'phone', 'email', 'password'] },
+  pharmacist: { icon: '💊',  color: '#D99A2B',  fields: ['name', 'pharmacy_name', 'city', 'country', 'phone', 'email', 'password'] },
+  government: { icon: '🏛️', color: '#15302A',  fields: ['name', 'org_name', 'country', 'email', 'password'] },
+}
+
+const ROLE_PICKER_KEYS = [
+  { key: 'patient',    wide: false },
+  { key: 'doctor',     wide: false },
+  { key: 'frontdesk',  wide: false },
+  { key: 'pharmacist', wide: false },
+  { key: 'government', wide: true  },
 ]
 
 /* ── SVG logo mark (inline, always crisp) ─────── */
@@ -108,6 +241,9 @@ function AuthForm() {
   const initialMode  = searchParams.get('mode') === 'signup' ? 'signup' : 'login'
   const initialRole  = searchParams.get('role') || ''
   const next         = searchParams.get('next') || '/dashboard'
+
+  const [lang, setLang]         = useState('en')
+  const t = k => T[lang]?.[k] ?? T.en[k]
 
   const [mode, setMode]         = useState(initialMode)
   const [role, setRole]         = useState(ROLES[initialRole] ? initialRole : '')
@@ -164,7 +300,7 @@ function AuthForm() {
     if (!res.ok) { setError(json.error || 'Something went wrong.'); setLoading(false); return }
     const supabase = createClient()
     const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({ email, password })
-    if (signInErr) { setInfo('Account created! Please sign in.'); setMode('login'); setLoading(false); return }
+    if (signInErr) { setInfo(t('account_created')); setMode('login'); setLoading(false); return }
     logAuditEvent('user.created', signInData?.user?.id, { email, role })
     if (role === 'patient' && phone) notifyWhatsApp(phone, 'welcome', { name, lang: 'fr' })
     router.push('/dashboard')
@@ -176,12 +312,29 @@ function AuthForm() {
     setLoading(true); setError('')
     const supabase = createClient()
     const { error: err } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/auth/first-login` })
-    if (err) { setError(err.message) } else { setInfo('Check your email — we sent a reset link.') }
+    if (err) { setError(err.message) } else { setInfo(t('reset_sent')) }
     setLoading(false)
   }
 
   const cfg = ROLES[role]
   const accentColor = cfg?.color ?? C.green
+
+  const LangPill = () => (
+    <div style={{ display: 'flex', justifyContent: 'center', gap: 4, marginBottom: 20 }}>
+      {['en', 'fr'].map(l => (
+        <button key={l} onClick={() => setLang(l)}
+          style={{
+            padding: '4px 14px', borderRadius: 999, fontSize: 12, fontWeight: 700,
+            fontFamily: 'inherit', cursor: 'pointer', transition: 'all .15s',
+            background: lang === l ? C.green : 'transparent',
+            color: lang === l ? '#fff' : C.mute,
+            border: `1.5px solid ${lang === l ? C.green : C.line}`,
+          }}>
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  )
 
   return (
     <div style={{ minHeight: '100vh', background: C.ivory, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
@@ -190,36 +343,39 @@ function AuthForm() {
       <div style={{ width: '100%', maxWidth: mode === 'signup' && !role ? 480 : 400, background: '#fff', borderRadius: 22, boxShadow: '0 4px 40px -8px rgba(15,48,42,.12), 0 1px 4px rgba(0,0,0,.06)', border: `1px solid ${C.line}`, padding: '36px 36px 32px', transition: 'max-width .2s' }}>
 
         {/* Logo */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
           <a href="/" style={{ display: 'inline-block' }}>
             <img src="/klinova-logo-white.png" alt="Klinova" style={{ height: 72, width: 'auto', display: 'block' }} />
           </a>
         </div>
 
+        {/* Lang toggle */}
+        <LangPill />
+
         {/* ── ROLE PICKER (signup + no role yet) ─────────────── */}
         {mode === 'signup' && !role && (
           <>
             <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: C.ink, textAlign: 'center', marginBottom: 6 }}>
-              Who are you signing up as?
+              {t('picker_title')}
             </h1>
             <p style={{ fontSize: 13, color: C.mute, textAlign: 'center', marginBottom: 24 }}>
-              Your role shapes your experience; pick what applies to you.
+              {t('picker_sub')}
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
-              {ROLE_PICKER.map(r => (
+              {ROLE_PICKER_KEYS.map(r => (
                 <button key={r.key} onClick={() => pickRole(r.key)}
                   style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '16px 14px', borderRadius: 14, border: `1.5px solid ${C.line}`, background: C.ivory, cursor: 'pointer', textAlign: 'left', transition: 'border-color .15s, box-shadow .15s', fontFamily: 'inherit', gridColumn: r.wide ? 'span 2' : undefined }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = C.green; e.currentTarget.style.boxShadow = '0 4px 16px -4px rgba(14,107,79,.18)' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = C.line; e.currentTarget.style.boxShadow = 'none' }}>
-                  <span style={{ fontSize: 13.5, fontWeight: 700, color: C.ink }}>{r.label}</span>
-                  <span style={{ fontSize: 11.5, color: C.mute, lineHeight: 1.5 }}>{r.sub}</span>
+                  <span style={{ fontSize: 13.5, fontWeight: 700, color: C.ink }}>{t(`role_${r.key}_label`)}</span>
+                  <span style={{ fontSize: 11.5, color: C.mute, lineHeight: 1.5 }}>{t(`role_${r.key}_sub`)}</span>
                 </button>
               ))}
             </div>
             <div style={{ textAlign: 'center', marginTop: 8 }}>
-              <span style={{ fontSize: 13, color: C.mute }}>Already have an account? </span>
+              <span style={{ fontSize: 13, color: C.mute }}>{t('already_account')} </span>
               <button onClick={() => switchMode('login')} style={{ fontSize: 13, fontWeight: 700, color: C.green, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-                Sign in
+                {t('sign_in')}
               </button>
             </div>
           </>
@@ -231,86 +387,86 @@ function AuthForm() {
             {/* Back to picker */}
             <button onClick={() => setRole('')}
               style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: C.mute, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', marginBottom: 20, padding: 0 }}>
-              ← Change
+              {t('change')}
               <span style={{ background: C.soft, color: accentColor, borderRadius: 999, padding: '2px 10px', fontWeight: 700, fontSize: 11 }}>
-                {cfg.icon} {cfg.label}
+                {cfg.icon} {t(`${role}_label`)}
               </span>
             </button>
 
             <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: C.ink, marginBottom: 6 }}>
-              {cfg.heading}
+              {t(`${role}_heading`)}
             </h1>
-            <p style={{ fontSize: 13, color: C.mute, marginBottom: 22, lineHeight: 1.6 }}>{cfg.sub}</p>
+            <p style={{ fontSize: 13, color: C.mute, marginBottom: 22, lineHeight: 1.6 }}>{t(`${role}_sub`)}</p>
 
             {error && <ErrBox msg={error} />}
 
             <form onSubmit={handleSignup} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {cfg.fields.includes('name') && (
-                <Fld label="Full name">
-                  <Inp type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" required autoComplete="name" color={accentColor} />
+                <Fld label={t('fld_full_name')}>
+                  <Inp type="text" value={name} onChange={e => setName(e.target.value)} placeholder={t('ph_name')} required autoComplete="name" color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('specialty') && (
-                <Fld label="Specialty">
-                  <Inp type="text" value={specialty} onChange={e => setSpecialty(e.target.value)} placeholder="e.g. General Practice, Pediatrics" required color={accentColor} />
+                <Fld label={t('fld_specialty')}>
+                  <Inp type="text" value={specialty} onChange={e => setSpecialty(e.target.value)} placeholder={t('ph_specialty')} required color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('org_name') && (
-                <Fld label="Organisation name">
-                  <Inp type="text" value={orgName} onChange={e => setOrgName(e.target.value)} placeholder="e.g. Ministry of Health, Togo" required color={accentColor} />
+                <Fld label={t('fld_org_name')}>
+                  <Inp type="text" value={orgName} onChange={e => setOrgName(e.target.value)} placeholder={t('ph_org_name')} required color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('clinic_name') && (
-                <Fld label="Clinic / Hospital name">
-                  <Inp type="text" value={clinicName} onChange={e => setClinicName(e.target.value)} placeholder="e.g. Clinique Saint-Jean" required color={accentColor} />
+                <Fld label={t('fld_clinic_name')}>
+                  <Inp type="text" value={clinicName} onChange={e => setClinicName(e.target.value)} placeholder={t('ph_clinic_name')} required color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('pharmacy_name') && (
-                <Fld label="Pharmacy name">
-                  <Inp type="text" value={pharmacyName} onChange={e => setPharmacyName(e.target.value)} placeholder="e.g. Pharmacie Centrale" required color={accentColor} />
+                <Fld label={t('fld_pharmacy_name')}>
+                  <Inp type="text" value={pharmacyName} onChange={e => setPharmacyName(e.target.value)} placeholder={t('ph_pharmacy_name')} required color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('city') && (
-                <Fld label="City">
-                  <Inp type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Lomé" required color={accentColor} />
+                <Fld label={t('fld_city')}>
+                  <Inp type="text" value={city} onChange={e => setCity(e.target.value)} placeholder={t('ph_city')} required color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('country') && (
-                <Fld label="Country">
+                <Fld label={t('fld_country')}>
                   <select value={country} onChange={e => setCountry(e.target.value)} required
                     style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: `1.5px solid ${C.line}`, background: C.ivory, color: country ? C.ink : C.mute, fontSize: 14, fontFamily: 'inherit', outline: 'none' }}>
-                    <option value="">Select country</option>
+                    <option value="">{t('ph_country')}</option>
                     {['Togo','Ghana','Benin','Côte d\'Ivoire','Burkina Faso','Nigeria','Senegal','Mali','Niger','Cameroon'].map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </Fld>
               )}
               {cfg.fields.includes('phone') && (
-                <Fld label="Phone number">
+                <Fld label={t('fld_phone')}>
                   <Inp type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+228 9X XX XX XX" color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('email') && (
-                <Fld label="Email">
-                  <Inp type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required autoComplete="email" color={accentColor} />
+                <Fld label={t('fld_email')}>
+                  <Inp type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={t('ph_email')} required autoComplete="email" color={accentColor} />
                 </Fld>
               )}
               {cfg.fields.includes('password') && (
-                <Fld label="Password">
-                  <Inp type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Min. 8 characters" required minLength={8} autoComplete="new-password" color={accentColor} />
+                <Fld label={t('fld_password')}>
+                  <Inp type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder={t('ph_password')} required minLength={8} autoComplete="new-password" color={accentColor} />
                 </Fld>
               )}
               <SubmitBtn loading={loading} color={accentColor}
-                label={role === 'patient' ? 'Create account' : ['doctor','government'].includes(role) ? 'Submit application' : 'Register'}
-                loadingLabel="Creating account…" />
+                label={role === 'patient' ? t('btn_create_account') : ['doctor','government'].includes(role) ? t('btn_submit_application') : t('btn_register')}
+                loadingLabel={t('btn_creating')} />
             </form>
 
             <p style={{ fontSize: 11.5, color: C.mute, textAlign: 'center', marginTop: 14 }}>
-              By creating an account you agree to our{' '}
-              <a href="/privacy" style={{ color: C.green, fontWeight: 600 }}>Privacy Policy</a>.
+              {t('privacy')}{' '}
+              <a href="/privacy" style={{ color: C.green, fontWeight: 600 }}>{t('privacy_link')}</a>.
             </p>
             <div style={{ textAlign: 'center', marginTop: 12 }}>
-              <span style={{ fontSize: 13, color: C.mute }}>Already have an account? </span>
-              <button onClick={() => switchMode('login')} style={{ fontSize: 13, fontWeight: 700, color: C.green, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>Sign in</button>
+              <span style={{ fontSize: 13, color: C.mute }}>{t('already_account')} </span>
+              <button onClick={() => switchMode('login')} style={{ fontSize: 13, fontWeight: 700, color: C.green, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>{t('sign_in')}</button>
             </div>
           </>
         )}
@@ -319,35 +475,35 @@ function AuthForm() {
         {mode === 'login' && (
           <>
             <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: C.ink, textAlign: 'center', marginBottom: 6 }}>
-              Welcome back
+              {t('login_title')}
             </h1>
             <p style={{ fontSize: 13, color: C.mute, textAlign: 'center', marginBottom: 24 }}>
-              Access your Klinova dashboard.
+              {t('login_sub')}
             </p>
 
             {error && <ErrBox msg={error} />}
             {info  && <OkBox  msg={info} />}
 
             <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <Fld label="Email">
-                <Inp type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required autoComplete="email" color={C.green} />
+              <Fld label={t('fld_email')}>
+                <Inp type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={t('ph_email')} required autoComplete="email" color={C.green} />
               </Fld>
-              <Fld label="Password">
+              <Fld label={t('fld_password')}>
                 <Inp type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required autoComplete="current-password" color={C.green} />
               </Fld>
-              <SubmitBtn loading={loading} color={C.green} label="Sign in" loadingLabel="Signing in…" />
+              <SubmitBtn loading={loading} color={C.green} label={t('btn_sign_in')} loadingLabel={t('btn_signing_in')} />
             </form>
 
             <button onClick={() => switchMode('forgot')}
               style={{ width: '100%', marginTop: 12, fontSize: 13, color: C.green, fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-              Forgot password?
+              {t('forgot_password')}
             </button>
 
             <div style={{ borderTop: `1px solid ${C.line}`, marginTop: 20, paddingTop: 20, textAlign: 'center' }}>
-              <p style={{ fontSize: 13, color: C.mute, marginBottom: 10 }}>Don&apos;t have an account?</p>
+              <p style={{ fontSize: 13, color: C.mute, marginBottom: 10 }}>{t('no_account')}</p>
               <button onClick={() => { setRole(''); switchMode('signup') }}
                 style={{ fontSize: 13.5, fontWeight: 700, color: C.green, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-                Create a free account →
+                {t('create_free')}
               </button>
             </div>
           </>
@@ -357,25 +513,25 @@ function AuthForm() {
         {mode === 'forgot' && (
           <>
             <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: C.ink, textAlign: 'center', marginBottom: 6 }}>
-              Reset your password
+              {t('forgot_title')}
             </h1>
             <p style={{ fontSize: 13, color: C.mute, textAlign: 'center', marginBottom: 24 }}>
-              Enter your email and we&apos;ll send a reset link.
+              {t('forgot_sub')}
             </p>
 
             {error && <ErrBox msg={error} />}
             {info  && <OkBox  msg={info} />}
 
             <form onSubmit={handleForgot} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <Fld label="Email">
-                <Inp type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required autoComplete="email" color={C.green} />
+              <Fld label={t('fld_email')}>
+                <Inp type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={t('ph_email')} required autoComplete="email" color={C.green} />
               </Fld>
-              <SubmitBtn loading={loading} color={C.green} label="Send reset link" loadingLabel="Sending…" />
+              <SubmitBtn loading={loading} color={C.green} label={t('btn_send_reset')} loadingLabel={t('btn_sending')} />
             </form>
 
             <button onClick={() => switchMode('login')}
               style={{ width: '100%', marginTop: 12, fontSize: 13, color: C.mute, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-              ← Back to sign in
+              {t('back_to_signin')}
             </button>
           </>
         )}
