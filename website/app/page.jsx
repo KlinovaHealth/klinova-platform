@@ -10,8 +10,9 @@ const C = {
   greenSoft: '#E3EFE8',
   ivory:     '#F5EFE3',
   sand:      '#EDE4D2',
-  gold:      '#C4852A',
+  gold:      '#D99A2B',
   goldSoft:  '#F4E2BC',
+  amber:     '#E0A23B',
   coral:     '#CF5A3C',
   mute:      '#6E7F76',
   line:      '#E7DECC',
@@ -20,6 +21,29 @@ const C = {
 
 const display = "'Fraunces', Georgia, serif"
 const ui      = "'Plus Jakarta Sans', system-ui, sans-serif"
+
+function KlinovaMark({ size = 36, light = false }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+      <rect width="36" height="36" rx="10" fill={light ? 'rgba(255,255,255,.12)' : '#0A5440'}/>
+      <rect width="36" height="36" rx="10" fill="url(#klm)" opacity=".25"/>
+      {/* K stroke — vertical */}
+      <path d="M11 9.5V26.5" stroke="white" strokeWidth="2.6" strokeLinecap="round"/>
+      {/* K top diagonal */}
+      <path d="M11.5 18L20.5 9.5" stroke="white" strokeWidth="2.6" strokeLinecap="round"/>
+      {/* K bottom diagonal */}
+      <path d="M11.5 18L20.5 26.5" stroke="white" strokeWidth="2.6" strokeLinecap="round"/>
+      {/* Gold pulse dot — medical accent */}
+      <circle cx="21.5" cy="18" r="2.2" fill="#D99A2B"/>
+      <defs>
+        <radialGradient id="klm" cx="0%" cy="0%" r="120%">
+          <stop offset="0%" stopColor="white" stopOpacity=".3"/>
+          <stop offset="100%" stopColor="white" stopOpacity="0"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  )
+}
 
 /* ─── Language list ─────────────────────────────────────────── */
 const LANG_LIST = [
@@ -34,6 +58,9 @@ const LANG_LIST = [
   { code: 'wo',  name: 'Wolof',    region: 'Sénégal · Gambie' },
   { code: 'bm',  name: 'Bambara',  region: 'Mali · Burkina' },
   { code: 'ha',  name: 'Hausa',    region: 'Niger · Nigeria' },
+  { code: 'yo',  name: 'Yoruba',   region: 'Nigeria · Bénin' },
+  { code: 'ig',  name: 'Igbo',     region: 'Nigeria' },
+  { code: 'pcm', name: 'Pidgin',   region: 'Nigeria · Ghana' },
 ]
 
 /* ─── SVG icons ─────────────────────────────────────────────── */
@@ -79,7 +106,7 @@ const IconPhone = () => (
   </svg>
 )
 const IconStar = ({ filled }) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill={filled ? '#C4852A' : 'none'} stroke="#C4852A" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill={filled ? '#D99A2B' : 'none'} stroke="#D99A2B" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
     <path d="M8 1.5l1.8 3.6 4 .58-2.9 2.83.69 3.99L8 10.35l-3.59 1.89.69-3.99L2.2 5.68l4-.58L8 1.5z"/>
   </svg>
 )
@@ -109,25 +136,27 @@ const IconAlignRight = () => (
 /* ─── Translations ──────────────────────────────────────────── */
 const T = {
   en: {
-    eyebrow1: 'Telemedicine for West Africa',
+    eyebrow1: 'The Invisible Grid Powering African Healthcare',
     h1_p1:   'Healthcare that speaks ',
     h1_accent: 'your language.',
-    lede: "See a trusted doctor on your phone, get your prescription, and find nearby medicine through the app, the web, or WhatsApp. Pay with mobile money across Togo, Ghana, Benin, and Côte d'Ivoire.",
+    lede: "See a trusted doctor on your phone, get your prescription, and find nearby medicine — through the app, the web, or WhatsApp. Free via government health programs across Togo, Ghana, Benin, and Côte d'Ivoire.",
     btn1: 'Get the app',
     btn2: 'For clinics and partners',
-    trust1: 'Pay with mobile money',
+    nav_login: 'Log in',
+    nav_create: 'Create account',
+    trust1: 'Free via government programs',
     trust2: 'Encrypted and private',
     trust3: 'Works on any phone',
 
     lband_eyebrow: 'Speak naturally',
-    lband_h: 'Eleven languages. One platform.',
+    lband_h: 'Fourteen languages. One platform.',
     lband_p: 'Klinova connects with people in the language they think and live in, across four countries and growing.',
 
     eyebrow2: 'How it works',
     h2_1: 'Go from feeling unwell to cared for in minutes.',
     sub1: 'Four simple steps, in the language you speak and on the phone you already have.',
     step1_h: 'Tell us how you feel',
-    step1_p: 'Describe your symptoms by text, voice, or photo in any of our eleven supported languages.',
+    step1_p: 'Describe your symptoms by text, voice, or photo in any of our fourteen supported languages.',
     step2_h: 'Get guided to the right care',
     step2_p: 'Klinova reviews your symptoms and clearly tells you how urgent your situation is.',
     step3_h: 'See a doctor',
@@ -168,24 +197,28 @@ const T = {
     p3_l2: 'Get paid reliably through mobile money',
     p3_l3: 'Reach patients well beyond your city',
 
-    eyebrow5: 'Governments and NGOs',
-    h2_4: 'See the health of a population as it happens.',
-    gov_p: 'Klinova transforms everyday care into anonymized, location-based data: live dashboards for disease tracking, coverage gaps, and resource allocation. Individual records stay private, while decision-makers see the full picture. All data collection and processing complies with GDPR, HIPAA, and applicable international health data regulations.',
-    pill1: 'Disease surveillance',
-    pill2: 'Coverage maps',
-    pill3: 'Resource planning',
-    pill4: 'Anonymized and secure',
+    eyebrow5: 'Governments & NGOs',
+    h2_4: 'Real-time disease surveillance licensed to your Ministry of Health, with clear steps and requirements to facilitate adoption and compliance.',
+    gov_p: 'Governments and organizations like the WHO urgently need real-time data to combat outbreaks of Malaria, Cholera, and Dengue. Klinova licenses its Invisible Grid dashboard to Ministries of Health as a strategic asset, providing location-based intelligence from clinical encounters that helps identify coverage gaps, outbreak clusters, and resource needs. Individual privacy remains fully protected, supporting effective and responsible decision-making.',
+    pill1: 'Outbreak detection',
+    pill2: 'Live coverage maps',
+    pill3: "Klinova's Invisible Grid",
+    pill4: 'GDPR & HIPAA compliant',
+    gov_step1_n: '01', gov_step1_h: 'Request a Demo',          gov_step1_p: 'Schedule a live walkthrough with the Klinova team.',
+    gov_step2_n: '02', gov_step2_h: 'Sign a Data Agreement',   gov_step2_p: 'We provide a standard MOU template aligned with WHO data-governance guidelines.',
+    gov_step3_n: '03', gov_step3_h: 'Onboarding & Integration',gov_step3_p: 'Connect your Ministry\'s systems. Typical setup is 4–6 weeks with dedicated support.',
+    gov_step4_n: '04', gov_step4_h: 'Launch & Monitor',        gov_step4_p: 'Your team receives a live dashboard, staff training, and ongoing technical support.',
 
     eyebrow6: 'Why we exist',
     ratio: '1 : 5,000',
-    impact_p: 'Across the region, there is roughly one doctor for every 5,000 people, far below the global standard of one per 1,000. Klinova helps close that gap by making every available doctor reachable by anyone, wherever they are.',
+    impact_p: 'Across Africa, there is roughly one doctor for every 5,000 people. Klinova closes this gap. By building the digital network that connects patients, clinics, and delivery partners on one unified grid, we multiply the reach of every available doctor. We are making reliable healthcare accessible to anyone, anywhere on the continent.',
     card_h: 'Born in Africa. Built for Life.',
     card_p: 'Klinova is built by a team that knows this region deeply: its languages, its devices, and how people pay. We started in Togo and are growing across West Africa.',
 
     h2_5: 'Feel better, sooner.',
     cta_p: 'Download Klinova and speak with a doctor today. Or partner with us to reach more patients.',
 
-    footer_blurb: 'Telemedicine and digital health for West Africa. Lomé, Togo.',
+    footer_blurb: "The Invisible Grid powering African healthcare. Lomé, Togo.",
     footer_product: 'Product',
     footer_partners: 'Partners',
     footer_company: 'Company',
@@ -204,6 +237,7 @@ const T = {
     nav_patients: 'Patients',
     nav_partners: 'Partners',
     nav_gov: 'Governments',
+    nav_pricing: 'Pricing',
 
     emergency: "Not for life-threatening emergencies. If it is an emergency, call 15 (Togo), 195 (Ghana), 15 (Benin), or 185 (Côte d'Ivoire).",
     lic_eyebrow: 'Medical standards',
@@ -225,6 +259,10 @@ const T = {
     cta_eyebrow: 'Get started with Klinova',
     cta_patients: 'Start a consultation',
     cta_patients_sub: 'For patients',
+    patient_create_account: 'Create a free account',
+    patient_login: 'Log in',
+    patient_see_pricing: 'See what\'s included →',
+    patient_cta_sub: 'Sign up free to explore what Klinova offers. Choose a plan when you\'re ready.',
     cta_doctors: 'Join as a provider',
     cta_doctors_sub: 'For doctors',
     cta_clinics: 'Partner with Klinova',
@@ -233,6 +271,62 @@ const T = {
     cta_pharmacy_sub: 'For pharmacies',
     cta_gov_btn: 'Request a demo',
     cta_gov_sub: 'For governments and NGOs',
+    price_eyebrow: 'Simple pricing',
+    price_h: 'Plans that work for real life.',
+    price_individual: 'Solo',
+    price_family: 'Family',
+    price_family_sub: 'You + 4 family members',
+    price_per_month: '/ month',
+    price_included: "What's included",
+    price_feat1: 'App + WhatsApp triage, 24/7',
+    price_feat2: 'Video & voice consultations',
+    price_feat3: 'Digital prescriptions',
+    price_feat4: 'Health records',
+    price_feat5: '1 free medication delivery / month',
+    price_feat6: '10% off any partner clinic',
+    price_family_extra: 'All of the above, for you + 4 family members',
+    price_family_feat5: '3 free medication deliveries / month',
+    price_cta: 'Get started',
+    price_partners_h: 'For doctors, pharmacies & partners',
+    price_doc_label: 'Doctors',
+    price_doc_tag: 'Free to join',
+    price_doc_desc: 'Keep 70% of every consultation. We send you pre-triaged patients, no marketing spend, no upfront cost.',
+    price_pharm_label: 'Pharmacies',
+    price_pharm_tag: '8–15% commission',
+    price_pharm_desc: 'Pay a commission only on prescriptions fulfilled through Klinova. We route the orders and handle delivery.',
+    price_clinic_label: 'Clinics & Hospitals',
+    price_clinic_tag: '$20–40 / month',
+    price_clinic_desc: 'Dashboard + calendar access, pinned on our map. Pay a small referral fee only when a pre-triaged patient actually walks in.',
+    price_transport_label: 'Transport & Delivery',
+    price_transport_tag: 'Free for patients',
+    price_transport_desc: 'Deliver medications and transport patients included in every Care Plan. Klinova routes thousands of guaranteed, GPS-mapped deliveries to your drivers every month.',
+    cta_transport_subj: 'Transport & Delivery Partnership – Klinova',
+    price_note: 'Prices shown in local currency. No hidden fees. Cancel anytime.',
+
+    modules_eyebrow: 'Clinic dashboard',
+    modules_h: 'A complete suite for your clinic.',
+    modules_sub: 'Every module built for African health professionals works on any device and is offline-ready.',
+    mod1_h: 'Consultations',   mod1_p: 'Full workflow: reason, exam, diagnosis, treatment and follow-up notes.',
+    mod2_h: 'Patients',        mod2_p: 'Complete medical record with visit history and emergency contacts.',
+    mod3_h: 'Prescriptions',   mod3_p: 'Digital prescription with dosage instructions and printable view.',
+    mod4_h: 'Appointments',    mod4_p: 'Doctor calendar, availability management and status tracking.',
+    mod5_h: 'Payments',        mod5_p: 'Cash, mobile money (Flooz, TMoney, MTN). Receipts and history.',
+    mod6_h: 'Nurse Triage',    mod6_p: 'Vital signs, triage notes and real-time waiting queue.',
+    mod7_h: 'Reports',         mod7_p: 'KPIs, charts and clinic activity analysis.',
+    mod8_h: 'Administration',  mod8_p: 'User management, roles and clinic settings.',
+    cta_patients_subj: 'Start a Consultation – Klinova',
+    cta_patients_body: 'Hello, I would like to start a consultation. My name is [your name] and I am reaching out from [your location].',
+    cta_doctors_subj: 'Join as a Provider – Klinova',
+    cta_doctors_body: 'Hello, I am a healthcare provider interested in joining Klinova. My name is [your name], specialty: [your specialty], location: [your location].',
+    cta_clinics_subj: 'Partner with Klinova – Clinic / Hospital',
+    cta_clinics_body: 'Hello, we are interested in partnering with Klinova. Facility name: [name], location: [city, country], type: [clinic / hospital].',
+    cta_pharmacy_subj: 'Join the Pharmacy Network – Klinova',
+    cta_pharmacy_body: 'Hello, I would like to join the Klinova pharmacy network. Pharmacy name: [name], location: [city, country].',
+    cta_gov_subj: 'Request a Demo – Klinova Government / NGO',
+    cta_gov_body: 'Hello, we represent [organisation name] and would like to request a demo. Country: [country], contact: [your name & phone].',
+    cta_pilot_subj: 'Join the Klinova Pilot Programme',
+    already_account: 'Already have an account?',
+    sign_in: 'Sign in →',
 
     pilot_status: 'Pilot launching in Togo and Ghana',
     test_eyebrow: 'Testimonials',
@@ -252,25 +346,27 @@ const T = {
   },
 
   fr: {
-    eyebrow1: "Télémédecine pour l'Afrique de l'Ouest",
+    eyebrow1: "La Grille Invisible qui Alimente la Santé Africaine",
     h1_p1:   'Une santé qui parle ',
     h1_accent: 'votre langue.',
-    lede: "Consultez un médecin de confiance depuis votre téléphone, recevez votre ordonnance et trouvez vos médicaments à proximité par appli, web ou WhatsApp. Payez avec mobile money au Togo, au Ghana, au Bénin et en Côte d'Ivoire.",
+    lede: "Consultez un médecin de confiance depuis votre téléphone, recevez votre ordonnance et trouvez vos médicaments à proximité — par appli, web ou WhatsApp. Gratuit via les programmes de santé gouvernementaux.",
     btn1: "Télécharger l'appli",
+    nav_login: 'Connexion',
+    nav_create: 'Créer un compte',
     btn2: 'Cliniques et partenaires',
-    trust1: 'Payez avec mobile money',
+    trust1: 'Gratuit via les programmes gouvernementaux',
     trust2: 'Chiffré et confidentiel',
     trust3: 'Sur tout téléphone',
 
     lband_eyebrow: 'Parlez naturellement',
-    lband_h: 'Onze langues. Une seule plateforme.',
+    lband_h: 'Quatorze langues. Une seule plateforme.',
     lband_p: "Klinova rejoint chacun dans la langue dans laquelle il pense et vit, dans quatre pays et en expansion.",
 
     eyebrow2: 'Comment ça marche',
     h2_1: 'De "je ne me sens pas bien" à soigné, en quelques minutes.',
     sub1: 'Quatre étapes simples, dans votre langue et sur le téléphone que vous avez déjà.',
     step1_h: 'Dites-nous comment vous allez',
-    step1_p: "Décrivez vos symptômes par texte, voix ou photo dans l'une de nos onze langues disponibles.",
+    step1_p: "Décrivez vos symptômes par texte, voix ou photo dans l'une de nos quatorze langues disponibles.",
     step2_h: 'Soyez orienté vers le bon soin',
     step2_p: "Klinova analyse vos symptômes et vous indique clairement la marche à suivre.",
     step3_h: 'Consultez un médecin',
@@ -312,23 +408,27 @@ const T = {
     p3_l3: 'Atteignez des patients bien au-delà de votre ville',
 
     eyebrow5: 'Gouvernements et ONG',
-    h2_4: "Suivre la santé d'une population en temps réel.",
-    gov_p: "Klinova transforme les soins quotidiens en données anonymisées et géolocalisées : tableaux de bord en direct pour le suivi des maladies, les zones sous-couvertes et l'allocation des ressources. Les dossiers individuels restent privés, tandis que les décideurs disposent de la vue d'ensemble. La collecte et le traitement des données sont conformes au RGPD, à la HIPAA et aux réglementations internationales applicables en matière de données de santé.",
-    pill1: 'Surveillance des maladies',
-    pill2: 'Cartes de couverture',
-    pill3: 'Planification des ressources',
-    pill4: 'Anonymisé et sécurisé',
+    h2_4: 'Surveillance des maladies en temps réel sous licence pour votre Ministère de la Santé, avec des étapes et exigences claires pour faciliter l\'adoption et la conformité.',
+    gov_p: "Les gouvernements et organisations comme l'OMS ont besoin de données en temps réel pour combattre les épidémies de paludisme, choléra et dengue. Klinova licence son tableau de bord Klinova's Invisible Grid aux Ministères de la Santé comme actif stratégique, fournissant une intelligence géolocalisée issue des consultations cliniques pour identifier les lacunes de couverture, les foyers épidémiques et les besoins en ressources. La confidentialité individuelle reste entièrement protégée, soutenant une prise de décision efficace et responsable.",
+    pill1: 'Détection des épidémies',
+    pill2: 'Cartes de couverture en direct',
+    pill3: "Klinova's Invisible Grid",
+    pill4: 'Conforme RGPD & HIPAA',
+    gov_step1_n: '01', gov_step1_h: 'Demander une démonstration',   gov_step1_p: "Planifiez un aperçu en direct avec l'équipe Klinova.",
+    gov_step2_n: '02', gov_step2_h: 'Signer un accord de données',  gov_step2_p: 'Nous fournissons un modèle de protocole d\'accord conforme aux directives de gouvernance des données de l\'OMS.',
+    gov_step3_n: '03', gov_step3_h: 'Intégration et onboarding',    gov_step3_p: 'Connectez les systèmes de votre Ministère. La configuration typique prend 4 à 6 semaines.',
+    gov_step4_n: '04', gov_step4_h: 'Lancement et suivi',           gov_step4_p: 'Votre équipe reçoit un tableau de bord en direct, une formation et un support technique continu.',
 
     eyebrow6: "Notre raison d'être",
     ratio: '1 : 5 000',
-    impact_p: "Dans la région, on compte environ un médecin pour 5 000 personnes, bien en dessous de la norme mondiale d'un pour 1 000. Klinova comble cet écart en rendant chaque médecin disponible accessible à tous, partout.",
+    impact_p: "En Afrique, on compte environ un médecin pour 5 000 personnes. Klinova comble cet écart. En construisant le réseau numérique qui connecte patients, cliniques et partenaires de livraison sur une même plateforme, nous multiplions la portée de chaque médecin disponible. Nous rendons des soins fiables accessibles à tous, partout sur le continent.",
     card_h: "Né en Afrique. Conçu pour la vie.",
     card_p: "Klinova est développé par une équipe qui connaît profondément cette région : ses langues, ses appareils et ses modes de paiement. Nous avons débuté au Togo et nous étendons à toute l'Afrique de l'Ouest.",
 
     h2_5: 'Allez mieux, plus vite.',
     cta_p: "Téléchargez Klinova et parlez à un médecin dès aujourd'hui. Ou devenez partenaire pour atteindre davantage de patients.",
 
-    footer_blurb: "Télémédecine et santé numérique pour l'Afrique de l'Ouest. Lomé, Togo.",
+    footer_blurb: "La Grille Invisible qui alimente la santé africaine. Lomé, Togo.",
     footer_product: 'Produit',
     footer_partners: 'Partenaires',
     footer_company: 'Entreprise',
@@ -347,6 +447,7 @@ const T = {
     nav_patients: 'Patients',
     nav_partners: 'Partenaires',
     nav_gov: 'Gouvernements',
+    nav_pricing: 'Tarifs',
 
     emergency: "En cas d'urgence vitale, n'utilisez pas cette application. Appelez le 15 (Togo), le 195 (Ghana), le 15 (Bénin) ou le 185 (Côte d'Ivoire).",
     lic_eyebrow: 'Normes médicales',
@@ -368,6 +469,10 @@ const T = {
     cta_eyebrow: 'Commencer avec Klinova',
     cta_patients: 'Démarrer une consultation',
     cta_patients_sub: 'Pour les patients',
+    patient_create_account: 'Créer un compte gratuit',
+    patient_login: 'Se connecter',
+    patient_see_pricing: 'Voir ce qui est inclus →',
+    patient_cta_sub: 'Inscrivez-vous gratuitement pour découvrir Klinova. Choisissez un plan quand vous êtes prêt.',
     cta_doctors: 'Rejoindre en tant que prestataire',
     cta_doctors_sub: 'Pour les médecins',
     cta_clinics: 'Devenir partenaire',
@@ -376,6 +481,62 @@ const T = {
     cta_pharmacy_sub: 'Pour les pharmacies',
     cta_gov_btn: 'Demander une démonstration',
     cta_gov_sub: 'Pour les gouvernements et ONG',
+    price_eyebrow: 'Tarification simple',
+    price_h: 'Des plans adaptés à la vie réelle.',
+    price_individual: 'Solo',
+    price_family: 'Famille',
+    price_family_sub: 'Vous + 4 membres de la famille',
+    price_per_month: '/ mois',
+    price_included: 'Ce qui est inclus',
+    price_feat1: 'Application + triage WhatsApp, 24h/24',
+    price_feat2: 'Consultations vidéo & vocales',
+    price_feat3: 'Ordonnances numériques',
+    price_feat4: 'Dossier médical',
+    price_feat5: '1 livraison de médicaments offerte / mois',
+    price_feat6: '10 % de réduction en clinique partenaire',
+    price_family_extra: 'Tout ce qui précède, pour vous + 4 membres',
+    price_family_feat5: '3 livraisons de médicaments offertes / mois',
+    price_cta: 'Commencer',
+    price_partners_h: 'Pour médecins, pharmacies & partenaires',
+    price_doc_label: 'Médecins',
+    price_doc_tag: 'Rejoindre gratuitement',
+    price_doc_desc: 'Gardez 70 % de chaque consultation. Nous vous envoyons des patients pré-triagés, sans coût marketing, sans frais initiaux.',
+    price_pharm_label: 'Pharmacies',
+    price_pharm_tag: '8–15 % de commission',
+    price_pharm_desc: 'Commission uniquement sur les ordonnances exécutées via Klinova. Nous gérons les commandes et la livraison.',
+    price_clinic_label: 'Cliniques & Hôpitaux',
+    price_clinic_tag: '20–40 $ / mois',
+    price_clinic_desc: 'Accès au tableau de bord + calendrier, épinglé sur notre carte. Frais de recommandation uniquement quand un patient pré-triagé se présente.',
+    price_transport_label: 'Transport & Livraison',
+    price_transport_tag: 'Gratuit pour les patients',
+    price_transport_desc: 'Livrez les médicaments et transportez les patients inclus dans chaque Care Plan. Klinova achemine des milliers de livraisons GPS garanties vers vos chauffeurs chaque mois.',
+    cta_transport_subj: 'Partenariat Transport & Livraison – Klinova',
+    price_note: 'Prix affichés en devise locale. Sans frais cachés. Résiliable à tout moment.',
+
+    modules_eyebrow: 'Tableau de bord clinique',
+    modules_h: 'Une suite complète pour votre clinique.',
+    modules_sub: 'Chaque module conçu pour les professionnels de santé africains fonctionne sur tous les appareils et est disponible hors ligne.',
+    mod1_h: 'Consultations',      mod1_p: 'Workflow complet : motif, examen, diagnostic, traitement et suivi.',
+    mod2_h: 'Patients',           mod2_p: 'Dossier médical complet avec historique et contacts d\'urgence.',
+    mod3_h: 'Ordonnances',        mod3_p: 'Prescription numérique avec posologie et vue imprimable.',
+    mod4_h: 'Rendez-vous',        mod4_p: 'Calendrier, disponibilité médecin, gestion des statuts.',
+    mod5_h: 'Paiements',          mod5_p: 'Espèces, mobile money (Flooz, TMoney, MTN). Reçus et historique.',
+    mod6_h: 'Triage infirmier',   mod6_p: 'Signes vitaux, notes de triage, file d\'attente en temps réel.',
+    mod7_h: 'Rapports',           mod7_p: 'KPIs, graphiques et analyse d\'activité.',
+    mod8_h: 'Administration',     mod8_p: 'Gestion des utilisateurs, rôles et paramètres.',
+    cta_patients_subj: 'Démarrer une consultation – Klinova',
+    cta_patients_body: 'Bonjour, je souhaite démarrer une consultation. Mon nom est [votre nom] et je vous contacte depuis [votre localisation].',
+    cta_doctors_subj: 'Rejoindre en tant que prestataire – Klinova',
+    cta_doctors_body: 'Bonjour, je suis un professionnel de santé souhaitant rejoindre Klinova. Mon nom est [votre nom], spécialité : [votre spécialité], localisation : [votre localisation].',
+    cta_clinics_subj: 'Devenir partenaire Klinova – Clinique / Hôpital',
+    cta_clinics_body: "Bonjour, nous souhaitons devenir partenaire de Klinova. Nom de l'établissement : [nom], localisation : [ville, pays], type : [clinique / hôpital].",
+    cta_pharmacy_subj: 'Rejoindre le réseau de pharmacies – Klinova',
+    cta_pharmacy_body: 'Bonjour, je souhaite rejoindre le réseau de pharmacies Klinova. Nom de la pharmacie : [nom], localisation : [ville, pays].',
+    cta_gov_subj: 'Demander une démonstration – Klinova Gouvernement / ONG',
+    cta_gov_body: "Bonjour, nous représentons [nom de l'organisation] et souhaitons demander une démonstration. Pays : [pays], contact : [votre nom & téléphone].",
+    cta_pilot_subj: 'Rejoindre le programme pilote Klinova',
+    already_account: 'Vous avez déjà un compte ?',
+    sign_in: 'Se connecter →',
 
     pilot_status: 'Pilote en cours de lancement au Togo et au Ghana',
     test_eyebrow: 'Témoignages',
@@ -575,10 +736,22 @@ const T = {
   },
 }
 
+/* ─── Pricing data ────────────────────────────────────────────── */
+const PRICE_COUNTRIES = [
+  { code: 'TG', flag: '🇹🇬', label: 'Togo',          currency: 'XOF', individual: '1 500',  family: '3 500',  usdIndividual: '2.50', usdFamily: '5.80' },
+  { code: 'BJ', flag: '🇧🇯', label: 'Bénin',         currency: 'XOF', individual: '1 500',  family: '3 500',  usdIndividual: '2.50', usdFamily: '5.80' },
+  { code: 'CI', flag: '🇨🇮', label: "Côte d'Ivoire", currency: 'XOF', individual: '1 500',  family: '3 500',  usdIndividual: '2.50', usdFamily: '5.80' },
+  { code: 'GH', flag: '🇬🇭', label: 'Ghana',         currency: 'GHS', individual: '35',     family: '85',     usdIndividual: '2.50', usdFamily: '5.80' },
+  { code: 'BF', flag: '🇧🇫', label: 'Burkina Faso',  currency: 'XOF', individual: '1 500',  family: '3 500',  usdIndividual: '2.50', usdFamily: '5.80' },
+  { code: 'NG', flag: '🇳🇬', label: 'Nigeria',       currency: 'NGN', individual: '2 000',  family: '4 500',  usdIndividual: '2.50', usdFamily: '5.80' },
+  { code: 'SN', flag: '🇸🇳', label: 'Sénégal',       currency: 'XOF', individual: '1 500',  family: '3 500',  usdIndividual: '2.50', usdFamily: '5.80' },
+]
+
 /* ─── Page component ────────────────────────────────────────── */
 export default function Home() {
   /* Language */
   const [lang, setLang] = useState('en')
+  const [priceCountry, setPriceCountry] = useState('TG')
 
   /* Accessibility panel */
   const [a11yOpen,      setA11yOpen]      = useState(false)
@@ -665,20 +838,20 @@ export default function Home() {
         .wrap { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
         .serif { font-family: ${display}; }
         .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: ${C.green}; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 10px; padding: 13px 22px; font-family: ${ui}; font-weight: 700; font-size: 14px; cursor: pointer; border: none; transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease, color .15s ease; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 11px; padding: 13px 22px; font-family: ${ui}; font-weight: 700; font-size: 14px; cursor: pointer; border: none; transition: transform .14s ease, box-shadow .14s ease, background .14s ease, border-color .14s ease, color .14s ease; letter-spacing: -.01em; }
         .btn:hover { transform: translateY(-1px); }
-        .btn-primary { background: ${C.green}; color: #fff; box-shadow: 0 8px 20px -8px rgba(14,107,79,.75); }
-        .btn-primary:hover { background: ${C.greenDeep}; box-shadow: 0 12px 28px -8px rgba(14,107,79,.85); }
-        .btn-ghost { background: transparent; color: ${C.ink}; border: 1.5px solid ${C.line}; }
-        .btn-ghost:hover { border-color: ${C.green}; color: ${C.greenDeep}; }
+        .btn:active { transform: translateY(0); }
+        .btn-primary { background: ${C.green}; color: #fff; box-shadow: 0 8px 24px -8px rgba(14,107,79,.7), 0 1px 3px rgba(0,0,0,.08); }
+        .btn-primary:hover { background: ${C.greenDeep}; box-shadow: 0 14px 32px -8px rgba(14,107,79,.8); }
+        .btn-ghost { background: rgba(255,255,255,.7); color: ${C.ink}; border: 1.5px solid ${C.line}; backdrop-filter: blur(8px); }
+        .btn-ghost:hover { border-color: ${C.green}; color: ${C.greenDeep}; background: #fff; }
 
         /* NAV */
-        header { position: sticky; top: 0; z-index: 100; background: rgba(245,239,227,.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(231,222,204,.7); }
-        nav { display: flex; align-items: center; gap: 6px; height: 68px; padding: 0 28px; max-width: 1200px; margin: 0 auto; }
-        .nav-logo { display: inline-flex; align-items: center; gap: 10px; flex: none; outline: none; }
+        header { position: sticky; top: 0; z-index: 100; background: rgba(245,239,227,.92); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom: 1px solid rgba(231,222,204,.6); }
+        nav { display: flex; align-items: center; gap: 6px; height: 66px; padding: 0 28px; max-width: 1200px; margin: 0 auto; }
+        .nav-logo { display: inline-flex; align-items: center; gap: 10px; flex: none; outline: none; text-decoration: none; }
         .nav-logo:focus-visible { outline: 2px solid ${C.green}; outline-offset: 4px; border-radius: 6px; }
-        .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
-        .nav-logo-name { font-family: ${display}; font-weight: 700; font-size: 21px; letter-spacing: -.01em; color: ${C.greenDeep}; }
+        .nav-logo-name { font-family: ${display}; font-weight: 700; font-size: 20px; letter-spacing: -.02em; color: ${C.greenDeep}; }
         .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
         .nav-links a { font-size: 13.5px; font-weight: 600; color: ${C.mute}; padding: 7px 12px; border-radius: 8px; transition: color .15s, background .15s; }
         .nav-links a:hover { color: ${C.ink}; background: rgba(14,107,79,.07); }
@@ -691,17 +864,19 @@ export default function Home() {
         .a11y-trigger:hover { background: ${C.greenDeep}; transform: translateY(-1px); }
 
         /* HERO */
-        .hero { padding: 72px 0 80px; overflow: hidden; }
-        .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
-        h1 { font-family: ${display}; font-weight: 600; font-size: clamp(34px, 4.8vw, 56px); line-height: 1.04; letter-spacing: -.025em; margin: 16px 0 0; }
-        h1 .accent { color: ${C.green}; }
-        .lede { font-size: 17px; color: #41554C; margin-top: 20px; max-width: 40ch; line-height: 1.65; }
-        .cta { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
-        .trust { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; font-size: 12.5px; color: ${C.mute}; font-weight: 600; }
+        .hero { padding: 80px 0 96px; overflow: hidden; position: relative; }
+        .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(14,107,79,.07) 0%, transparent 70%); pointer-events:none; }
+        .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 60px; align-items: center; }
+        h1 { font-family: ${display}; font-weight: 600; font-size: clamp(36px, 4.8vw, 58px); line-height: 1.03; letter-spacing: -.028em; margin: 18px 0 0; }
+        h1 .accent { color: ${C.green}; position: relative; display: inline-block; }
+        .lede { font-size: 17px; color: #41554C; margin-top: 22px; max-width: 42ch; line-height: 1.68; }
+        .cta { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+        .trust { display: flex; gap: 22px; margin-top: 22px; flex-wrap: wrap; font-size: 12.5px; color: ${C.mute}; font-weight: 600; }
         .trust-item { display: flex; align-items: center; gap: 7px; }
         .trust-dot { width: 5px; height: 5px; border-radius: 50%; background: ${C.gold}; flex: none; }
-        .hero-img-card { background: none; border-radius: 0; padding: 0; display: flex; justify-content: center; align-items: center; border: none; box-shadow: none; }
-        .hero-img-card img { width: min(280px, 75vw); }
+        .hero-img-card { background: none; border-radius: 0; padding: 0; display: flex; justify-content: center; align-items: center; border: none; box-shadow: none; position: relative; }
+        .hero-img-card::before { content:''; position:absolute; width:320px; height:320px; background: radial-gradient(circle, rgba(14,107,79,.12) 0%, transparent 70%); border-radius:50%; }
+        .hero-img-card img { width: min(300px, 75vw); position: relative; z-index: 1; filter: drop-shadow(0 24px 40px rgba(10,84,64,.18)); }
 
         /* LANGUAGE BAND */
         .lband { background: ${C.greenDeep}; color: #EAF4EF; padding: 48px 0; }
@@ -717,24 +892,25 @@ export default function Home() {
 
         /* SECTIONS */
         section { padding: 80px 0; border-bottom: 1px solid ${C.line}; }
-        .band-alt { background: linear-gradient(180deg, #fff 0%, #FAFAF7 100%); }
+        .band-alt { background: ${C.ivory}; }
         .band-center { text-align: center; max-width: 680px; margin: 0 auto; }
         h2 { font-family: ${display}; font-weight: 600; font-size: clamp(27px, 3.4vw, 38px); line-height: 1.08; letter-spacing: -.02em; margin-top: 12px; }
         .sub { color: #41554C; font-size: 16px; margin-top: 14px; line-height: 1.65; }
 
         /* HOW IT WORKS */
         .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; text-align: left; }
-        .step { background: ${C.card}; border: 1px solid ${C.line}; border-radius: 20px; padding: 24px; }
+        .step { background: ${C.card}; border: 1px solid ${C.line}; border-radius: 22px; padding: 26px; box-shadow: 0 2px 12px -4px rgba(0,0,0,.05); }
         .step .no { font-family: ${display}; font-weight: 600; font-size: 14px; color: #fff; background: ${C.green}; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; }
         .step h3 { font-size: 16px; margin-top: 18px; font-weight: 700; letter-spacing: -.01em; }
         .step p { font-size: 13.5px; color: ${C.mute}; margin-top: 8px; line-height: 1.6; }
 
         /* FEATURE CARDS */
         .feat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; text-align: left; }
-        .fcard { background: ${C.card}; border: 1px solid ${C.line}; border-radius: 20px; padding: 26px; }
-        .fcard-icon { width: 48px; height: 48px; border-radius: 14px; background: ${C.greenSoft}; display: grid; place-items: center; color: ${C.green}; margin-bottom: 18px; flex: none; }
-        .fcard h3 { font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
-        .fcard p { font-size: 13.5px; color: ${C.mute}; margin-top: 8px; line-height: 1.6; }
+        .fcard { background: ${C.card}; border: 1px solid ${C.line}; border-radius: 22px; padding: 28px; transition: box-shadow .2s, transform .2s, border-color .2s; }
+        .fcard:hover { box-shadow: 0 8px 32px -8px rgba(14,107,79,.14); transform: translateY(-2px); border-color: rgba(14,107,79,.18); }
+        .fcard-icon { width: 50px; height: 50px; border-radius: 15px; background: ${C.greenSoft}; display: grid; place-items: center; color: ${C.green}; margin-bottom: 20px; flex: none; box-shadow: 0 2px 8px rgba(14,107,79,.1); }
+        .fcard h3 { font-size: 16px; font-weight: 700; letter-spacing: -.015em; }
+        .fcard p { font-size: 13.5px; color: ${C.mute}; margin-top: 8px; line-height: 1.65; }
 
         /* PARTNER CARDS */
         .split { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; text-align: left; }
@@ -765,7 +941,7 @@ export default function Home() {
         .cta-band p { opacity: .88; margin-top: 14px; font-size: 16.5px; }
         .cta-band .cta { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
         .cta-band .btn-primary { background: #fff; color: ${C.greenDeep}; }
-        .cta-band .btn-primary:hover { background: #F0FAF5; }
+        .cta-band .btn-primary:hover { background: ${C.greenSoft}; }
         .cta-band .btn-ghost { color: #fff; border-color: rgba(255,255,255,.38); }
         .cta-band .btn-ghost:hover { border-color: rgba(255,255,255,.7); color: #fff; }
 
@@ -781,21 +957,22 @@ export default function Home() {
         footer a:hover { color: #fff; }
         .fbottom { border-top: 1px solid rgba(255,255,255,.07); margin-top: 44px; padding-top: 22px; display: flex; justify-content: space-between; font-size: 12.5px; color: #5A7A6E; flex-wrap: wrap; gap: 10px; }
 
-        /* ACCESSIBILITY PANEL */
-        .a11y-fab { position: fixed; bottom: 24px; right: 24px; z-index: 200; width: 52px; height: 52px; border-radius: 50%; background: ${C.green}; color: #fff; border: none; cursor: pointer; display: grid; place-items: center; box-shadow: 0 6px 24px -6px rgba(14,107,79,.6); transition: background .15s, transform .15s, box-shadow .15s; }
-        .a11y-fab:hover { background: ${C.greenDeep}; transform: translateY(-2px); box-shadow: 0 10px 32px -6px rgba(14,107,79,.7); }
-        .a11y-panel { position: fixed; bottom: 88px; right: 24px; z-index: 199; width: 340px; max-height: 80vh; overflow-y: auto; background: #fff; border-radius: 20px; box-shadow: 0 24px 64px -12px rgba(0,0,0,.2), 0 4px 16px -4px rgba(0,0,0,.1); border: 1px solid ${C.line}; }
-        .a11y-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid ${C.line}; position: sticky; top: 0; background: #fff; z-index: 1; }
-        .a11y-header h3 { font-size: 15px; font-weight: 700; color: ${C.ink}; letter-spacing: -.01em; }
-        .a11y-close { width: 30px; height: 30px; border-radius: 8px; background: #F3F4F2; border: none; cursor: pointer; display: grid; place-items: center; font-size: 16px; color: ${C.mute}; transition: background .15s; }
-        .a11y-close:hover { background: ${C.greenSoft}; color: ${C.green}; }
-        .a11y-body { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 20px; }
-        .a11y-section-label { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: ${C.mute}; margin-bottom: 10px; }
-        .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; }
-        .a11y-row label { font-size: 13px; font-weight: 600; color: ${C.ink}; }
+        /* ACCESSIBILITY FAB + PANEL */
+        @keyframes a11yUp { from { opacity:0; transform:translateY(12px) scale(.97) } to { opacity:1; transform:translateY(0) scale(1) } }
+        .a11y-fab { position: fixed; bottom: 28px; right: 28px; z-index: 200; width: 50px; height: 50px; border-radius: 50%; background: #fff; color: ${C.green}; border: 1.5px solid ${C.line}; cursor: pointer; display: grid; place-items: center; box-shadow: 0 4px 20px rgba(0,0,0,.10), 0 1px 4px rgba(0,0,0,.06); transition: border-color .18s, box-shadow .18s, transform .18s, background .18s; }
+        .a11y-fab:hover, .a11y-fab--open { border-color: ${C.green}; background: ${C.soft}; box-shadow: 0 8px 28px rgba(14,107,79,.18), 0 2px 8px rgba(0,0,0,.07); transform: translateY(-2px); }
+        .a11y-panel { position: fixed; bottom: 92px; right: 28px; z-index: 199; width: 352px; max-height: 82vh; overflow-y: auto; background: #fff; border-radius: 22px; box-shadow: 0 32px 72px -12px rgba(0,0,0,.18), 0 8px 24px -6px rgba(0,0,0,.08); border: 1px solid ${C.line}; animation: a11yUp .22s cubic-bezier(.4,0,.2,1); }
+        .a11y-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px 16px; border-bottom: 1px solid ${C.line}; position: sticky; top: 0; background: #fff; z-index: 1; }
+        .a11y-header h3 { font-size: 14px; font-weight: 700; color: ${C.ink}; letter-spacing: -.01em; margin: 0; }
+        .a11y-close { width: 28px; height: 28px; border-radius: 50%; background: ${C.sand}; border: none; cursor: pointer; display: grid; place-items: center; font-size: 14px; color: ${C.mute}; transition: background .15s, color .15s; line-height: 1; }
+        .a11y-close:hover { background: ${C.line}; color: ${C.ink}; }
+        .a11y-body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 22px; }
+        .a11y-section-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: ${C.mute}; margin-bottom: 12px; }
+        .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+        .a11y-row label { font-size: 13px; font-weight: 500; color: ${C.ink}; }
         .a11y-row:first-of-type { margin-top: 0; }
-        .a11y-slider-wrap { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
-        .a11y-slider-wrap label { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: ${C.ink}; }
+        .a11y-slider-wrap { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+        .a11y-slider-wrap label { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 500; color: ${C.ink}; }
         .a11y-slider-wrap label span { color: ${C.green}; }
         input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; border-radius: 2px; background: ${C.line}; outline: none; cursor: pointer; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: ${C.green}; cursor: pointer; box-shadow: 0 2px 6px rgba(14,107,79,.35); }
@@ -820,34 +997,6 @@ export default function Home() {
         [data-dark] .fcard p, [data-dark] .step p { color: #7FA898 !important; }
         [data-dark] .band-alt { background: #111E1A !important; }
 
-        /* RESPONSIVE */
-        @media(max-width:960px){
-          .hero-grid{grid-template-columns:1fr;gap:36px}
-          .hero-img-card{order:-1}
-          .steps{grid-template-columns:1fr 1fr}
-          .feat{grid-template-columns:1fr 1fr}
-          .gov{padding:36px}
-          .impact{grid-template-columns:1fr;gap:22px}
-          .fgrid{grid-template-columns:1fr 1fr}
-          .nav-links{display:none}
-        }
-        @media(max-width:780px){
-          .split{grid-template-columns:1fr}
-          .cta-band,.gov{padding:32px}
-          .lband-head{flex-direction:column;align-items:flex-start}
-        }
-        @media(max-width:540px){
-          .steps,.feat{grid-template-columns:1fr}
-          .fbottom{flex-direction:column}
-          .fgrid{grid-template-columns:1fr}
-          .lchip{flex:1;min-width:calc(50% - 5px)}
-          .a11y-panel{right:12px;left:12px;width:auto;bottom:80px}
-          .a11y-fab{bottom:16px;right:16px}
-          .cta-band{padding:28px}
-          .audience-grid{grid-template-columns:1fr}
-          .lic-grid{grid-template-columns:1fr 1fr}
-          .trust-split{grid-template-columns:1fr}
-        }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
         /* Testimonials */
         .tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
@@ -858,12 +1007,13 @@ export default function Home() {
         .tavatar { width:40px; height:40px; border-radius:50%; background:${C.greenSoft}; color:${C.greenDeep}; font-weight:800; font-size:15px; display:grid; place-items:center; flex-shrink:0; }
         .tname { font-size:14px; font-weight:700; color:${C.ink}; }
         .trole { font-size:12.5px; color:${C.mute}; margin-top:2px; }
-        @media(max-width:780px){ .tgrid{grid-template-columns:1fr} }
         /* Emergency notice */
         .emergency-notice { display:flex; gap:9px; align-items:flex-start; background:#FFFBF0; border:1px solid #F0C060; border-radius:10px; padding:11px 14px; font-size:12.5px; color:#7A4A00; line-height:1.55; margin-top:18px; max-width:44ch; }
         /* Licensing section */
         .lic-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:40px; }
         .lic-item { background:${C.card}; border:1px solid ${C.line}; border-radius:14px; padding:18px 20px; }
+        .lic-item-link { transition: border-color .15s, box-shadow .15s; }
+        .lic-item-link:hover { border-color:${C.green}; box-shadow: 0 4px 16px -6px rgba(14,107,79,.18); }
         .lic-country { font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:${C.green}; }
         .lic-body { font-size:14px; color:${C.ink}; font-weight:500; margin-top:6px; line-height:1.4; }
         /* Trust split */
@@ -882,26 +1032,80 @@ export default function Home() {
         .audience-card h3 { font-size:15px; font-weight:700; color:${C.ink}; line-height:1.3; flex:1; }
         .audience-card .btn { font-size:13px; padding:10px 14px; }
         .audience-card.audience-primary .btn-primary { background:#fff; color:${C.greenDeep}; box-shadow:none; }
-        @media(max-width:960px){ .audience-grid{grid-template-columns:repeat(2,1fr)} .lic-grid{grid-template-columns:repeat(2,1fr)} }
-        @media(max-width:780px){ .trust-split{grid-template-columns:1fr} }
+        /* Nav logo sizing */
+        .nav-logo-img { height: 64px; }
+
+        /* RESPONSIVE */
+        .audience-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+        @media(max-width:960px){
+          .nav-links{display:none}
+          .nav-logo-img{height:48px}
+          .hero-grid{grid-template-columns:1fr;gap:36px}
+          .hero-img-card{order:-1}
+          .steps{grid-template-columns:1fr 1fr}
+          .feat{grid-template-columns:1fr 1fr}
+          .gov{padding:36px}
+          .impact{grid-template-columns:1fr;gap:22px}
+          .fgrid{grid-template-columns:1fr 1fr}
+          .audience-grid{grid-template-columns:repeat(2,1fr)}
+          .audience-3col{grid-template-columns:1fr}
+          .lic-grid{grid-template-columns:repeat(2,1fr)}
+        }
+        @media(max-width:780px){
+          .split{grid-template-columns:1fr}
+          .cta-band,.gov{padding:32px}
+          .lband-head{flex-direction:column;align-items:flex-start}
+          .trust-split{grid-template-columns:1fr}
+          .tgrid{grid-template-columns:1fr}
+        }
+        @media(max-width:540px){
+          nav{padding:0 14px;height:58px}
+          .nav-logo-img{height:36px}
+          .nav-cta{display:none!important}
+          .wrap{padding:0 16px}
+          .hero{padding:40px 0 52px}
+          .lede{font-size:15px}
+          .cta{gap:8px}
+          .cta .btn{padding:11px 16px;font-size:13px}
+          .steps,.feat{grid-template-columns:1fr}
+          .fbottom{flex-direction:column}
+          .fgrid{grid-template-columns:1fr}
+          .lchip{flex:1;min-width:calc(50% - 5px)}
+          .nav-login{font-size:12px!important;padding:7px 12px!important}
+          .a11y-panel{right:12px;left:12px;width:auto;bottom:88px}
+          .a11y-fab{bottom:20px;right:20px}
+.cta-band{padding:22px 18px}
+          .gov{padding:24px 18px}
+          .audience-grid,.audience-3col{grid-template-columns:1fr}
+          .lic-grid{grid-template-columns:1fr 1fr}
+          .trust-col{padding:20px}
+          footer{padding:44px 0 24px}
+        }
       `}</style>
 
       {/* HEADER */}
       <header>
         <nav>
-          <a className="nav-logo" href="#top">
-            <img src="/klinova-mark.png" alt="Klinova" />
-            <span className="nav-logo-name">Klinova</span>
+          <a className="nav-logo" href="/">
+            <img src="/klinova-logo-full.png" alt="Klinova" className="nav-logo-img" style={{ width: 'auto', mixBlendMode: 'multiply' }} />
           </a>
 
           <div className="nav-links">
             <a href="#how">{t('nav_how')}</a>
-            <a href="#patients">{t('nav_patients')}</a>
-            <a href="#partners">{t('nav_partners')}</a>
-            <a href="#gov">{t('nav_gov')}</a>
+            <a href="/patients">{t('nav_patients')}</a>
+            <a href="/partner">{t('nav_partners')}</a>
+            <a href="#pricing">{t('nav_pricing')}</a>
+            <a href="/governments">{t('nav_gov')}</a>
           </div>
 
           <div className="nav-right">
+            <a href="/login" className="nav-login"
+              style={{ fontSize: 13.5, fontWeight: 600, color: C.ink, textDecoration: 'none', padding: '9px 16px', borderRadius: 8, border: `1.5px solid ${C.line}`, background: '#fff', whiteSpace: 'nowrap' }}>
+              {t('nav_login')}
+            </a>
+            <a href="/login?mode=signup&role=patient" className="btn btn-primary nav-cta" style={{ fontSize: 13, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              {t('nav_create')}
+            </a>
             <div className="lang-pill" role="group" aria-label="Language">
               <button
                 className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'}
@@ -912,16 +1116,6 @@ export default function Home() {
                 onClick={() => setLang('fr')}
               >FR</button>
             </div>
-            <button
-              className="a11y-trigger"
-              onClick={() => setA11yOpen(v => !v)}
-              aria-label="Accessibility settings"
-            >
-              <IconA11y />
-            </button>
-            <button className="btn btn-primary" style={{ fontSize: 13, padding: '10px 18px' }}>
-              {t('btn1')}
-            </button>
           </div>
         </nav>
       </header>
@@ -946,8 +1140,8 @@ export default function Home() {
                 </span>
               </div>
               <div className="cta">
-                <button className="btn btn-primary">{t('btn1')}</button>
-                <button className="btn btn-ghost">{t('btn2')}</button>
+                <a href="/download" className="btn btn-primary" style={{ textDecoration: 'none' }}>{t('btn1')}</a>
+                <a href="/get-started/clinics" className="btn btn-ghost" style={{ textDecoration: 'none' }}>{t('btn2')}</a>
               </div>
               <div className="trust">
                 <span className="trust-item"><span className="trust-dot" />{t('trust1')}</span>
@@ -1003,37 +1197,45 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FOR PATIENTS */}
-        <section id="patients">
-          <div className="wrap band-center">
-            <div className="eyebrow">{t('eyebrow3')}</div>
-            <h2>{t('h2_2')}</h2>
-          </div>
+        {/* AUDIENCE OVERVIEW */}
+        <section id="audiences">
           <div className="wrap">
-            <div className="feat">
-              <div className="fcard">
-                <div className="fcard-icon"><IconGlobe /></div>
-                <h3>{t('f1_h')}</h3><p>{t('f1_p')}</p>
+            <div className="band-center" style={{ marginBottom: 44 }}>
+              <div className="eyebrow">{lang === 'fr' ? 'Pour qui' : 'Who it\'s for'}</div>
+              <h2 style={{ fontFamily: display }}>{lang === 'fr' ? 'Une plateforme pour tous.' : 'One platform. Every role.'}</h2>
+              <p className="sub">{lang === 'fr' ? 'Patients, professionnels de santé ou gouvernements — Klinova a été conçu pour vous.' : 'Patients, healthcare providers, and governments — each with their own experience on Klinova.'}</p>
+            </div>
+            <div className="audience-3col">
+              {/* Patients */}
+              <div style={{ background: C.green, borderRadius: 24, padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 340 }}>
+                <div style={{ fontSize: 36 }}>🏥</div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,.6)' }}>{lang === 'fr' ? 'Pour les patients' : 'For patients'}</div>
+                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: '#fff', margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Soins en votre langue, sur votre téléphone.' : 'Healthcare in your language, on any phone.'}</h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.75)', lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Consultez un médecin agréé par chat, voix ou vidéo. Ordonnances numériques, livraison de médicaments, dossier chiffré.' : 'See a licensed doctor by chat, voice, or video. Digital prescriptions, medication delivery, encrypted records.'}</p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <a href="/patients" style={{ display: 'inline-block', background: '#fff', color: C.greenDeep, fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'En savoir plus →' : 'Learn more →'}</a>
+                  <a href="/login?mode=signup&role=patient" style={{ display: 'inline-block', background: 'rgba(255,255,255,.15)', color: '#fff', fontWeight: 600, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.25)', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Créer un compte' : 'Get started'}</a>
+                </div>
               </div>
-              <div className="fcard">
-                <div className="fcard-icon"><IconWallet /></div>
-                <h3>{t('f2_h')}</h3><p>{t('f2_p')}</p>
+              {/* Partners */}
+              <div style={{ background: C.sand, border: `1.5px solid ${C.line}`, borderRadius: 24, padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 340 }}>
+                <div style={{ fontSize: 36 }}>🤝</div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.mute }}>{lang === 'fr' ? 'Pour les partenaires' : 'For partners'}</div>
+                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: C.ink, margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Rejoignez le réseau de santé.' : 'Join Africa\'s healthcare grid.'}</h3>
+                <p style={{ fontSize: 14, color: C.mute, lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Cliniques, pharmacies, médecins et transporteurs — connectez-vous au réseau Klinova et recevez des patients référencés.' : 'Clinics, pharmacies, doctors, and delivery providers — connect to Klinova\'s patient network and receive verified referrals.'}</p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <a href="/partner" style={{ display: 'inline-block', background: C.green, color: '#fff', fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Devenir partenaire →' : 'Become a partner →'}</a>
+                </div>
               </div>
-              <div className="fcard">
-                <div className="fcard-icon"><IconMapPin /></div>
-                <h3>{t('f3_h')}</h3><p>{t('f3_p')}</p>
-              </div>
-              <div className="fcard">
-                <div className="fcard-icon"><IconFile /></div>
-                <h3>{t('f4_h')}</h3><p>{t('f4_p')}</p>
-              </div>
-              <div className="fcard">
-                <div className="fcard-icon"><IconMessage /></div>
-                <h3>{t('f5_h')}</h3><p>{t('f5_p')}</p>
-              </div>
-              <div className="fcard">
-                <div className="fcard-icon"><IconPhone /></div>
-                <h3>{t('f6_h')}</h3><p>{t('f6_p')}</p>
+              {/* Governments */}
+              <div style={{ background: C.greenDeep, borderRadius: 24, padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 340 }}>
+                <div style={{ fontSize: 36 }}>🏛️</div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.gold }}>{lang === 'fr' ? 'Pour les gouvernements' : 'For governments'}</div>
+                <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: '#fff', margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? 'Soins primaires pour chaque village rural.' : 'Primary care for every rural village.'}</h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.72)', lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Klinova est l\'infrastructure de télémédecine qui permet aux gouvernements d\'étendre les soins primaires à chaque communauté rurale.' : 'Klinova is the telemedicine backbone letting governments extend quality primary care to every remote community — without building new clinics.'}</p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <a href="/governments" style={{ display: 'inline-block', background: C.gold, color: '#fff', fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Voir le programme →' : 'View the program →'}</a>
+                </div>
               </div>
             </div>
           </div>
@@ -1048,11 +1250,21 @@ export default function Home() {
               <p className="sub">{t('lic_p')}</p>
             </div>
             <div className="lic-grid">
-              {[['lic_togo','lic_togo_body'],['lic_ghana','lic_ghana_body'],['lic_benin','lic_benin_body'],['lic_civ','lic_civ_body']].map(([k,b]) => (
-                <div className="lic-item" key={k}>
+              {[
+                ['lic_togo',  'lic_togo_body',  'https://onmt.tg'],
+                ['lic_ghana', 'lic_ghana_body', 'https://moh.gov.gh/ghana-medical-and-dental-council/'],
+                ['lic_benin', 'lic_benin_body', 'https://ordremedecinsbenin.bj'],
+                ['lic_civ',   'lic_civ_body',   'https://ordremedecins.ci'],
+              ].map(([k, b, href]) => (
+                <a href={href} target="_blank" rel="noopener noreferrer" key={k}
+                  style={{ textDecoration: 'none', display: 'block' }}
+                  className="lic-item lic-item-link">
                   <div className="lic-country">{t(k)}</div>
                   <div className="lic-body">{t(b)}</div>
-                </div>
+                  <div style={{ marginTop: 10, fontSize: 11, fontWeight: 600, color: C.green, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    {lang === 'fr' ? 'Voir l\'autorité officielle' : 'View official authority'} ↗
+                  </div>
+                </a>
               ))}
             </div>
             <div className="trust-split">
@@ -1083,50 +1295,11 @@ export default function Home() {
               <h2 style={{ fontFamily: display, fontSize: 'clamp(22px,2.8vw,30px)', fontWeight: 600, color: '#fff', marginTop: 8, lineHeight: 1.15 }}>{t('pilot_h')}</h2>
               <p style={{ color: '#8FB3A6', fontSize: 14.5, marginTop: 10, maxWidth: 48 + 'ch', lineHeight: 1.65 }}>{t('pilot_note')}</p>
             </div>
-            <button className="btn" style={{ background: C.gold, color: '#fff', whiteSpace: 'nowrap', flexShrink: 0 }}>{t('pilot_join')}</button>
-          </div>
-        </section>
-
-        {/* FOR PARTNERS */}
-        <section id="partners" className="band-alt">
-          <div className="wrap band-center">
-            <div className="eyebrow">{t('eyebrow4')}</div>
-            <h2>{t('h2_3')}</h2>
-          </div>
-          <div className="wrap">
-            <div className="split">
-              <div className="pcard">
-                <div className="k">{t('p1_k')}</div>
-                <h3>{t('p1_h')}</h3>
-                <ul><li>{t('p1_l1')}</li><li>{t('p1_l2')}</li><li>{t('p1_l3')}</li></ul>
-              </div>
-              <div className="pcard">
-                <div className="k">{t('p2_k')}</div>
-                <h3>{t('p2_h')}</h3>
-                <ul><li>{t('p2_l1')}</li><li>{t('p2_l2')}</li><li>{t('p2_l3')}</li></ul>
-              </div>
-              <div className="pcard">
-                <div className="k">{t('p3_k')}</div>
-                <h3>{t('p3_h')}</h3>
-                <ul><li>{t('p3_l1')}</li><li>{t('p3_l2')}</li><li>{t('p3_l3')}</li></ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* GOVERNMENTS */}
-        <section id="gov">
-          <div className="wrap">
-            <div className="gov">
-              <div className="eyebrow" style={{ color: C.goldSoft }}>{t('eyebrow5')}</div>
-              <h2>{t('h2_4')}</h2>
-              <p className="sub">{t('gov_p')}</p>
-              <div className="pills">
-                <span className="pill">{t('pill1')}</span>
-                <span className="pill">{t('pill2')}</span>
-                <span className="pill">{t('pill3')}</span>
-                <span className="pill">{t('pill4')}</span>
-              </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10, flexShrink: 0 }}>
+              <a href="/get-started/clinics" className="btn" style={{ background: C.gold, color: '#fff', whiteSpace: 'nowrap' }}>{t('pilot_join')}</a>
+              <a href="/login" style={{ fontSize: 12.5, color: 'rgba(255,255,255,.6)', textDecoration: 'none', paddingLeft: 4 }}>
+                {t('already_account')} <span style={{ color: 'rgba(255,255,255,.9)', fontWeight: 600 }}>{t('sign_in')}</span>
+              </a>
             </div>
           </div>
         </section>
@@ -1175,43 +1348,145 @@ export default function Home() {
           </div>
         </section>
 
-        {/* AUDIENCE CTAs */}
-        <section style={{ borderBottom: 'none' }}>
-          <div className="wrap">
-            <div className="band-center" style={{ marginBottom: 44 }}>
-              <div className="eyebrow">{t('cta_eyebrow')}</div>
-              <h2>{t('h2_5')}</h2>
-              <p className="sub">{t('cta_p')}</p>
-            </div>
-            <div className="audience-grid">
-              <div className="audience-card audience-primary">
-                <div className="audience-label">{t('cta_patients_sub')}</div>
-                <h3>{t('cta_patients')}</h3>
-                <button className="btn btn-primary" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center' }}>{t('cta_patients')}</button>
+        {/* PRICING */}
+        {(() => {
+          const pc = PRICE_COUNTRIES.find(c => c.code === priceCountry) ?? PRICE_COUNTRIES[0]
+          const features = ['price_feat1','price_feat2','price_feat3','price_feat4','price_feat5','price_feat6']
+          return (
+            <section id="pricing" className="band-alt">
+              <div className="wrap">
+                <div className="band-center" style={{ marginBottom: 36 }}>
+                  <div className="eyebrow">{t('price_eyebrow')}</div>
+                  <h2>{t('price_h')}</h2>
+                </div>
+
+                {/* Country tabs */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 40 }}>
+                  {PRICE_COUNTRIES.map(c => (
+                    <button key={c.code} onClick={() => setPriceCountry(c.code)}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 6,
+                        padding: '6px 14px', borderRadius: 999, fontSize: 13, fontWeight: 500,
+                        border: `1.5px solid ${priceCountry === c.code ? C.green : C.line}`,
+                        background: priceCountry === c.code ? C.green : '#fff',
+                        color: priceCountry === c.code ? '#fff' : C.mute,
+                        cursor: 'pointer', transition: 'all .15s',
+                      }}>
+                      {c.flag} {c.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Plan cards */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20, maxWidth: 640, margin: '0 auto 48px' }}>
+                  {/* Individual */}
+                  <div style={{ background: C.greenDeep, borderRadius: 20, padding: '32px 28px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.55)', marginBottom: 6 }}>{t('price_individual')}</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                        <span style={{ fontSize: 36, fontWeight: 700, color: '#fff', letterSpacing: '-.02em' }}>{pc.individual}</span>
+                        <span style={{ fontSize: 14, color: 'rgba(255,255,255,.6)' }}>{pc.currency} {t('price_per_month')}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,.5)', marginBottom: 10 }}>{t('price_included')}</div>
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        {features.map(k => (
+                          <li key={k} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13.5, color: 'rgba(255,255,255,.85)' }}>
+                            <span style={{ width: 16, height: 16, borderRadius: '50%', background: 'rgba(255,255,255,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, flexShrink: 0, color: '#fff' }}>✓</span>
+                            {t(k)}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <a href="/login?mode=signup&role=patient"
+                      style={{ marginTop: 'auto', display: 'block', textAlign: 'center', background: '#fff', color: C.greenDeep, borderRadius: 10, padding: '12px 0', fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
+                      {t('price_cta')}
+                    </a>
+                  </div>
+
+                  {/* Family */}
+                  <div style={{ background: '#fff', border: `1.5px solid ${C.line}`, borderRadius: 20, padding: '32px 28px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: C.mute, marginBottom: 6 }}>{t('price_family')} <span style={{ background: C.greenSoft, color: C.green, borderRadius: 6, padding: '2px 7px', fontSize: 10, fontWeight: 700, marginLeft: 4 }}>{t('price_family_sub')}</span></div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                        <span style={{ fontSize: 36, fontWeight: 700, color: C.ink, letterSpacing: '-.02em' }}>{pc.family}</span>
+                        <span style={{ fontSize: 14, color: C.mute }}>{pc.currency} {t('price_per_month')}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: C.mute, marginBottom: 10 }}>{t('price_included')}</div>
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        <li style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13.5, color: C.ink }}>
+                          <span style={{ width: 16, height: 16, borderRadius: '50%', background: C.greenSoft, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, flexShrink: 0, color: C.green }}>✓</span>
+                          {t('price_family_extra')}
+                        </li>
+                        {features.map(k => (
+                          <li key={k} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13.5, color: C.ink }}>
+                            <span style={{ width: 16, height: 16, borderRadius: '50%', background: C.greenSoft, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, flexShrink: 0, color: C.green }}>✓</span>
+                            {k === 'price_feat5' ? t('price_family_feat5') : t(k)}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <a href="/login?mode=signup&role=patient"
+                      style={{ marginTop: 'auto', display: 'block', textAlign: 'center', background: C.greenDeep, color: '#fff', borderRadius: 10, padding: '12px 0', fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
+                      {t('price_cta')}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Partner pricing */}
+                <div style={{ borderTop: `1.5px solid ${C.line}`, paddingTop: 36 }}>
+                  <h3 style={{ textAlign: 'center', fontSize: 16, fontWeight: 600, color: C.ink, marginBottom: 20 }}>{t('price_partners_h')}</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16 }}>
+                    {[
+                      { label: 'price_doc_label',        tag: 'price_doc_tag',        desc: 'price_doc_desc',        href: '/get-started/doctors'   },
+                      { label: 'price_pharm_label',      tag: 'price_pharm_tag',      desc: 'price_pharm_desc',      href: '/get-started/pharmacy'  },
+                      { label: 'price_clinic_label',     tag: 'price_clinic_tag',     desc: 'price_clinic_desc',     href: '/get-started/clinics'   },
+                      { label: 'price_transport_label',  tag: 'price_transport_tag',  desc: 'price_transport_desc',  href: `mailto:contact@klinova.co?subject=${encodeURIComponent('Transport & Delivery Partner – Klinova')}` },
+                    ].map(({ label, tag, desc, href }) => (
+                      <div key={label} style={{ background: '#fff', border: `1.5px solid ${C.line}`, borderRadius: 16, padding: '22px 22px', display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                          <span style={{ fontSize: 14, fontWeight: 600, color: C.ink }}>{t(label)}</span>
+                          <span style={{ fontSize: 11, fontWeight: 700, background: C.greenSoft, color: C.green, borderRadius: 6, padding: '3px 8px' }}>{t(tag)}</span>
+                        </div>
+                        <p style={{ fontSize: 13, color: C.mute, lineHeight: 1.6, margin: '0 0 16px', flex: 1 }}>{t(desc)}</p>
+                        <a href={href} style={{ fontSize: 13, fontWeight: 700, color: C.greenDeep, textDecoration: 'none', display: 'block', marginBottom: 6 }}>
+                          {t('price_cta')} →
+                        </a>
+                        <a href="/login" style={{ fontSize: 12, color: C.mute, textDecoration: 'none' }}>
+                          {t('already_account')} <span style={{ color: C.green, fontWeight: 600 }}>{t('sign_in')}</span>
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Government / institutional tier */}
+                <div style={{ marginTop: 28, background: C.greenDeep, borderRadius: 20, padding: '28px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap' }}>
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.gold, marginBottom: 8 }}>
+                      {lang === 'fr' ? 'Gouvernements & ONG' : 'Governments & NGOs'}
+                    </div>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', fontFamily: display, marginBottom: 6 }}>
+                      {lang === 'fr' ? 'Accès gratuit via les programmes nationaux' : 'Free access via national health programs'}
+                    </div>
+                    <p style={{ fontSize: 14, color: 'rgba(255,255,255,.68)', margin: 0, maxWidth: 52 + 'ch', lineHeight: 1.6 }}>
+                      {lang === 'fr' ? 'Les gouvernements déploient Klinova comme infrastructure de télémédecine pour leurs citoyens. Les patients n\'ont rien à payer.' : 'Governments deploy Klinova as telemedicine infrastructure for their citizens. Patients pay nothing — the program is covered by a national or NGO contract.'}
+                    </p>
+                  </div>
+                  <a href="/governments" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: C.gold, color: '#fff', textDecoration: 'none', padding: '12px 24px', borderRadius: 10, fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    {lang === 'fr' ? 'Voir le programme →' : 'View the program →'}
+                  </a>
+                </div>
+
+                <p style={{ textAlign: 'center', fontSize: 12, color: '#AAA', marginTop: 28 }}>{t('price_note')}</p>
               </div>
-              <div className="audience-card">
-                <div className="audience-label">{t('cta_doctors_sub')}</div>
-                <h3>{t('cta_doctors')}</h3>
-                <button className="btn btn-ghost" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center' }}>{t('cta_doctors')}</button>
-              </div>
-              <div className="audience-card">
-                <div className="audience-label">{t('cta_clinics_sub')}</div>
-                <h3>{t('cta_clinics')}</h3>
-                <button className="btn btn-ghost" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center' }}>{t('cta_clinics')}</button>
-              </div>
-              <div className="audience-card">
-                <div className="audience-label">{t('cta_pharmacy_sub')}</div>
-                <h3>{t('cta_pharmacy')}</h3>
-                <button className="btn btn-ghost" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center' }}>{t('cta_pharmacy')}</button>
-              </div>
-              <div className="audience-card">
-                <div className="audience-label">{t('cta_gov_sub')}</div>
-                <h3>{t('cta_gov_btn')}</h3>
-                <button className="btn btn-ghost" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center' }}>{t('cta_gov_btn')}</button>
-              </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          )
+        })()}
+
       </main>
 
       {/* FOOTER */}
@@ -1219,9 +1494,8 @@ export default function Home() {
         <div className="wrap">
           <div className="fgrid">
             <div>
-              <a className="nav-logo" href="#top">
-                <img src="/klinova-mark.png" alt="Klinova" />
-                <span className="nav-logo-name">Klinova</span>
+              <a className="nav-logo" href="/" style={{ display: 'inline-flex', alignItems: 'center' }}>
+                <img src="/klinova-logo-full.png" alt="Klinova" style={{ height: 88, width: 'auto', filter: 'brightness(0) invert(1)' }} />
               </a>
               <p className="blurb">{t('footer_blurb')}</p>
               <p style={{ fontSize: 12, fontWeight: 700, color: C.gold, letterSpacing: '.06em', textTransform: 'uppercase', marginTop: 12 }}>{t('card_h')}</p>
@@ -1230,25 +1504,25 @@ export default function Home() {
               <h4>{t('footer_product')}</h4>
               <ul>
                 <li><a href="#how">{t('footer_how')}</a></li>
-                <li><a href="#patients">{t('footer_patients')}</a></li>
-                <li><a href="#top">{t('btn1')}</a></li>
+                <li><a href="/patients">{t('footer_patients')}</a></li>
+<li><a href="/download">{t('btn1')}</a></li>
               </ul>
             </div>
             <div>
               <h4>{t('footer_partners')}</h4>
               <ul>
-                <li><a href="#partners">{t('footer_clinics')}</a></li>
-                <li><a href="#partners">{t('footer_pharmacies')}</a></li>
-                <li><a href="#partners">{t('footer_doctors')}</a></li>
-                <li><a href="#gov">{t('footer_governments')}</a></li>
+                <li><a href="/partner">{t('footer_clinics')}</a></li>
+                <li><a href="/partner">{t('footer_pharmacies')}</a></li>
+                <li><a href="/partner">{t('footer_doctors')}</a></li>
+                <li><a href="/governments">{t('footer_governments')}</a></li>
               </ul>
             </div>
             <div>
               <h4>{t('footer_company')}</h4>
               <ul>
-                <li><a href="#top">{t('footer_about')}</a></li>
+                <li><a href="/">{t('footer_about')}</a></li>
                 <li><a href="mailto:contact@klinova.co">{t('footer_contact')}</a></li>
-                <li><a href="#top">{t('footer_privacy')}</a></li>
+                <li><a href="/privacy">{t('footer_privacy')}</a></li>
               </ul>
             </div>
           </div>
@@ -1261,7 +1535,7 @@ export default function Home() {
 
       {/* ACCESSIBILITY FAB */}
       <button
-        className="a11y-fab"
+        className={`a11y-fab${a11yOpen ? ' a11y-fab--open' : ''}`}
         onClick={() => setA11yOpen(v => !v)}
         aria-label="Accessibility settings"
         aria-expanded={a11yOpen}
