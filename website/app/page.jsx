@@ -921,6 +921,7 @@ export default function Home() {
           .nav-links{display:none}
           .hamburger{display:flex}
           .nav-lang{display:none}
+          nav{justify-content:space-between}
           .nav-logo-img{height:48px}
           .hero-grid{grid-template-columns:1fr;gap:36px}
           .hero-img-card{order:-1}
@@ -941,10 +942,11 @@ export default function Home() {
           .tgrid{grid-template-columns:1fr}
         }
         @media(max-width:540px){
-          nav{padding:0 14px;height:58px}
+          nav{padding:0 14px;height:58px;justify-content:space-between}
           .nav-logo-img{height:36px}
-          .nav-cta{display:none!important}
-          .nav-login{display:none!important}
+          .nav-cta{font-size:12px!important;padding:8px 11px!important}
+          .nav-login{font-size:12px!important;padding:7px 11px!important}
+          .nav-lang{display:none}
           .mob-drawer{display:block}
           .wrap{padding:0 18px}
           section{padding:48px 0}

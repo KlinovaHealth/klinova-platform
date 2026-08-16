@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 
 const C = {
   ink:'#15302A', green:'#0E6B4F', greenDeep:'#0A5440', greenSoft:'#E3EFE8',
@@ -9,6 +10,7 @@ const display = "'Fraunces', Georgia, serif"
 const ui      = "'Plus Jakarta Sans', system-ui, sans-serif"
 
 export default function PartnersPage() {
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
     <>
       <style suppressHydrationWarning>{`
@@ -34,13 +36,19 @@ export default function PartnersPage() {
         .btn-ghost{background:rgba(255,255,255,.7);color:${C.ink};border:1.5px solid ${C.line}}
         .btn-ghost:hover{border-color:${C.green};color:${C.greenDeep};background:#fff}
         /* NAV */
-        header{position:sticky;top:0;z-index:100;background:rgba(245,239,227,.92);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid rgba(231,222,204,.6)}
+        header{position:sticky;top:0;z-index:100;background:rgba(232,224,208,.95);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid rgba(210,200,182,.7)}
         nav{display:flex;align-items:center;gap:6px;height:66px;padding:0 28px;max-width:1200px;margin:0 auto}
         .nav-links{display:flex;align-items:center;gap:2px;flex:1;justify-content:center}
         .nav-links a{font-size:13.5px;font-weight:600;color:${C.mute};padding:7px 12px;border-radius:8px;transition:color .15s,background .15s}
         .nav-links a:hover,.nav-links a.active{color:${C.ink};background:rgba(14,107,79,.07)}
         .nav-links a.active{color:${C.greenDeep}}
         .nav-right{display:flex;align-items:center;gap:8px;flex:none}
+        .hamburger{display:none;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
+        .hamburger:hover{background:rgba(14,107,79,.08)}
+        .mob-drawer{display:none;position:fixed;inset:0;z-index:300;background:rgba(21,48,42,.45);backdrop-filter:blur(4px)}
+        .mob-nav{position:absolute;top:0;right:0;bottom:0;width:min(320px,88vw);background:${C.ivory};padding:80px 24px 32px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,.15)}
+        .mob-nav a{font-size:17px;font-weight:600;color:${C.ink};text-decoration:none;padding:12px 0;border-bottom:1px solid ${C.line}}
+        .mob-nav a:hover{color:${C.green}}
         /* HERO */
         .hero{padding:80px 0 96px;overflow:hidden;position:relative}
         .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(14,107,79,.07) 0%,transparent 70%);pointer-events:none}
@@ -118,9 +126,11 @@ export default function PartnersPage() {
           section{padding:56px 0}
           .ptype-grid,.join-steps,.rev-grid,.dash-layout,.pilot{grid-template-columns:1fr}
           .footer-grid{grid-template-columns:1fr 1fr}
-          nav{padding:0 14px;height:58px}
+          nav{padding:0 14px;height:58px;justify-content:space-between}
           .nav-links{display:none}
-          .nav-right a:not(:last-child){display:none}
+          .hamburger{display:flex}
+          .nav-right a{font-size:12px!important;padding:7px 10px!important}
+          .mob-drawer{display:block}
           .pilot{padding:28px 20px}
           .dash-preview{position:static}
         }
@@ -131,9 +141,9 @@ export default function PartnersPage() {
           .footer-grid{grid-template-columns:1fr}
           h1{font-size:32px}
           h2{font-size:24px}
+          .lede{font-size:16px;max-width:none}
           .pilot-form{padding:20px 16px}
           .form-input,.form-select{font-size:16px}
-          .nav-right .btn{font-size:12px!important;padding:8px 12px!important}
           .footer-col{display:none}
           .footer-grid > div:first-child{display:block}
           .rev-card h3{font-size:28px}
@@ -154,8 +164,28 @@ export default function PartnersPage() {
           <div className="nav-right">
             <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>Log in</a>
             <a href="mailto:contact@klinova.co?subject=Partner Application" className="btn btn-primary" style={{ fontSize:13, padding:'10px 18px', whiteSpace:'nowrap' }}>Become a partner</a>
+            <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
+              {menuOpen
+                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+              }
+            </button>
           </div>
         </nav>
+        {menuOpen && (
+          <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
+            <nav className="mob-nav" onClick={e => e.stopPropagation()}>
+              <a href="/governments" onClick={() => setMenuOpen(false)}>For Governments</a>
+              <a href="/patients" onClick={() => setMenuOpen(false)}>For Individuals</a>
+              <a href="/partner" onClick={() => setMenuOpen(false)}>For Partners</a>
+              <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
+              <div style={{ borderTop:`1px solid ${C.line}`, paddingTop:20, display:'flex', gap:10 }}>
+                <a href="/login" className="btn btn-ghost" style={{ flex:1, textDecoration:'none', justifyContent:'center', fontSize:14 }}>Log in</a>
+                <a href="mailto:contact@klinova.co?subject=Partner Application" className="btn btn-primary" style={{ flex:1, textDecoration:'none', justifyContent:'center', fontSize:13 }}>Become a partner</a>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* HERO */}
