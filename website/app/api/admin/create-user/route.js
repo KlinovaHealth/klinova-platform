@@ -27,9 +27,9 @@ export async function POST(request) {
 
   // 3. Parse and validate body
   const body = await request.json()
-  const { email, full_name, role, temp_password, pharmacy_id } = body
+  const { email, full_name, role, temp_password, pharmacy_id, doctor_type } = body
 
-  const VALID_ROLES = ['patient', 'doctor', 'pharmacist', 'admin', 'analyst', 'nurse', 'marketing', 'frontdesk', 'owner']
+  const VALID_ROLES = ['patient', 'doctor', 'pharmacist', 'admin', 'analyst', 'nurse', 'marketing', 'frontdesk', 'owner', 'government']
   if (!email || !role || !temp_password || !full_name) {
     return NextResponse.json({ error: 'email, full_name, role, and temp_password are required' }, { status: 400 })
   }
@@ -56,6 +56,7 @@ export async function POST(request) {
     role,
     force_password_change: true, // force password change on first login
     ...(pharmacy_id && role === 'pharmacist' ? { pharmacy_id } : {}),
+    ...(doctor_type && role === 'doctor' ? { doctor_type } : {}),
   }
 
   const { error: profileErr } = await adminSupabase

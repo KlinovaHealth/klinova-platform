@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -203,8 +203,125 @@ export default function PatientDashboard({ userId, name }) {
         <p className="text-sm text-ink/50">{t('patient.paymentsSoon')}</p>
       </section>
 
+      <LocationSection userId={userId} supabase={supabase} />
+
       <MyPaySection userId={userId} />
     </div>
+  )
+}
+
+// ── Location detection (patient only) ──────────────────────────────────────
+
+function LocationSection({ userId, supabase }) {
+  const { t } = useLanguage()
+  const [status, setStatus]     = useState('idle') // idle | loading | granted | denied | saved
+  const [location, setLocation] = useState(null)   // { city, country, lat, lng }
+  const [saving, setSaving]     = useState(false)
+
+  useEffect(() => {
+    // Load saved location from DB on mount
+    supabase.from('users').select('city,country,lat,lng').eq('id', userId).single()
+      .then(({ data }) => {
+        if (data?.city || data?.country) {
+          setLocation({ city: data.city, country: data.country, lat: data.lat, lng: data.lng })
+          setStatus('saved')
+        }
+      })
+  }, [userId])
+
+  async function reverseGeocode(lat, lng) {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`,
+        { headers: { 'Accept-Language': 'en' } }
+      )
+      const json = await res.json()
+      const city    = json.address?.city ?? json.address?.town ?? json.address?.village ?? json.address?.county ?? ''
+      const country = json.address?.country ?? ''
+      return { city, country }
+    } catch { return { city: '', country: '' } }
+  }
+
+  async function saveToProfile(lat, lng, city, country) {
+    setSaving(true)
+    await supabase.from('users').update({ lat, lng, city, country }).eq('id', userId)
+    setSaving(false)
+    setStatus('saved')
+  }
+
+  async function requestLocation() {
+    if (!('geolocation' in navigator)) {
+      setStatus('denied')
+      return
+    }
+    setStatus('loading')
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude: lat, longitude: lng } = pos.coords
+        const { city, country } = await reverseGeocode(lat, lng)
+        setLocation({ lat, lng, city, country })
+        await saveToProfile(lat, lng, city, country)
+      },
+      () => setStatus('denied'),
+      { enableHighAccuracy: false, timeout: 10000 }
+    )
+  }
+
+  async function clearLocation() {
+    await supabase.from('users').update({ lat: null, lng: null, city: null, country: null }).eq('id', userId)
+    setLocation(null)
+    setStatus('idle')
+  }
+
+  const hasLocation = location?.city || location?.country
+
+  return (
+    <section className="bg-white rounded-xl border border-border shadow-card p-5">
+      <div className="flex items-start gap-4">
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
+          style={{ background: hasLocation ? '#E3EFE8' : '#F5EFE3' }}>
+          📍
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-semibold text-ink mb-1">
+            {hasLocation ? (location.city ? `${location.city}, ${location.country}` : location.country) : 'Share your location'}
+          </h3>
+          <p className="text-sm text-ink/55 leading-relaxed mb-3">
+            {hasLocation
+              ? 'Your location helps us connect you with nearby doctors and pharmacies. Only city-level data is stored — never shared without your consent.'
+              : 'Allow Klinova to detect your city so we can show nearby clinics, pharmacies, and available doctors. You can remove this at any time.'}
+          </p>
+          <div className="flex gap-3 flex-wrap">
+            {!hasLocation ? (
+              <button onClick={requestLocation} disabled={status === 'loading'}
+                className="px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 disabled:opacity-60"
+                style={{ background: C }}>
+                {status === 'loading' ? 'Detecting…' : status === 'denied' ? 'Location blocked — check browser settings' : 'Enable location'}
+              </button>
+            ) : (
+              <>
+                <button onClick={requestLocation}
+                  className="px-4 py-2 rounded-lg text-sm font-semibold border hover:opacity-80"
+                  style={{ borderColor: C, color: C }}>
+                  Update
+                </button>
+                <button onClick={clearLocation}
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-ink/50 hover:text-ink">
+                  Remove
+                </button>
+              </>
+            )}
+            {hasLocation && (
+              <a href="/find"
+                className="px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90"
+                style={{ background: '#0E6B4F', textDecoration: 'none' }}>
+                Find nearby providers →
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import useSWR from 'swr'
 import { createClient } from '@/lib/supabase-client'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -12,6 +13,9 @@ const STATUS_COLORS = {
 export default function MyPaySection({ userId }) {
   const supabase = createClient()
   const { t } = useLanguage()
+  const [paypalEmail, setPaypalEmail] = useState('')
+  const [ppSaving, setPpSaving] = useState(false)
+  const [ppSaved, setPpSaved] = useState(false)
 
   const { data: earnings = [], error } = useSWR('my-pay-' + userId, async () => {
     const { data, error } = await supabase
@@ -21,6 +25,12 @@ export default function MyPaySection({ userId }) {
     if (error) throw error
     return data ?? []
   }, { refreshInterval: 60000 })
+
+  useSWR(userId ? 'paypal-email-' + userId : null, async () => {
+    const { data } = await supabase.from('users').select('paypal_email').eq('id', userId).single()
+    if (data?.paypal_email) setPaypalEmail(data.paypal_email)
+    return data
+  })
 
   const totalPaid = earnings.filter(e => e.status === 'paid').reduce((s, e) => s + (e.amount ?? 0), 0)
   const pending   = earnings.filter(e => e.status === 'pending').reduce((s, e) => s + (e.amount ?? 0), 0)
@@ -79,6 +89,32 @@ export default function MyPaySection({ userId }) {
           </tbody>
         </table>
       )}
+
+      {/* PayPal payout email */}
+      <div style={{ marginTop: 24, borderTop: '1px solid #E8E0D0', paddingTop: 20 }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: '#15302A', marginBottom: 4 }}>PayPal payout email</p>
+        <p style={{ fontSize: 12, color: '#15302A80', marginBottom: 10 }}>Klinova sends your earnings to this PayPal address.</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <input
+            type="email"
+            value={paypalEmail}
+            onChange={e => { setPaypalEmail(e.target.value); setPpSaved(false) }}
+            placeholder="your@paypal.com"
+            style={{ flex: 1, fontSize: 13, padding: '8px 12px', borderRadius: 8, border: '1px solid #D4C9B8', outline: 'none', color: '#15302A' }}
+          />
+          <button
+            disabled={ppSaving || !paypalEmail}
+            onClick={async () => {
+              setPpSaving(true)
+              await supabase.from('users').update({ paypal_email: paypalEmail }).eq('id', userId)
+              setPpSaving(false)
+              setPpSaved(true)
+            }}
+            style={{ fontSize: 13, fontWeight: 600, padding: '8px 16px', borderRadius: 8, border: 'none', background: '#0E6B4F', color: '#fff', cursor: ppSaving ? 'not-allowed' : 'pointer', opacity: ppSaving ? 0.7 : 1 }}>
+            {ppSaving ? 'Saving…' : ppSaved ? '✓ Saved' : 'Save'}
+          </button>
+        </div>
+      </div>
     </section>
   )
 }

@@ -11,8 +11,9 @@ export const metadata = {
   ],
   authors: [{ name: 'Klinova' }],
   icons: {
-    icon: '/favicon.ico',
+    icon: [{ url: '/favicon-256.png', type: 'image/png', sizes: '256x256' }],
     apple: '/favicon-256.png',
+    shortcut: '/favicon-256.png',
   },
   openGraph: {
     title: 'Klinova — Healthcare that speaks your language',

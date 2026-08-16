@@ -1,13 +1,21 @@
 'use client'
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import { StatCard, Table, Alert, getGreeting } from './PatientDashboard'
 import { useLanguage } from '@/contexts/LanguageContext'
 import MyPaySection from './MyPaySection'
 import PayrollAdminSection from './PayrollAdminSection'
+import ApplicationsSection from './ApplicationsSection'
+
+const KlinovaMapSection = dynamic(() => import('./KlinovaMapSection'), { ssr: false })
 
 const C = '#15302A'
 const ROLES = ['patient', 'doctor', 'pharmacist', 'admin', 'analyst', 'nurse', 'marketing', 'frontdesk', 'owner']
+const DOCTOR_TYPES = [
+  { value: 'partner',  label: 'Partner doctor',      sub: 'External licensed provider on the network' },
+  { value: 'inhouse',  label: 'In-house teledoctor', sub: 'Klinova staff — handles routine cases & refills' },
+]
 
 const fetchStats = () => fetch('/api/admin/stats').then(r => r.json())
 
@@ -21,7 +29,7 @@ export default function AdminDashboard({ userId, name }) {
   const recentUsers   = data?.recentUsers    ?? []
   const pharmacies    = data?.pharmacies     ?? []
 
-  const empty = { email: '', full_name: '', role: 'patient', temp_password: '', pharmacy_id: '' }
+  const empty = { email: '', full_name: '', role: 'patient', temp_password: '', pharmacy_id: '', doctor_type: 'partner' }
   const [form, setForm]         = useState(empty)
   const [creating, setCreating] = useState(false)
   const [createError, setCreateError]     = useState('')
@@ -32,6 +40,7 @@ export default function AdminDashboard({ userId, name }) {
     setCreating(true); setCreateError(''); setCreateSuccess('')
     const body = { ...form }
     if (form.role !== 'pharmacist') delete body.pharmacy_id
+    if (form.role !== 'doctor') delete body.doctor_type
     const res = await fetch('/api/admin/create-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -88,7 +97,7 @@ export default function AdminDashboard({ userId, name }) {
               onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
               className={inputCls}>
               {ROLES.map(r => (
-                <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>
+                <option key={r} value={r}>{t(`roles.${r}`) || r}</option>
               ))}
             </select>
           </Field>
@@ -97,6 +106,32 @@ export default function AdminDashboard({ userId, name }) {
               onChange={e => setForm(f => ({ ...f, temp_password: e.target.value }))}
               className={inputCls} placeholder={t('admin.form.tempPasswordPlaceholder')} />
           </Field>
+          {form.role === 'doctor' && (
+            <Field label="Doctor type" className="sm:col-span-2">
+              <div className="flex gap-3 flex-wrap mt-1">
+                {DOCTOR_TYPES.map(dt => (
+                  <button key={dt.value} type="button"
+                    onClick={() => setForm(f => ({ ...f, doctor_type: dt.value }))}
+                    className="flex-1 min-w-[200px] text-left px-4 py-3 rounded-xl border-2 transition-all"
+                    style={{
+                      borderColor:   form.doctor_type === dt.value ? C : '#E7DECC',
+                      background:    form.doctor_type === dt.value ? '#15302A08' : '#fff',
+                    }}>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <div className="w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0"
+                        style={{ borderColor: form.doctor_type === dt.value ? C : '#D0C8BC' }}>
+                        {form.doctor_type === dt.value && (
+                          <div className="w-2 h-2 rounded-full" style={{ background: C }} />
+                        )}
+                      </div>
+                      <span className="text-sm font-semibold text-ink">{dt.label}</span>
+                    </div>
+                    <p className="text-xs text-ink/50 ml-6">{dt.sub}</p>
+                  </button>
+                ))}
+              </div>
+            </Field>
+          )}
           {form.role === 'pharmacist' && (
             <Field label={t('admin.form.assignPharmacy')} className="sm:col-span-2">
               <select value={form.pharmacy_id}
@@ -130,12 +165,16 @@ export default function AdminDashboard({ userId, name }) {
             rows={recentUsers.map(u => [
               u.full_name ?? '—',
               u.email ?? '—',
-              <RoleBadge key={u.id} role={u.role} />,
+              <RoleBadge key={u.id} role={u.role} doctorType={u.doctor_type} />,
               fmtDate(u.created_at),
             ])}
           />
         )}
       </section>
+
+      <ApplicationsSection />
+
+      <KlinovaMapSection />
 
       <PayrollAdminSection userId={userId} />
 
@@ -155,23 +194,35 @@ function Field({ label, required, children, className = '' }) {
   )
 }
 
-function RoleBadge({ role }) {
+function RoleBadge({ role, doctorType }) {
   const map = {
-    patient:    { bg: '#E3EFE8', color: '#0E6B4F' },
-    doctor:     { bg: '#E3EFE8', color: '#0A5440' },
-    pharmacist: { bg: '#F4E2BC', color: '#D99A2B' },
-    admin:      { bg: '#EDE4D2', color: '#15302A' },
-    analyst:    { bg: '#E3EFE8', color: '#6E7F76' },
-    nurse:      { bg: '#E3EFE8', color: '#0E6B4F' },
-    marketing:  { bg: '#F4E2BC', color: '#E0A23B' },
-    frontdesk:  { bg: '#FBEEE8', color: '#CF5A3C' },
-    owner:      { bg: '#E3EFE8', color: '#0A5440' },
+    patient:    { bg: '#E3EFE8', color: '#0E6B4F',  label: 'Patient' },
+    doctor:     { bg: '#E3EFE8', color: '#0A5440',  label: 'Doctor' },
+    pharmacist: { bg: '#F4E2BC', color: '#D99A2B',  label: 'Pharmacist' },
+    admin:      { bg: '#EDE4D2', color: '#15302A',  label: 'Admin' },
+    analyst:    { bg: '#E3EFE8', color: '#6E7F76',  label: 'Analyst' },
+    nurse:      { bg: '#E3EFE8', color: '#0E6B4F',  label: 'Nurse' },
+    marketing:  { bg: '#F4E2BC', color: '#E0A23B',  label: 'Marketing' },
+    frontdesk:  { bg: '#FBEEE8', color: '#CF5A3C',  label: 'Frontdesk' },
+    owner:      { bg: '#E3EFE8', color: '#0A5440',  label: 'Owner' },
+    government: { bg: '#EDE4D2', color: '#15302A',  label: 'Government' },
   }
-  const s = map[role] ?? { bg: '#F5EFE3', color: '#15302A' }
+  const s = map[role] ?? { bg: '#F5EFE3', color: '#15302A', label: role }
+
+  if (role === 'doctor' && doctorType) {
+    const isInhouse = doctorType === 'inhouse'
+    return (
+      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
+        style={{ background: isInhouse ? '#F4E2BC' : s.bg, color: isInhouse ? '#D99A2B' : s.color }}>
+        {isInhouse ? 'Teledoctor' : 'Partner MD'}
+      </span>
+    )
+  }
+
   return (
     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
       style={{ background: s.bg, color: s.color }}>
-      {role}
+      {s.label}
     </span>
   )
 }

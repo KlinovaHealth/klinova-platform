@@ -24,7 +24,7 @@ export default async function DashboardPage() {
   const admin = createAdminClient()
   let { data: profile, error: profileErr } = await admin
     .from('users')
-    .select('role, full_name, force_password_change, pharmacy_id, finance_admin')
+    .select('role, full_name, force_password_change, pharmacy_id, finance_admin, status')
     .eq('id', userId)
     .single()
 
@@ -59,6 +59,45 @@ export default async function DashboardPage() {
   }
 
   if (profile?.force_password_change) redirect('/auth/first-login')
+
+  if (profile?.status === 'pending') {
+    const ROLE_LABELS = { doctor: 'Doctor', frontdesk: 'Clinic / Hospital', pharmacist: 'Pharmacy' }
+    const label = ROLE_LABELS[profile.role] ?? 'Provider'
+    return (
+      <div style={{ minHeight: '100vh', background: '#F5EFE3', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <div style={{ background: '#fff', borderRadius: 20, padding: '48px 40px', maxWidth: 480, width: '100%', textAlign: 'center', boxShadow: '0 4px 24px rgba(0,0,0,.08)' }}>
+          <img src="/klinova-logo-white.png" alt="Klinova" style={{ height: 56, width: 'auto', marginBottom: 28 }} />
+          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#FEF3DC', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 26 }}>⏳</div>
+          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: '#15302A', margin: '0 0 10px' }}>Application under review</h1>
+          <p style={{ fontSize: 15, color: '#6E7F76', lineHeight: 1.6, margin: '0 0 24px' }}>
+            Your {label} application has been received. Our team will review it and get back to you within <strong style={{ color: '#15302A' }}>48 hours</strong>.
+          </p>
+          <p style={{ fontSize: 13, color: '#6E7F76', margin: 0 }}>
+            Questions? Email us at{' '}
+            <a href="mailto:contact@klinova.co" style={{ color: '#0E6B4F', textDecoration: 'none', fontWeight: 600 }}>contact@klinova.co</a>
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (profile?.status === 'rejected') {
+    return (
+      <div style={{ minHeight: '100vh', background: '#F5EFE3', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <div style={{ background: '#fff', borderRadius: 20, padding: '48px 40px', maxWidth: 480, width: '100%', textAlign: 'center', boxShadow: '0 4px 24px rgba(0,0,0,.08)' }}>
+          <img src="/klinova-logo-white.png" alt="Klinova" style={{ height: 56, width: 'auto', marginBottom: 28 }} />
+          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#FBEEE8', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 26 }}>✕</div>
+          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: '#15302A', margin: '0 0 10px' }}>Application not approved</h1>
+          <p style={{ fontSize: 15, color: '#6E7F76', lineHeight: 1.6, margin: '0 0 24px' }}>
+            Unfortunately your application did not meet our current requirements. If you believe this is an error, please reach out to us directly.
+          </p>
+          <a href="mailto:contact@klinova.co" style={{ display: 'inline-block', background: '#0E6B4F', color: '#fff', padding: '12px 24px', borderRadius: 10, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
+            Contact us
+          </a>
+        </div>
+      </div>
+    )
+  }
 
   const role         = profile?.role         ?? 'admin'
   const full_name    = profile?.full_name    ?? (userName || 'User')
