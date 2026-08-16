@@ -106,6 +106,18 @@ export default function AppointmentsSection({ doctorId, clinicMode = false }) {
       setSaveErr(error.message)
     } else {
       setSaveOk(true)
+      if (!editId && form.patientPhone) {
+        const dateLabel = new Date(scheduled_at).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
+        fetch('/api/whatsapp/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: form.patientPhone,
+            type: 'appointment_confirmed',
+            payload: { patientName: form.patientName, doctorName: 'Klinova', date: dateLabel, time: form.time, reason: form.reason, lang },
+          }),
+        }).catch(() => {})
+      }
       setForm({ patientName: '', patientPhone: '', reason: '', time: '09:00', notes: '' })
       setEditId(null)
       mutate()
