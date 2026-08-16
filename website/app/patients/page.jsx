@@ -178,8 +178,8 @@ export default function PatientsPage() {
           <div className="hero-grid">
             <div>
               <div className="eyebrow">For patients</div>
-              <h1>Healthcare in <span className="accent">your language,</span> on any phone.</h1>
-              <p className="lede">See a licensed doctor by chat, voice, or video. Get your prescription delivered to your nearest pharmacy. Use the app, the website, or WhatsApp, whichever works best for you.</p>
+              <h1>Quality healthcare, <span className="accent">on any phone.</span></h1>
+              <p className="lede">See a licensed doctor by chat, voice, or video. Digital prescriptions, medication delivery, encrypted records. From 1,500 XOF/month or free via a government program if eligible.</p>
               <div className="cta">
                 <a href="/login?mode=signup&role=patient" className="btn btn-primary" style={{ textDecoration:'none' }}>Get the app</a>
                 <a href="https://wa.me/22890000000" className="btn btn-ghost" style={{ textDecoration:'none' }}>Chat on WhatsApp</a>

@@ -164,7 +164,7 @@ export default function PartnersPage() {
           <div className="hero-inner">
             <div className="eyebrow">For healthcare partners</div>
             <h1>Join Africa's <span className="accent">healthcare grid.</span></h1>
-            <p className="lede">Clinics, pharmacies, labs, doctors, and transport providers connect to Klinova's patient network to reach more people, reduce no-shows, and get paid faster.</p>
+            <p className="lede">Clinics, pharmacies, doctors, employers, and delivery providers join the Klinova network and receive verified patient referrals.</p>
             <div className="cta">
               <a href="#apply" className="btn btn-primary">Apply to be a partner</a>
               <a href="mailto:contact@klinova.co" className="btn btn-ghost">Talk to our team</a>
