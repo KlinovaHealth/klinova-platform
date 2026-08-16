@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 /* ─── Design tokens ─────────────────────────────────────────── */
 const C = {
@@ -110,28 +110,6 @@ const IconStar = ({ filled }) => (
     <path d="M8 1.5l1.8 3.6 4 .58-2.9 2.83.69 3.99L8 10.35l-3.59 1.89.69-3.99L2.2 5.68l4-.58L8 1.5z"/>
   </svg>
 )
-const IconA11y = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="11" cy="4" r="1.75"/>
-    <path d="M3.5 8.5h15"/>
-    <path d="M11 8.5v4.5l-3 5.5M11 13l3 5.5"/>
-  </svg>
-)
-const IconAlignLeft = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-    <path d="M1 3h14M1 7h9M1 11h12M1 13h7"/>
-  </svg>
-)
-const IconAlignCenter = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-    <path d="M1 3h14M3.5 7h9M2 11h12M4 13h8"/>
-  </svg>
-)
-const IconAlignRight = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-    <path d="M1 3h14M6 7h9M3 11h12M8 13h7"/>
-  </svg>
-)
 
 /* ─── Translations ──────────────────────────────────────────── */
 const T = {
@@ -139,7 +117,7 @@ const T = {
     eyebrow1: 'Government Healthcare Infrastructure for Africa',
     h1_p1:   'Deploy telemedicine to ',
     h1_accent: 'your citizens.',
-    lede: "Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community — without building a new clinic in each one. Individuals can also subscribe directly.",
+    lede: "Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community without building a new clinic in each one. Individuals can also subscribe directly.",
     btn1: 'Get the app',
     btn2: 'For clinics and partners',
     nav_login: 'Log in',
@@ -753,74 +731,8 @@ export default function Home() {
   const [lang, setLang] = useState('en')
   const [priceCountry, setPriceCountry] = useState('TG')
 
-  /* Accessibility panel */
-  const [a11yOpen,      setA11yOpen]      = useState(false)
-  const [fontSize,      setFontSize]      = useState(100)
-  const [lineHeight,    setLineHeight]    = useState(160)
-  const [letterSpacing, setLetterSpacing] = useState(0)
-  const [boldText,      setBoldText]      = useState(false)
-  const [readableFont,  setReadableFont]  = useState(false)
-  const [textAlign,     setTextAlign]     = useState('left')
-  const [darkMode,      setDarkMode]      = useState(false)
-  const [monochrome,    setMonochrome]    = useState(false)
-  const [bigCursor,     setBigCursor]     = useState(false)
-
-  const cursorStyleRef = useRef(null)
-
   /* Translation helper */
   const t = (key) => T[lang]?.[key] ?? T.en[key]
-
-  /* Effects */
-  useEffect(() => {
-    document.documentElement.style.fontSize = fontSize + '%'
-  }, [fontSize])
-
-  useEffect(() => {
-    document.body.style.lineHeight = lineHeight / 100
-  }, [lineHeight])
-
-  useEffect(() => {
-    document.body.style.letterSpacing = letterSpacing + 'px'
-  }, [letterSpacing])
-
-  useEffect(() => {
-    document.body.style.fontWeight = boldText ? '700' : ''
-  }, [boldText])
-
-  useEffect(() => {
-    document.body.style.fontFamily = readableFont
-      ? 'Arial, Helvetica, sans-serif'
-      : ''
-  }, [readableFont])
-
-  useEffect(() => {
-    document.body.style.textAlign = textAlign
-  }, [textAlign])
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.setAttribute('data-dark', '')
-    } else {
-      document.documentElement.removeAttribute('data-dark')
-    }
-  }, [darkMode])
-
-  useEffect(() => {
-    document.body.style.filter = monochrome ? 'grayscale(1)' : ''
-  }, [monochrome])
-
-  useEffect(() => {
-    if (bigCursor) {
-      const s = document.createElement('style')
-      s.id = '__klinova_cursor'
-      s.textContent = '* { cursor: zoom-in !important; }'
-      document.head.appendChild(s)
-      cursorStyleRef.current = s
-    } else {
-      const existing = document.getElementById('__klinova_cursor')
-      if (existing) existing.remove()
-    }
-  }, [bigCursor])
 
   /* Current language display */
   const currentLang = LANG_LIST.find(l => l.code === lang)
@@ -847,7 +759,7 @@ export default function Home() {
         .btn-ghost:hover { border-color: ${C.green}; color: ${C.greenDeep}; background: #fff; }
 
         /* NAV */
-        header { position: sticky; top: 0; z-index: 100; background: rgba(245,239,227,.92); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom: 1px solid rgba(231,222,204,.6); }
+        header { position: sticky; top: 0; z-index: 100; background: rgba(232,224,208,.95); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom: 1px solid rgba(210,200,182,.7); }
         nav { display: flex; align-items: center; gap: 6px; height: 66px; padding: 0 28px; max-width: 1200px; margin: 0 auto; }
         .nav-logo { display: inline-flex; align-items: center; gap: 10px; flex: none; outline: none; text-decoration: none; }
         .nav-logo:focus-visible { outline: 2px solid ${C.green}; outline-offset: 4px; border-radius: 6px; }
@@ -860,9 +772,6 @@ export default function Home() {
         .lp-btn { border: none; background: transparent; font-family: ${ui}; font-size: 12px; font-weight: 700; letter-spacing: .06em; color: ${C.mute}; padding: 5px 11px; cursor: pointer; transition: background .15s, color .15s; }
         .lp-btn:hover { background: rgba(14,107,79,.10); color: ${C.ink}; }
         .lp-btn.lp-on { background: ${C.green}; color: #fff; }
-        .a11y-trigger { width: 38px; height: 38px; border-radius: 10px; background: ${C.green}; color: #fff; border: none; cursor: pointer; display: grid; place-items: center; transition: background .15s, transform .15s; flex: none; }
-        .a11y-trigger:hover { background: ${C.greenDeep}; transform: translateY(-1px); }
-
         /* HERO */
         .hero { padding: 80px 0 96px; overflow: hidden; position: relative; }
         .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(14,107,79,.07) 0%, transparent 70%); pointer-events:none; }
@@ -957,45 +866,6 @@ export default function Home() {
         footer a:hover { color: #fff; }
         .fbottom { border-top: 1px solid rgba(255,255,255,.07); margin-top: 44px; padding-top: 22px; display: flex; justify-content: space-between; font-size: 12.5px; color: #5A7A6E; flex-wrap: wrap; gap: 10px; }
 
-        /* ACCESSIBILITY FAB + PANEL */
-        @keyframes a11yUp { from { opacity:0; transform:translateY(12px) scale(.97) } to { opacity:1; transform:translateY(0) scale(1) } }
-        .a11y-fab { position: fixed; bottom: 28px; right: 28px; z-index: 200; width: 50px; height: 50px; border-radius: 50%; background: #fff; color: ${C.green}; border: 1.5px solid ${C.line}; cursor: pointer; display: grid; place-items: center; box-shadow: 0 4px 20px rgba(0,0,0,.10), 0 1px 4px rgba(0,0,0,.06); transition: border-color .18s, box-shadow .18s, transform .18s, background .18s; }
-        .a11y-fab:hover, .a11y-fab--open { border-color: ${C.green}; background: ${C.soft}; box-shadow: 0 8px 28px rgba(14,107,79,.18), 0 2px 8px rgba(0,0,0,.07); transform: translateY(-2px); }
-        .a11y-panel { position: fixed; bottom: 92px; right: 28px; z-index: 199; width: 352px; max-height: 82vh; overflow-y: auto; background: #fff; border-radius: 22px; box-shadow: 0 32px 72px -12px rgba(0,0,0,.18), 0 8px 24px -6px rgba(0,0,0,.08); border: 1px solid ${C.line}; animation: a11yUp .22s cubic-bezier(.4,0,.2,1); }
-        .a11y-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px 16px; border-bottom: 1px solid ${C.line}; position: sticky; top: 0; background: #fff; z-index: 1; }
-        .a11y-header h3 { font-size: 14px; font-weight: 700; color: ${C.ink}; letter-spacing: -.01em; margin: 0; }
-        .a11y-close { width: 28px; height: 28px; border-radius: 50%; background: ${C.sand}; border: none; cursor: pointer; display: grid; place-items: center; font-size: 14px; color: ${C.mute}; transition: background .15s, color .15s; line-height: 1; }
-        .a11y-close:hover { background: ${C.line}; color: ${C.ink}; }
-        .a11y-body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 22px; }
-        .a11y-section-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: ${C.mute}; margin-bottom: 12px; }
-        .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
-        .a11y-row label { font-size: 13px; font-weight: 500; color: ${C.ink}; }
-        .a11y-row:first-of-type { margin-top: 0; }
-        .a11y-slider-wrap { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
-        .a11y-slider-wrap label { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 500; color: ${C.ink}; }
-        .a11y-slider-wrap label span { color: ${C.green}; }
-        input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; border-radius: 2px; background: ${C.line}; outline: none; cursor: pointer; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: ${C.green}; cursor: pointer; box-shadow: 0 2px 6px rgba(14,107,79,.35); }
-        .toggle-btns { display: flex; border: 1.5px solid ${C.line}; border-radius: 8px; overflow: hidden; }
-        .toggle-btns button { flex: 1; padding: 7px 0; font-size: 12.5px; font-weight: 700; border: none; background: transparent; cursor: pointer; color: ${C.mute}; transition: background .15s, color .15s; }
-        .toggle-btns button.active { background: ${C.green}; color: #fff; }
-        .align-btns { display: flex; gap: 6px; }
-        .align-btn { width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid ${C.line}; background: #fff; cursor: pointer; display: grid; place-items: center; color: ${C.mute}; transition: border-color .15s, background .15s, color .15s; }
-        .align-btn.active { border-color: ${C.green}; background: ${C.greenSoft}; color: ${C.green}; }
-        /* Toggle switch */
-        .toggle-switch { position: relative; width: 40px; height: 22px; flex: none; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
-        .toggle-track { position: absolute; inset: 0; background: #D1D9D4; border-radius: 11px; cursor: pointer; transition: background .2s; }
-        .toggle-track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.2); transition: transform .2s; }
-        .toggle-switch input:checked + .toggle-track { background: ${C.green}; }
-        .toggle-switch input:checked + .toggle-track::after { transform: translateX(18px); }
-
-        /* DARK MODE */
-        [data-dark] body { background: #0F1B17 !important; color: #D8EDE6 !important; }
-        [data-dark] header { background: rgba(13,25,20,.92) !important; border-color: #1E3329 !important; }
-        [data-dark] .fcard, [data-dark] .step { background: #172822 !important; border-color: #1E3329 !important; color: #D8EDE6 !important; }
-        [data-dark] .fcard p, [data-dark] .step p { color: #7FA898 !important; }
-        [data-dark] .band-alt { background: #111E1A !important; }
 
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
         /* Testimonials */
@@ -1072,8 +942,6 @@ export default function Home() {
           .fgrid{grid-template-columns:1fr}
           .lchip{flex:1;min-width:calc(50% - 5px)}
           .nav-login{font-size:12px!important;padding:7px 12px!important}
-          .a11y-panel{right:12px;left:12px;width:auto;bottom:88px}
-          .a11y-fab{bottom:20px;right:20px}
 .cta-band{padding:22px 18px}
           .gov{padding:24px 18px}
           .audience-grid,.audience-3col{grid-template-columns:1fr}
@@ -1564,173 +1432,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ACCESSIBILITY FAB */}
-      <button
-        className={`a11y-fab${a11yOpen ? ' a11y-fab--open' : ''}`}
-        onClick={() => setA11yOpen(v => !v)}
-        aria-label="Accessibility settings"
-        aria-expanded={a11yOpen}
-      >
-        <IconA11y />
-      </button>
-
-      {/* ACCESSIBILITY PANEL */}
-      {a11yOpen && (
-        <div className="a11y-panel" role="dialog" aria-label="Accessibility settings">
-          <div className="a11y-header">
-            <h3>Accessibility</h3>
-            <button className="a11y-close" onClick={() => setA11yOpen(false)} aria-label="Close">
-              &#x2715;
-            </button>
-          </div>
-
-          <div className="a11y-body">
-
-
-
-            {/* TEXT */}
-            <div>
-              <div className="a11y-section-label">Text</div>
-
-              <div className="a11y-slider-wrap">
-                <label>
-                  Font Size
-                  <span>{fontSize}%</span>
-                </label>
-                <input
-                  type="range"
-                  min="85"
-                  max="135"
-                  value={fontSize}
-                  onChange={e => setFontSize(Number(e.target.value))}
-                />
-              </div>
-
-              <div className="a11y-slider-wrap" style={{ marginTop: 12 }}>
-                <label>
-                  Line Height
-                  <span>{lineHeight}</span>
-                </label>
-                <input
-                  type="range"
-                  min="130"
-                  max="200"
-                  value={lineHeight}
-                  onChange={e => setLineHeight(Number(e.target.value))}
-                />
-              </div>
-
-              <div className="a11y-slider-wrap" style={{ marginTop: 12 }}>
-                <label>
-                  Letter Spacing
-                  <span>{letterSpacing}px</span>
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="5"
-                  value={letterSpacing}
-                  onChange={e => setLetterSpacing(Number(e.target.value))}
-                />
-              </div>
-
-              <div className="a11y-row" style={{ marginTop: 14 }}>
-                <label>Font Weight</label>
-                <div className="toggle-btns">
-                  <button
-                    className={!boldText ? 'active' : ''}
-                    onClick={() => setBoldText(false)}
-                  >Normal</button>
-                  <button
-                    className={boldText ? 'active' : ''}
-                    onClick={() => setBoldText(true)}
-                  >Bold</button>
-                </div>
-              </div>
-
-              <div className="a11y-row" style={{ marginTop: 12 }}>
-                <label>Readable Font</label>
-                <label className="toggle-switch">
-                  <input
-                    type="checkbox"
-                    checked={readableFont}
-                    onChange={e => setReadableFont(e.target.checked)}
-                  />
-                  <span className="toggle-track" />
-                </label>
-              </div>
-
-              <div className="a11y-row" style={{ marginTop: 12 }}>
-                <label>Text Align</label>
-                <div className="align-btns">
-                  <button
-                    className={`align-btn${textAlign === 'left' ? ' active' : ''}`}
-                    onClick={() => setTextAlign('left')}
-                    aria-label="Align left"
-                  ><IconAlignLeft /></button>
-                  <button
-                    className={`align-btn${textAlign === 'center' ? ' active' : ''}`}
-                    onClick={() => setTextAlign('center')}
-                    aria-label="Align center"
-                  ><IconAlignCenter /></button>
-                  <button
-                    className={`align-btn${textAlign === 'right' ? ' active' : ''}`}
-                    onClick={() => setTextAlign('right')}
-                    aria-label="Align right"
-                  ><IconAlignRight /></button>
-                </div>
-              </div>
-            </div>
-
-            {/* DISPLAY */}
-            <div>
-              <div className="a11y-section-label">Display</div>
-
-              <div className="a11y-row">
-                <label>Dark Mode</label>
-                <label className="toggle-switch">
-                  <input
-                    type="checkbox"
-                    checked={darkMode}
-                    onChange={e => setDarkMode(e.target.checked)}
-                  />
-                  <span className="toggle-track" />
-                </label>
-              </div>
-
-              <div className="a11y-row" style={{ marginTop: 12 }}>
-                <label>Monochrome</label>
-                <label className="toggle-switch">
-                  <input
-                    type="checkbox"
-                    checked={monochrome}
-                    onChange={e => setMonochrome(e.target.checked)}
-                  />
-                  <span className="toggle-track" />
-                </label>
-              </div>
-            </div>
-
-            {/* CURSOR */}
-            <div>
-              <div className="a11y-section-label">Cursor</div>
-
-              <div className="a11y-row">
-                <label>Big Cursor</label>
-                <label className="toggle-switch">
-                  <input
-                    type="checkbox"
-                    checked={bigCursor}
-                    onChange={e => setBigCursor(e.target.checked)}
-                  />
-                  <span className="toggle-track" />
-                </label>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )}
     </>
   )
 }
