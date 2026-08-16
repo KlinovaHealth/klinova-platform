@@ -211,7 +211,6 @@ function AuthForm() {
                   style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '16px 14px', borderRadius: 14, border: `1.5px solid ${C.line}`, background: C.ivory, cursor: 'pointer', textAlign: 'left', transition: 'border-color .15s, box-shadow .15s', fontFamily: 'inherit', gridColumn: r.wide ? 'span 2' : undefined }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = C.green; e.currentTarget.style.boxShadow = '0 4px 16px -4px rgba(14,107,79,.18)' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = C.line; e.currentTarget.style.boxShadow = 'none' }}>
-                  <span style={{ fontSize: 24 }}>{r.icon}</span>
                   <span style={{ fontSize: 13.5, fontWeight: 700, color: C.ink }}>{r.label}</span>
                   <span style={{ fontSize: 11.5, color: C.mute, lineHeight: 1.5 }}>{r.sub}</span>
                 </button>
