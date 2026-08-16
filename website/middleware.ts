@@ -43,7 +43,11 @@ export async function middleware(request: NextRequest) {
     path.startsWith('/account') ||
     path.startsWith('/partners') ||
     path.startsWith('/auth/first-login') ||
-    (path.startsWith('/api/') && path !== '/api/auth/self-signup')
+    (path.startsWith('/api/') &&
+      path !== '/api/auth/self-signup' &&
+      !path.startsWith('/api/webhooks/') &&
+      !path.startsWith('/api/audit/') &&
+      !path.startsWith('/api/whatsapp/'))
 
   // Guard: no session → login
   if (isProtected && !user) {
