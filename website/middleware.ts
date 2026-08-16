@@ -1,8 +1,19 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { checkKillswitch } from '@/lib/audit'
 
 export async function middleware(request: NextRequest) {
+  // Block all authenticated routes if killswitch is active
+  const path = request.nextUrl.pathname
+  const isKillswitchExempt = path === '/login' || path.startsWith('/api/admin/killswitch')
+  if (!isKillswitchExempt && await checkKillswitch()) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    url.searchParams.set('error', 'service_unavailable')
+    return NextResponse.redirect(url)
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -27,12 +38,12 @@ export async function middleware(request: NextRequest) {
   // Refreshes the session and rotates the cookie if needed
   const { data: { user } } = await supabase.auth.getUser()
 
-  const path = request.nextUrl.pathname
   const isProtected =
     path.startsWith('/dashboard') ||
     path.startsWith('/account') ||
+    path.startsWith('/partners') ||
     path.startsWith('/auth/first-login') ||
-    path.startsWith('/api/')
+    (path.startsWith('/api/') && path !== '/api/auth/self-signup')
 
   // Guard: no session → login
   if (isProtected && !user) {
@@ -69,6 +80,8 @@ export const config = {
   matcher: [
     '/dashboard/:path*',
     '/account/:path*',
+    '/partners/:path*',
+    '/partners',
     '/auth/first-login',
     '/api/:path*',
     '/login',
