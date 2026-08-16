@@ -145,11 +145,22 @@ export default function PatientsPage() {
         .lp-btn.lp-on{background:${C.green};color:#fff}
         .hamburger{display:flex;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
         .hamburger:hover{background:rgba(14,107,79,.08)}
-        .mob-drawer{display:block;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:300;background:rgba(21,48,42,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-        .mob-nav{position:fixed;top:0;left:0;width:100%;height:100%;background:${C.greenDeep};padding:88px 36px 48px;display:flex;flex-direction:column;gap:0;overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:301}
-        .mob-nav a{font-size:26px;font-weight:600;color:rgba(255,255,255,.9);text-decoration:none;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.12)}
-        .mob-nav a:hover{color:#fff}
-        .mob-nav a:last-of-type{border-bottom:none}
+        .mob-drawer{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:300}
+        .mob-nav{position:fixed;top:0;left:0;width:100vw;height:100vh;max-width:none;margin:0;background:${C.greenDeep};display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:301}
+        .mob-close{position:absolute;top:20px;right:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.6);padding:8px;border-radius:8px;line-height:0}
+        .mob-close:hover{background:rgba(255,255,255,.1);color:#fff}
+        .mob-links{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 10vw}
+        .mob-links a{font-family:${display};font-size:clamp(28px,4vw,52px);font-weight:600;color:rgba(255,255,255,.82);text-decoration:none;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1);transition:color .15s,padding-left .18s;display:block}
+        .mob-links a:first-child{border-top:1px solid rgba(255,255,255,.1)}
+        .mob-links a:hover{color:#fff;padding-left:12px}
+        .mob-foot{padding:28px 10vw;border-top:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+        .mob-foot-lang{display:flex;gap:8px}
+        .mob-foot-lang button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:8px;color:rgba(255,255,255,.65);font-family:${ui};font-size:13px;font-weight:700;padding:7px 20px;cursor:pointer;transition:background .15s,color .15s}
+        .mob-foot-lang button.active{background:rgba(255,255,255,.18);color:#fff;border-color:rgba(255,255,255,.35)}
+        .mob-foot-actions{display:flex;align-items:center;gap:20px}
+        .mob-foot-actions a{font-size:15px;font-weight:600;text-decoration:none}
+        .mob-foot-login{color:rgba(255,255,255,.6)}
+        .mob-foot-cta{color:${C.gold}}
         /* HERO */
         .hero{padding:80px 0 96px;overflow:hidden;position:relative}
         .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(14,107,79,.07) 0%,transparent 70%);pointer-events:none}
@@ -275,16 +286,24 @@ export default function PatientsPage() {
       {menuOpen && (
         <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
           <nav className="mob-nav" onClick={e => e.stopPropagation()}>
-            <a href="/governments" onClick={() => setMenuOpen(false)}>{t('nav_gov')}</a>
-            <a href="/patients" onClick={() => setMenuOpen(false)}>{t('nav_ind')}</a>
-            <a href="/partner" onClick={() => setMenuOpen(false)}>{t('nav_par')}</a>
-            <div style={{ borderTop:'rgba(255,255,255,.12) 1px solid', margin:'12px 0' }} />
-            <div style={{ display:'flex', gap:8, padding:'8px 0' }}>
-              <button onClick={()=>setLang('en')} style={{ borderRadius:8, border:'1px solid rgba(255,255,255,.25)', padding:'7px 22px', color:lang==='en'?'#fff':'rgba(255,255,255,.6)', background:lang==='en'?'rgba(255,255,255,.18)':'transparent', fontFamily:'inherit', fontWeight:700, fontSize:13, cursor:'pointer' }}>EN</button>
-              <button onClick={()=>setLang('fr')} style={{ borderRadius:8, border:'1px solid rgba(255,255,255,.25)', padding:'7px 22px', color:lang==='fr'?'#fff':'rgba(255,255,255,.6)', background:lang==='fr'?'rgba(255,255,255,.18)':'transparent', fontFamily:'inherit', fontWeight:700, fontSize:13, cursor:'pointer' }}>FR</button>
+            <button className="mob-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div className="mob-links">
+              <a href="/governments" onClick={() => setMenuOpen(false)}>{t('nav_gov')}</a>
+              <a href="/patients" onClick={() => setMenuOpen(false)}>{t('nav_ind')}</a>
+              <a href="/partner" onClick={() => setMenuOpen(false)}>{t('nav_par')}</a>
             </div>
-            <a href="/login" onClick={() => setMenuOpen(false)} style={{ color:'rgba(255,255,255,.65)', fontSize:20 }}>{t('nav_login')}</a>
-            <a href="/login?mode=signup&role=patient" onClick={() => setMenuOpen(false)} style={{ color:C.gold, fontWeight:700, fontSize:20 }}>{t('nav_signup')}</a>
+            <div className="mob-foot">
+              <div className="mob-foot-lang">
+                <button className={lang==='en'?'active':''} onClick={()=>setLang('en')}>EN</button>
+                <button className={lang==='fr'?'active':''} onClick={()=>setLang('fr')}>FR</button>
+              </div>
+              <div className="mob-foot-actions">
+                <a href="/login" className="mob-foot-login" onClick={() => setMenuOpen(false)}>{t('nav_login')}</a>
+                <a href="/login?mode=signup&role=patient" className="mob-foot-cta" onClick={() => setMenuOpen(false)}>{t('nav_signup')} →</a>
+              </div>
+            </div>
           </nav>
         </div>
       )}
