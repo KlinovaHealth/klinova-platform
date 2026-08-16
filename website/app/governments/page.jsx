@@ -8,6 +8,46 @@ const C = {
 const display = "'Fraunces', Georgia, serif"
 const ui      = "'Plus Jakarta Sans', system-ui, sans-serif"
 
+function PhoneIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="17" r=".4" fill="currentColor" stroke="none"/></svg>
+}
+function UserIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+}
+function ReferralIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"/></svg>
+}
+function ChartIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M7 16v-5M11 16V8M15 16v-3M19 16V5"/></svg>
+}
+function HeartIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+}
+function PackageIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16v-2"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+}
+function SignalIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h.01M7 20v-4M12 20V8M17 20V4M22 20v-2"/></svg>
+}
+function DocumentIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+}
+function GlobeIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+}
+function MapPinIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21c-4-4.5-6-7.5-6-10a6 6 0 0 1 12 0c0 2.5-2 5.5-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
+}
+function BellIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+}
+function UploadIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8 12 3 7 8M12 3v12"/></svg>
+}
+function LockIco({ s=20 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+}
+
 export default function GovernmentsPage() {
   return (
     <>
@@ -59,7 +99,9 @@ export default function GovernmentsPage() {
         .rural-graphic-title{font-family:${display};font-weight:600;font-size:20px;color:#fff;margin-bottom:20px}
         .village-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
         .village-row:last-child{border-bottom:none}
-        .village-icon{font-size:20px;flex:none}
+        .village-dot{width:8px;height:8px;border-radius:50%;flex:none}
+        .village-dot.active{background:#6ED8A8}
+        .village-dot.pending{background:${C.gold}}
         .village-label{font-size:13px;color:rgba(255,255,255,.65);flex:1}
         .village-status{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
         .village-status.active{background:rgba(14,107,79,.3);color:#6ED8A8}
@@ -67,7 +109,7 @@ export default function GovernmentsPage() {
         /* WHAT WE OFFER */
         .offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
         .offer-card{background:${C.card};border:1px solid ${C.line};border-radius:20px;padding:28px 22px;display:flex;flex-direction:column;gap:12px}
-        .offer-icon{font-size:28px}
+        .offer-icon{width:40px;height:40px;border-radius:12px;background:${C.greenSoft};color:${C.greenDeep};display:grid;place-items:center;flex:none}
         .offer-card h3{font-size:16px;font-weight:700;font-family:${ui};margin:0}
         .offer-card p{font-size:14px;color:${C.mute};line-height:1.6;margin:0;flex:1}
         /* COMPLIANCE */
@@ -88,7 +130,7 @@ export default function GovernmentsPage() {
         .surv-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start;margin-top:48px}
         .surv-features{display:flex;flex-direction:column;gap:14px}
         .surv-feat{display:flex;gap:14px;align-items:flex-start}
-        .surv-feat-icon{width:40px;height:40px;border-radius:12px;background:${C.greenSoft};color:${C.greenDeep};display:grid;place-items:center;font-size:18px;flex:none}
+        .surv-feat-icon{width:40px;height:40px;border-radius:12px;background:${C.greenSoft};color:${C.greenDeep};display:grid;place-items:center;flex:none}
         .surv-feat h4{font-size:15px;font-weight:700;font-family:${ui};margin:0 0 4px}
         .surv-feat p{font-size:13.5px;color:${C.mute};line-height:1.55;margin:0}
         .surv-map{background:${C.greenDeep};border-radius:24px;padding:28px}
@@ -113,7 +155,6 @@ export default function GovernmentsPage() {
         .footer-col a{display:block;font-size:14px;color:rgba(255,255,255,.65);margin-bottom:10px;transition:color .15s}
         .footer-col a:hover{color:#fff}
         .footer-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.1);margin-top:48px;padding-top:24px;font-size:12.5px}
-        /* ── tablet ─────────────────────────── */
         @media(max-width:1024px){
           .stats-grid{grid-template-columns:1fr 1fr}
           .offer-grid{grid-template-columns:1fr 1fr}
@@ -123,7 +164,6 @@ export default function GovernmentsPage() {
           .process::before{display:none}
           .footer-grid{grid-template-columns:1fr 1fr 1fr}
         }
-        /* ── mobile ─────────────────────────── */
         @media(max-width:768px){
           section{padding:56px 0}
           .stats-band{padding:32px 0}
@@ -136,7 +176,6 @@ export default function GovernmentsPage() {
           .process::before{display:none}
           .stat-num{font-size:36px}
         }
-        /* ── small phone ─────────────────────── */
         @media(max-width:480px){
           section{padding:40px 0}
           .wrap{padding:0 16px}
@@ -174,9 +213,9 @@ export default function GovernmentsPage() {
       {/* HERO */}
       <section className="hero">
         <div className="wrap">
-          <div className="hero-badge">Government & NGO partnerships</div>
+          <div className="hero-badge">Government &amp; NGO partnerships</div>
           <h1>One doctor. Every<br/><span className="accent">1 in 5,000 villages.</span></h1>
-          <p className="lede">Klinova is the telemedicine backbone that lets governments extend quality primary care to every rural community — without building a new clinic in each one.</p>
+          <p className="lede">Klinova is the telemedicine backbone that lets governments extend quality primary care to every rural community, without building a new clinic in each one.</p>
           <div className="cta">
             <a href="#contact" className="btn btn-primary">Request a briefing</a>
             <a href="mailto:contact@klinova.co" className="btn" style={{ background:'rgba(255,255,255,.1)', color:'#fff', border:'1.5px solid rgba(255,255,255,.2)', textDecoration:'none' }}>Download overview</a>
@@ -198,11 +237,11 @@ export default function GovernmentsPage() {
             </div>
             <div className="stat-block">
               <div><span className="stat-num">14</span></div>
-              <div className="stat-label">Languages supported — patients receive care in the language they speak</div>
+              <div className="stat-label">Languages supported. Patients receive care in their own language.</div>
             </div>
             <div className="stat-block">
               <div><span className="stat-num">48</span><span className="stat-unit">h</span></div>
-              <div className="stat-label">Average time from contract to first village going live</div>
+              <div className="stat-label">Average time from contract signing to first village going live</div>
             </div>
           </div>
         </div>
@@ -215,16 +254,16 @@ export default function GovernmentsPage() {
           <h2>Healthcare coverage where there are no roads to build clinics.</h2>
           <div className="rural-layout">
             <div>
-              <p className="sub">Klinova doesn't replace the healthcare system — it extends it. We connect the 1 doctor in the district center to the 5,000 patients spread across remote villages, via WhatsApp, SMS, or the Klinova app.</p>
+              <p className="sub">Klinova does not replace the healthcare system; it extends it. We connect the one doctor in the district center to the 5,000 patients spread across remote villages via WhatsApp, SMS, or the Klinova app.</p>
               <div style={{ display:'flex', flexDirection:'column', gap:12, marginTop:28 }}>
                 {[
-                  { icon:'📲', h:'Any phone, any village', body:'Patients use WhatsApp, SMS, or the Klinova app to reach a licensed doctor. No clinic visit required.' },
-                  { icon:'👨‍⚕️', h:'One doctor, many villages', body:'A single doctor deployed by Klinova can handle consultations for hundreds of villages per month through structured triage.' },
-                  { icon:'🏥', h:'Escalation when needed', body:'When a patient needs in-person care, Klinova coordinates referral to the nearest government health center.' },
-                  { icon:'📊', h:'Real-time data for your ministry', body:'Your ministry of health gets live anonymized data: symptoms, geography, volume — everything you need to plan resources.' },
+                  { ico:<PhoneIco/>, h:'Any phone, any village', body:'Patients use WhatsApp, SMS, or the Klinova app to reach a licensed doctor. No clinic visit required.' },
+                  { ico:<UserIco/>, h:'One doctor, many villages', body:'A single doctor deployed by Klinova can handle consultations for hundreds of villages per month through structured triage.' },
+                  { ico:<ReferralIco/>, h:'Escalation when needed', body:'When a patient requires in-person care, Klinova coordinates referral to the nearest government health center.' },
+                  { ico:<ChartIco/>, h:'Real-time data for your ministry', body:'Your ministry of health receives live, anonymized data covering symptoms, geography, and volume, giving you what you need to plan resources.' },
                 ].map(f => (
                   <div key={f.h} style={{ display:'flex', gap:14, alignItems:'flex-start' }}>
-                    <div style={{ width:40, height:40, borderRadius:12, background:C.greenSoft, color:C.greenDeep, display:'grid', placeItems:'center', fontSize:18, flexShrink:0 }}>{f.icon}</div>
+                    <div style={{ width:40, height:40, borderRadius:12, background:C.greenSoft, color:C.greenDeep, display:'grid', placeItems:'center', flexShrink:0 }}>{f.ico}</div>
                     <div>
                       <div style={{ fontWeight:700, fontSize:15, fontFamily:ui, marginBottom:4 }}>{f.h}</div>
                       <div style={{ fontSize:14, color:C.mute, lineHeight:1.6 }}>{f.body}</div>
@@ -236,19 +275,19 @@ export default function GovernmentsPage() {
             <div className="rural-graphic">
               <div className="rural-graphic-title">Village coverage map</div>
               {[
-                { icon:'🏘️', label:'Kpové District — 12 villages', status:'active', txt:'Live' },
-                { icon:'🏘️', label:'Bassar Region — 8 villages', status:'active', txt:'Live' },
-                { icon:'🏘️', label:'Centrale Region — 5 villages', status:'pending', txt:'Onboarding' },
-                { icon:'🏘️', label:'Savanes Region — 18 villages', status:'pending', txt:'Planned Q4' },
-                { icon:'🏘️', label:'Maritime Region — 22 villages', status:'active', txt:'Live' },
+                { label:'Kpove District · 12 villages', status:'active', txt:'Live' },
+                { label:'Bassar Region · 8 villages', status:'active', txt:'Live' },
+                { label:'Centrale Region · 5 villages', status:'pending', txt:'Onboarding' },
+                { label:'Savanes Region · 18 villages', status:'pending', txt:'Planned Q4' },
+                { label:'Maritime Region · 22 villages', status:'active', txt:'Live' },
               ].map(v => (
                 <div className="village-row" key={v.label}>
-                  <div className="village-icon">{v.icon}</div>
+                  <div className={`village-dot ${v.status}`}/>
                   <div className="village-label">{v.label}</div>
                   <div className={`village-status ${v.status}`}>{v.txt}</div>
                 </div>
               ))}
-              <div style={{ marginTop:16, background:'rgba(255,255,255,.06)', borderRadius:12, padding:'12px 14px', fontSize:12, color:'rgba(255,255,255,.5)', textAlign:'center' }}>Illustrative — actual coverage varies by contract</div>
+              <div style={{ marginTop:16, background:'rgba(255,255,255,.06)', borderRadius:12, padding:'12px 14px', fontSize:12, color:'rgba(255,255,255,.5)', textAlign:'center' }}>Illustrative. Actual coverage varies by contract.</div>
             </div>
           </div>
         </div>
@@ -259,18 +298,18 @@ export default function GovernmentsPage() {
         <div className="wrap">
           <div className="eyebrow">What you get</div>
           <h2>A complete telemedicine program, ready to deploy.</h2>
-          <p className="sub">Klinova provides everything a ministry of health needs to launch a national telemedicine program — white-labeled under your brand if preferred.</p>
+          <p className="sub">Klinova provides everything a ministry of health needs to launch a national telemedicine program, available white-labeled under your brand.</p>
           <div className="offer-grid">
             {[
-              { icon:'🏥', h:'Primary care telemedicine', p:'Licensed doctors serving your citizens by app, WhatsApp, or SMS. Consultations documented, prescriptions issued digitally.' },
-              { icon:'💊', h:'Medication delivery network', p:'Prescriptions route automatically to the nearest partner pharmacy. Last-mile delivery via our network of local riders.' },
-              { icon:'📡', h:'Disease surveillance', p:"Anonymized, real-time symptom data by region. Outbreak detection. Exportable to your ministry's dashboards via API." },
-              { icon:'📋', h:'National patient registry', p:'Every patient seen is logged with full consultation history, encrypted and GDPR-compliant. Portable between providers.' },
-              { icon:'🌍', h:'Multilingual, every region', p:'Klinova works in 14 languages. Rural patients are served in Eʋe, Kabiyè, Twi, Hausa, Fon, Dioula — not just French.' },
-              { icon:'📱', h:'Works on any phone', p:'Smart phones, feature phones, SMS. Community health workers can triage on behalf of patients without smartphones.' },
+              { ico:<HeartIco/>, h:'Primary care telemedicine', p:'Licensed doctors serving your citizens by app, WhatsApp, or SMS. Consultations documented, prescriptions issued digitally.' },
+              { ico:<PackageIco/>, h:'Medication delivery network', p:'Prescriptions route automatically to the nearest partner pharmacy. Last-mile delivery via our network of local riders.' },
+              { ico:<SignalIco/>, h:'Disease surveillance', p:"Anonymized, real-time symptom data by region. Outbreak detection. Exportable to your ministry's dashboards via API." },
+              { ico:<DocumentIco/>, h:'National patient registry', p:'Every patient seen is logged with a full consultation history, encrypted and GDPR-compliant. Portable between providers.' },
+              { ico:<GlobeIco/>, h:'Multilingual, every region', p:'Klinova operates in 14 languages. Rural patients are served in Ewe, Kabiye, Twi, Hausa, Fon, and Dioula, not only French.' },
+              { ico:<PhoneIco/>, h:'Works on any phone', p:'Smartphones, feature phones, SMS. Community health workers can triage on behalf of patients without smartphones.' },
             ].map(o => (
               <div className="offer-card" key={o.h}>
-                <div className="offer-icon">{o.icon}</div>
+                <div className="offer-icon">{o.ico}</div>
                 <h3>{o.h}</h3>
                 <p>{o.p}</p>
               </div>
@@ -287,13 +326,13 @@ export default function GovernmentsPage() {
           <div className="surv-layout">
             <div className="surv-features">
               {[
-                { icon:'📍', h:'Geographic symptom mapping', p:'Every triage generates a location-tagged symptom report. Cluster detection runs automatically against WHO outbreak thresholds.' },
-                { icon:'🔔', h:'Real-time outbreak alerts', p:'Your ministry epidemiology team gets an instant alert when a symptom cluster exceeds threshold — before it reaches the hospital.' },
-                { icon:'📤', h:'API export to your systems', p:'Data exports in FHIR R4 format, compatible with WHO DHIS2, OpenMRS, or any ministry health information system.' },
-                { icon:'🔒', h:'Privacy by design', p:'All exported data is anonymized and aggregated. No patient PII leaves Klinova without explicit patient consent.' },
+                { ico:<MapPinIco/>, h:'Geographic symptom mapping', p:'Every triage generates a location-tagged symptom report. Cluster detection runs automatically against WHO outbreak thresholds.' },
+                { ico:<BellIco/>, h:'Real-time outbreak alerts', p:'Your ministry epidemiology team receives an instant alert when a symptom cluster exceeds threshold, before it reaches the hospital.' },
+                { ico:<UploadIco/>, h:'API export to your systems', p:'Data exports in FHIR R4 format, compatible with WHO DHIS2, OpenMRS, or any ministry health information system.' },
+                { ico:<LockIco/>, h:'Privacy by design', p:'All exported data is anonymized and aggregated. No patient PII leaves Klinova without explicit patient consent.' },
               ].map(f => (
                 <div className="surv-feat" key={f.h}>
-                  <div className="surv-feat-icon">{f.icon}</div>
+                  <div className="surv-feat-icon">{f.ico}</div>
                   <div>
                     <h4>{f.h}</h4>
                     <p>{f.p}</p>
@@ -316,7 +355,7 @@ export default function GovernmentsPage() {
                   <div className="heat-count">{r.count}</div>
                 </div>
               ))}
-              <div style={{ marginTop:14, fontSize:11, color:'rgba(255,255,255,.35)', textAlign:'center' }}>Live data — anonymized and aggregated</div>
+              <div style={{ marginTop:14, fontSize:11, color:'rgba(255,255,255,.35)', textAlign:'center' }}>Live data, anonymized and aggregated</div>
             </div>
           </div>
         </div>
@@ -325,7 +364,7 @@ export default function GovernmentsPage() {
       {/* COMPLIANCE */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">Compliance & data sovereignty</div>
+          <div className="eyebrow">Compliance &amp; data sovereignty</div>
           <h2>Built to meet government procurement standards.</h2>
           <div className="compliance">
             <div className="comp-card">
@@ -349,14 +388,14 @@ export default function GovernmentsPage() {
             </div>
             <div className="comp-card">
               <h3>Medical licensing</h3>
-              <p>All doctors on the Klinova platform hold valid registration with the national medical licensing authority in their country. We do not allow unlicensed practitioners to see patients.</p>
+              <p>All doctors on the Klinova platform hold valid registration with the national medical licensing authority in their country. Unlicensed practitioners are not permitted to see patients.</p>
               <div className="comp-tags">
                 <span className="comp-tag">Licensed providers only</span>
                 <span className="comp-tag">Country-by-country verification</span>
               </div>
             </div>
             <div className="comp-card">
-              <h3>Procurement & contracting</h3>
+              <h3>Procurement &amp; contracting</h3>
               <p>Klinova supports open tender processes and is available under government framework agreements. Pilot programs can be structured as 90-day proof-of-concept contracts.</p>
               <div className="comp-tags">
                 <span className="comp-tag">Open tender compatible</span>
@@ -373,7 +412,7 @@ export default function GovernmentsPage() {
         <div className="wrap">
           <div className="eyebrow">How it works</div>
           <h2>From first conversation to village coverage.</h2>
-          <p className="sub">We move as fast as government procurement allows — and we know how to navigate it.</p>
+          <p className="sub">We move as fast as government procurement allows, and we know how to navigate it.</p>
           <div className="process">
             <div className="pstep">
               <div className="pstep-dot">1</div>
@@ -382,7 +421,7 @@ export default function GovernmentsPage() {
             </div>
             <div className="pstep">
               <div className="pstep-dot">2</div>
-              <h4>Proposal & pilot scope</h4>
+              <h4>Proposal &amp; pilot scope</h4>
               <p>We submit a tailored proposal including pilot district, timeline, and cost per patient covered.</p>
             </div>
             <div className="pstep">
@@ -407,10 +446,10 @@ export default function GovernmentsPage() {
             <h2>Ready to bring telemedicine to your citizens?</h2>
             <p>Our government partnerships team is available for briefings, site visits, and proposal discussions. We work with ministries of health, national health insurance funds, and multilateral development partners.</p>
             <div className="contact-options">
-              <a href="mailto:contact@klinova.co?subject=Government Partnership – Briefing Request" className="btn btn-primary">Request a briefing</a>
-              <a href="mailto:contact@klinova.co?subject=Government Partnership – Overview Deck" className="btn btn-ghost">Request our deck</a>
+              <a href="mailto:contact@klinova.co?subject=Government Partnership - Briefing Request" className="btn btn-primary">Request a briefing</a>
+              <a href="mailto:contact@klinova.co?subject=Government Partnership - Overview Deck" className="btn btn-ghost">Request our deck</a>
             </div>
-            <div style={{ marginTop:20, fontSize:13, color:C.mute }}>contact@klinova.co — we respond within 1 business day.</div>
+            <div style={{ marginTop:20, fontSize:13, color:C.mute }}>contact@klinova.co · We respond within one business day.</div>
           </div>
         </div>
       </section>
@@ -420,7 +459,7 @@ export default function GovernmentsPage() {
           <div className="footer-grid">
             <div>
               <div className="footer-logo-name">KLINOVA</div>
-              <div className="footer-blurb">The Invisible Grid powering African healthcare. Lomé, Togo.</div>
+              <div className="footer-blurb">The Invisible Grid powering African healthcare. Lome, Togo.</div>
               <div className="footer-tagline">Born in Africa. Built for Life.</div>
             </div>
             <div>
