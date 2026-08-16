@@ -915,9 +915,9 @@ export default function Home() {
         .hamburger:hover { background: rgba(14,107,79,.08); }
         /* Mobile drawer */
         .mob-drawer { display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: 300; background: rgba(21,48,42,.45); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-        .mob-nav { position: absolute; top: 0; right: 0; bottom: 0; width: min(320px, 88vw); background: ${C.ivory}; padding: 80px 24px 32px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; -webkit-overflow-scrolling: touch; box-shadow: -8px 0 32px rgba(0,0,0,.15); }
-        .mob-nav a { font-size: 17px; font-weight: 600; color: ${C.ink}; text-decoration: none; padding: 12px 0; border-bottom: 1px solid ${C.line}; }
-        .mob-nav a:hover { color: ${C.green}; }
+        .mob-nav { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; background: ${C.greenDeep}; padding: 88px 36px 48px; display: flex; flex-direction: column; gap: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .mob-nav a { font-size: 26px; font-weight: 600; color: rgba(255,255,255,.9); text-decoration: none; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+        .mob-nav a:hover { color: #fff; }
         .mob-nav a:last-of-type { border-bottom: none; }
 
         /* RESPONSIVE */
@@ -1012,13 +1012,13 @@ export default function Home() {
             <a href="/governments" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les gouvernements' : 'For Governments'}</a>
             <a href="/patients" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les individus' : 'For Individuals'}</a>
             <a href="/partner" onClick={() => setMenuOpen(false)}>{lang === 'fr' ? 'Pour les partenaires' : 'For Partners'}</a>
-            <div style={{ borderTop: `1px solid ${C.line}`, margin: '8px 0' }} />
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', padding: '8px 0' }}>
-              <button className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('en')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 22px' }}>EN</button>
-              <button className={lang === 'fr' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('fr')} style={{ borderRadius: 8, border: `1px solid ${C.line}`, padding: '7px 22px' }}>FR</button>
+            <div style={{ borderTop: 'rgba(255,255,255,.12) 1px solid', margin: '12px 0' }} />
+            <div style={{ display: 'flex', gap: 8, padding: '8px 0' }}>
+              <button className={lang === 'en' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('en')} style={{ borderRadius: 8, border: '1px solid rgba(255,255,255,.25)', padding: '7px 22px', color: lang==='en'?'#fff':'rgba(255,255,255,.6)', background: lang==='en'?'rgba(255,255,255,.18)':'transparent' }}>EN</button>
+              <button className={lang === 'fr' ? 'lp-btn lp-on' : 'lp-btn'} onClick={() => setLang('fr')} style={{ borderRadius: 8, border: '1px solid rgba(255,255,255,.25)', padding: '7px 22px', color: lang==='fr'?'#fff':'rgba(255,255,255,.6)', background: lang==='fr'?'rgba(255,255,255,.18)':'transparent' }}>FR</button>
             </div>
-            <a href="/login" onClick={() => setMenuOpen(false)} style={{ color: C.mute }}>{t('nav_login')}</a>
-            <a href="/login?mode=signup&role=patient" onClick={() => setMenuOpen(false)} style={{ color: C.green, fontWeight: 700 }}>{t('nav_create')}</a>
+            <a href="/login" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,.65)', fontSize: 20 }}>{t('nav_login')}</a>
+            <a href="/login?mode=signup&role=patient" onClick={() => setMenuOpen(false)} style={{ color: C.gold, fontWeight: 700, fontSize: 20 }}>{t('nav_create')}</a>
           </nav>
         </div>
       )}
@@ -1110,7 +1110,7 @@ export default function Home() {
             <div className="band-center" style={{ marginBottom: 44 }}>
               <div className="eyebrow">{lang === 'fr' ? 'Pour qui' : 'Who it\'s for'}</div>
               <h2 style={{ fontFamily: display }}>{lang === 'fr' ? 'Une plateforme pour tous.' : 'One platform. Every role.'}</h2>
-              <p className="sub">{lang === 'fr' ? 'Patients, professionnels de santé ou gouvernements — Klinova a été conçu pour vous.' : 'Patients, healthcare providers, and governments — each with their own experience on Klinova.'}</p>
+              <p className="sub">{lang === 'fr' ? 'Patients, professionnels de santé et gouvernements — chacun a sa propre expérience avec Klinova.' : 'Patients, healthcare providers, and governments each have their own experience with Klinova.'}</p>
             </div>
             <div className="audience-3col">
               {/* Governments — PRIMARY */}

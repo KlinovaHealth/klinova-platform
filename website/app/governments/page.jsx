@@ -196,9 +196,10 @@ export default function GovernmentsPage() {
         .hamburger{display:flex;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
         .hamburger:hover{background:rgba(14,107,79,.08)}
         .mob-drawer{display:block;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:300;background:rgba(21,48,42,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-        .mob-nav{position:absolute;top:0;right:0;bottom:0;width:min(320px,88vw);background:${C.ivory};padding:80px 24px 32px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:-8px 0 32px rgba(0,0,0,.15)}
-        .mob-nav a{font-size:17px;font-weight:600;color:${C.ink};text-decoration:none;padding:12px 0;border-bottom:1px solid ${C.line}}
-        .mob-nav a:hover{color:${C.green}}
+        .mob-nav{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;background:${C.greenDeep};padding:88px 36px 48px;display:flex;flex-direction:column;gap:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+        .mob-nav a{font-size:26px;font-weight:600;color:rgba(255,255,255,.9);text-decoration:none;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+        .mob-nav a:hover{color:#fff}
+        .mob-nav a:last-of-type{border-bottom:none}
         /* HERO */
         .hero{padding:80px 0 96px;position:relative;overflow:hidden;background:${C.greenDeep};border-bottom:none}
         .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 80% 50%,rgba(14,107,79,.4) 0%,transparent 70%);pointer-events:none}
@@ -340,13 +341,13 @@ export default function GovernmentsPage() {
             <a href="/patients" onClick={() => setMenuOpen(false)}>{t('nav_ind')}</a>
             <a href="/partner" onClick={() => setMenuOpen(false)}>{t('nav_par')}</a>
             <a href="/governments" onClick={() => setMenuOpen(false)}>{t('nav_gov')}</a>
-            <div style={{ borderTop:`1px solid ${C.line}`, margin:'8px 0' }} />
-            <div style={{ display:'flex', gap:8, justifyContent:'center', padding:'8px 0' }}>
-              <button className={lang==='en'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('en')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>EN</button>
-              <button className={lang==='fr'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('fr')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>FR</button>
+            <div style={{ borderTop:'rgba(255,255,255,.12) 1px solid', margin:'12px 0' }} />
+            <div style={{ display:'flex', gap:8, padding:'8px 0' }}>
+              <button onClick={()=>setLang('en')} style={{ borderRadius:8, border:'1px solid rgba(255,255,255,.25)', padding:'7px 22px', color:lang==='en'?'#fff':'rgba(255,255,255,.6)', background:lang==='en'?'rgba(255,255,255,.18)':'transparent', fontFamily:'inherit', fontWeight:700, fontSize:13, cursor:'pointer' }}>EN</button>
+              <button onClick={()=>setLang('fr')} style={{ borderRadius:8, border:'1px solid rgba(255,255,255,.25)', padding:'7px 22px', color:lang==='fr'?'#fff':'rgba(255,255,255,.6)', background:lang==='fr'?'rgba(255,255,255,.18)':'transparent', fontFamily:'inherit', fontWeight:700, fontSize:13, cursor:'pointer' }}>FR</button>
             </div>
-            <a href="/login" onClick={() => setMenuOpen(false)} style={{ color:C.mute }}>{t('nav_login')}</a>
-            <a href="mailto:contact@klinova.co?subject=Government Partnership" onClick={() => setMenuOpen(false)} style={{ color:C.green, fontWeight:700 }}>{t('nav_cta')}</a>
+            <a href="/login" onClick={() => setMenuOpen(false)} style={{ color:'rgba(255,255,255,.65)', fontSize:20 }}>{t('nav_login')}</a>
+            <a href="mailto:contact@klinova.co?subject=Government Partnership" onClick={() => setMenuOpen(false)} style={{ color:C.gold, fontWeight:700, fontSize:20 }}>{t('nav_cta')}</a>
           </nav>
         </div>
       )}
