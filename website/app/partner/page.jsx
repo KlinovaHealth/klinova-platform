@@ -53,7 +53,7 @@ export default function PartnersPage() {
         /* PARTNER TYPES */
         .ptype-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
         .ptype-card{background:${C.card};border:1px solid ${C.line};border-radius:20px;padding:28px 22px;display:flex;flex-direction:column;gap:14px}
-        .ptype-icon{font-size:32px}
+        .ptype-icon{width:44px;height:44px;border-radius:12px;background:${C.greenSoft};color:${C.greenDeep};display:grid;place-items:center;flex:none}
         .ptype-card h3{font-size:17px;font-weight:700;font-family:${ui};margin:0}
         .ptype-card p{font-size:14px;color:${C.mute};line-height:1.6;margin:0;flex:1}
         .ptype-tag{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:${C.greenSoft};color:${C.greenDeep}}
@@ -146,10 +146,10 @@ export default function PartnersPage() {
             <img src="/klinova-logo-full.png" alt="Klinova" style={{ height:32, width:'auto', mixBlendMode:'multiply' }} />
           </a>
           <div className="nav-links">
-            <a href="/patients">Patients</a>
-            <a href="/partner" className="active">Partners</a>
-            <a href="/governments">Governments</a>
-            <a href="/#pricing">Pricing</a>
+            <a href="/governments">For Governments</a>
+            <a href="/patients">For Individuals</a>
+            <a href="/partner" className="active">For Partners</a>
+            <a href="mailto:contact@klinova.co">Contact</a>
           </div>
           <div className="nav-right">
             <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>Log in</a>
@@ -164,7 +164,7 @@ export default function PartnersPage() {
           <div className="hero-inner">
             <div className="eyebrow">For healthcare partners</div>
             <h1>Join Africa's <span className="accent">healthcare grid.</span></h1>
-            <p className="lede">Clinics, pharmacies, labs, doctors, and transport providers connect to Klinova's patient network — reach more people, reduce no-shows, get paid faster.</p>
+            <p className="lede">Clinics, pharmacies, labs, doctors, and transport providers connect to Klinova's patient network. Reach more people, reduce no-shows, and get paid faster.</p>
             <div className="cta">
               <a href="#apply" className="btn btn-primary">Apply to be a partner</a>
               <a href="mailto:contact@klinova.co" className="btn btn-ghost">Talk to our team</a>
@@ -182,29 +182,29 @@ export default function PartnersPage() {
       <section id="clinics">
         <div className="wrap">
           <div className="eyebrow">Partner types</div>
-          <h2>Whether you have a clinic, pharmacy, lab, or motorbike — there's a place for you.</h2>
+          <h2>Whether you have a clinic, pharmacy, lab, or motorbike, there is a place for you.</h2>
           <div className="ptype-grid">
             <div className="ptype-card">
-              <div className="ptype-icon">🏥</div>
-              <h3>Clinics & hospitals</h3>
+              <div className="ptype-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg></div>
+              <h3>Clinics &amp; hospitals</h3>
               <p>Receive pre-triaged patient referrals ready for in-person care. Digital patient dossiers arrive before they walk in the door.</p>
               <span className="ptype-tag">Referrals + dashboard</span>
             </div>
             <div className="ptype-card" id="pharmacies">
-              <div className="ptype-icon">💊</div>
+              <div className="ptype-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6M9 3v8L4.5 19a1 1 0 0 0 .9 1.5h13.2a1 1 0 0 0 .9-1.5L15 11V3"/><path d="M6 14h12"/></svg></div>
               <h3>Pharmacies</h3>
               <p>Receive digital prescriptions directly from Klinova doctors. Zero paper, instant notification, faster dispensing.</p>
               <span className="ptype-tag">Digital Rx + delivery</span>
             </div>
             <div className="ptype-card" id="doctors">
-              <div className="ptype-icon">👨‍⚕️</div>
-              <h3>Doctors & nurses</h3>
+              <div className="ptype-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <h3>Doctors &amp; nurses</h3>
               <p>Consult patients by chat, voice, or video on your own schedule. Klinova handles triage, records, and payment.</p>
               <span className="ptype-tag">Teleconsult income</span>
             </div>
             <div className="ptype-card">
-              <div className="ptype-icon">🛵</div>
-              <h3>Delivery & transport</h3>
+              <div className="ptype-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><path d="M16 11V7"/><circle cx="12" cy="16" r="1"/></svg></div>
+              <h3>Delivery &amp; transport</h3>
               <p>Deliver medications from partner pharmacies to patients. Join the network and receive steady, verified delivery requests.</p>
               <span className="ptype-tag">Last-mile delivery</span>
             </div>
@@ -217,19 +217,19 @@ export default function PartnersPage() {
         <div className="wrap">
           <div className="eyebrow">Clinic partner dashboard</div>
           <h2>Everything your clinic needs, in one place.</h2>
-          <p className="sub">Klinova's partner dashboard is built around how clinics actually work — appointments, referrals, prescriptions, and performance, all in one screen.</p>
+          <p className="sub">Klinova's partner dashboard is built around how clinics actually work: appointments, referrals, prescriptions, and performance, all in one screen.</p>
           <div className="dash-layout">
             <div className="module-list">
               {[
-                { icon:'📥', h:'Patient referral queue', p:'See incoming Klinova referrals in real time. Accept or reschedule with one click. Patient dossier attached.' },
-                { icon:'📅', h:'Appointment management', p:'Full booking calendar linked to your actual capacity. Patients see your real-time availability.' },
-                { icon:'📋', h:'Digital health records', p:'Access patient history, prior consults, and prescriptions. No clipboard, no paper.' },
-                { icon:'💊', h:'Pharmacy & Rx module', p:'Issue digital prescriptions that route automatically to the nearest partner pharmacy.' },
-                { icon:'📊', h:'Analytics & reporting', p:'Track consultations, referrals, revenue, and patient outcomes by day, week, or month.' },
-                { icon:'💳', h:'Payments & billing', p:'Klinova handles patient billing and sends your share within 48 hours of each consultation.' },
+                { ico:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>, h:'Patient referral queue', p:'See incoming Klinova referrals in real time. Accept or reschedule with one click. Patient dossier attached.' },
+                { ico:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>, h:'Appointment management', p:'Full booking calendar linked to your actual capacity. Patients see your real-time availability.' },
+                { ico:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>, h:'Digital health records', p:'Access patient history, prior consults, and prescriptions. No clipboard, no paper.' },
+                { ico:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6M9 3v8L4.5 19a1 1 0 0 0 .9 1.5h13.2a1 1 0 0 0 .9-1.5L15 11V3"/><path d="M6 14h12"/></svg>, h:'Pharmacy & Rx module', p:'Issue digital prescriptions that route automatically to the nearest partner pharmacy.' },
+                { ico:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M7 16v-5M11 16V8M15 16v-3M19 16V5"/></svg>, h:'Analytics & reporting', p:'Track consultations, referrals, revenue, and patient outcomes by day, week, or month.' },
+                { ico:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>, h:'Payments & billing', p:'Klinova handles patient billing and sends your share within 48 hours of each consultation.' },
               ].map(m => (
                 <div className="mod" key={m.h}>
-                  <div className="mod-icon">{m.icon}</div>
+                  <div className="mod-icon">{m.ico}</div>
                   <div className="mod-text">
                     <h4>{m.h}</h4>
                     <p>{m.p}</p>

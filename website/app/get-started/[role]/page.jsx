@@ -25,6 +25,17 @@ const ROLE_COLORS = {
   government: '#0A3020',    // very dark forest green
 }
 
+const IcoPhone     = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17" r="1" fill={C.green}/></svg>
+const IcoGlobe     = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9M12 3c2.5 3 4 5.5 4 9s-1.5 6-4 9"/></svg>
+const IcoKey       = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="15" r="4"/><path d="M12 11l8-8M18 6l2 2M15 9l2 2"/></svg>
+const IcoChat      = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+const IcoSteth     = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 3h1A2.5 2.5 0 0 1 8 5.5v5a5 5 0 0 0 10 0V8"/><circle cx="19" cy="7" r="1.5"/></svg>
+const IcoMapPin    = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+const IcoBuilding  = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg>
+const IcoPill      = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 1 1 7-7l7 7a5 5 0 1 1-7 7z"/><line x1="9" y1="15" x2="15" y2="9"/></svg>
+const IcoGovt      = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+const IcoClipboard = <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1z"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M9 12h6M9 16h4"/></svg>
+
 const T = {
   en: {
     contact: 'Questions?',
@@ -49,10 +60,10 @@ const T = {
         'Works on any phone',
       ],
       cards: [
-        { icon: '📱', title: 'Download the app', desc: 'Get the Klinova app on Android or iOS. Book a doctor, manage your health, find nearby clinics.', cta: 'Get the app', href: '/download', primary: true },
-        { icon: '🌐', title: 'Create a web account', desc: 'Sign up directly in your browser, no app download needed. Access your records, book a doctor, and manage your health on any device.', cta: 'Create account', href: '/login?mode=signup&role=patient', primary: false },
-        { icon: '🔑', title: 'Already have an account?', desc: 'Sign in to see your health records, past consultations, and prescriptions.', cta: 'Sign in', href: '/login', primary: false },
-        { icon: '💬', title: 'WhatsApp triage', desc: 'Start a consultation via WhatsApp in your language. No smartphone required.', cta: 'Coming soon', href: null, primary: false, soon: true },
+        { icon: IcoPhone, title: 'Download the app', desc: 'Get the Klinova app on Android or iOS. Book a doctor, manage your health, find nearby clinics.', cta: 'Get the app', href: '/download', primary: true },
+        { icon: IcoGlobe, title: 'Create a web account', desc: 'Sign up directly in your browser, no app download needed. Access your records, book a doctor, and manage your health on any device.', cta: 'Create account', href: '/login?mode=signup&role=patient', primary: false },
+        { icon: IcoKey, title: 'Already have an account?', desc: 'Sign in to see your health records, past consultations, and prescriptions.', cta: 'Sign in', href: '/login', primary: false },
+        { icon: IcoChat, title: 'WhatsApp triage', desc: 'Start a consultation via WhatsApp in your language. No smartphone required.', cta: 'Coming soon', href: null, primary: false, soon: true },
       ],
     },
 
@@ -75,9 +86,9 @@ const T = {
         'Only licensed doctors\' credentials are verified',
       ],
       cards: [
-        { icon: '🩺', title: 'Create your provider account', desc: 'Register with your credentials and specialty. Get access to your patient queue, prescriptions, and referrals all in one place.', cta: 'Create account', href: '/login?mode=signup&role=doctor', primary: true },
-        { icon: '🔑', title: 'Already registered?', desc: 'Sign in to your doctor dashboard to manage consultations, issue prescriptions, and view your schedule.', cta: 'Sign in', href: '/login', primary: false },
-        { icon: '📍', title: 'Listed automatically', desc: 'Your profile appears in the Klinova provider directory the moment your account is active — patients find you by city, country, and specialty.', cta: 'View directory', href: '/find', primary: false },
+        { icon: IcoSteth, title: 'Create your provider account', desc: 'Register with your credentials and specialty. Get access to your patient queue, prescriptions, and referrals all in one place.', cta: 'Create account', href: '/login?mode=signup&role=doctor', primary: true },
+        { icon: IcoKey, title: 'Already registered?', desc: 'Sign in to your doctor dashboard to manage consultations, issue prescriptions, and view your schedule.', cta: 'Sign in', href: '/login', primary: false },
+        { icon: IcoMapPin, title: 'Listed automatically', desc: 'Your profile appears in the Klinova provider directory the moment your account is active. Patients find you by city, country, and specialty.', cta: 'View directory', href: '/find', primary: false },
       ],
     },
 
@@ -99,9 +110,9 @@ const T = {
         'Works on any phone or browser',
       ],
       cards: [
-        { icon: '🏥', title: 'Create a clinic account', desc: 'Register your facility on Klinova. Manage your team, receive digital referrals, and serve patients sent by Klinova doctors.', cta: 'Create account', href: '/login?mode=signup&role=frontdesk', primary: true },
-        { icon: '🔑', title: 'Already registered?', desc: 'Sign in to manage your clinic\'s queue, view referrals, and access patient records.', cta: 'Sign in', href: '/login', primary: false },
-        { icon: '📍', title: 'Listed automatically', desc: 'Your facility appears in the Klinova provider directory the moment your account is created — searchable by patients nearby, by city, region, and country.', cta: 'Create account', href: '/login?mode=signup&role=frontdesk', primary: false },
+        { icon: IcoBuilding, title: 'Create a clinic account', desc: 'Register your facility on Klinova. Manage your team, receive digital referrals, and serve patients sent by Klinova doctors.', cta: 'Create account', href: '/login?mode=signup&role=frontdesk', primary: true },
+        { icon: IcoKey, title: 'Already registered?', desc: 'Sign in to manage your clinic\'s queue, view referrals, and access patient records.', cta: 'Sign in', href: '/login', primary: false },
+        { icon: IcoMapPin, title: 'Listed automatically', desc: 'Your facility appears in the Klinova provider directory the moment your account is created, searchable by patients nearby by city, region, and country.', cta: 'Create account', href: '/login?mode=signup&role=frontdesk', primary: false },
       ],
     },
 
@@ -123,9 +134,9 @@ const T = {
         'No large upfront cost',
       ],
       cards: [
-        { icon: '💊', title: 'Create your pharmacy account', desc: 'Register your pharmacy on Klinova. Receive digital prescriptions, fulfill orders, and report back, all in one system.', cta: 'Create account', href: '/login?mode=signup&role=pharmacist', primary: true },
-        { icon: '🔑', title: 'Already registered?', desc: 'Sign in to view incoming prescriptions and manage your pharmacy\'s fulfillment queue.', cta: 'Sign in', href: '/login', primary: false },
-        { icon: '📍', title: 'Listed automatically', desc: 'Your pharmacy appears in the Klinova provider directory the moment your account is created — patients nearby can find you by city, region, and country.', cta: 'View directory', href: '/find', primary: false },
+        { icon: IcoPill, title: 'Create your pharmacy account', desc: 'Register your pharmacy on Klinova. Receive digital prescriptions, fulfill orders, and report back, all in one system.', cta: 'Create account', href: '/login?mode=signup&role=pharmacist', primary: true },
+        { icon: IcoKey, title: 'Already registered?', desc: 'Sign in to view incoming prescriptions and manage your pharmacy\'s fulfillment queue.', cta: 'Sign in', href: '/login', primary: false },
+        { icon: IcoMapPin, title: 'Listed automatically', desc: 'Your pharmacy appears in the Klinova provider directory the moment your account is created. Patients nearby can find you by city, region, and country.', cta: 'View directory', href: '/find', primary: false },
       ],
     },
 
@@ -147,9 +158,9 @@ const T = {
         'Ministry of Health integration support',
       ],
       cards: [
-        { icon: '🏛️', title: 'Create a government account', desc: 'Register your organization to access the government dashboard, aggregate trends, urgency breakdowns, and WHO outbreak data.', cta: 'Create account', href: '/login?mode=signup&role=government', primary: true },
-        { icon: '🔑', title: 'Already have access?', desc: 'Sign in to your government dashboard to view live health intelligence for your region.', cta: 'Sign in', href: '/login', primary: false },
-        { icon: '📋', title: 'Request a demo first', desc: 'Want to see the platform before committing? We\'ll walk you through the dashboard and data governance model.', cta: 'Request demo', href: `mailto:contact@klinova.co?subject=${encodeURIComponent('Government Demo Request – Klinova')}&body=${encodeURIComponent('Hello, we represent [organisation name] and would like to request a demo.\n\nCountry: \nOrganisation: \nContact name & phone: ')}`, primary: false },
+        { icon: IcoGovt, title: 'Create a government account', desc: 'Register your organization to access the government dashboard, aggregate trends, urgency breakdowns, and WHO outbreak data.', cta: 'Create account', href: '/login?mode=signup&role=government', primary: true },
+        { icon: IcoKey, title: 'Already have access?', desc: 'Sign in to your government dashboard to view live health intelligence for your region.', cta: 'Sign in', href: '/login', primary: false },
+        { icon: IcoClipboard, title: 'Request a demo first', desc: 'Want to see the platform before committing? We\'ll walk you through the dashboard and data governance model.', cta: 'Request demo', href: `mailto:contact@klinova.co?subject=${encodeURIComponent('Government Demo Request – Klinova')}&body=${encodeURIComponent('Hello, we represent [organisation name] and would like to request a demo.\n\nCountry: \nOrganisation: \nContact name & phone: ')}`, primary: false },
       ],
     },
   },
@@ -177,10 +188,10 @@ const T = {
         'Fonctionne sur tout type de téléphone',
       ],
       cards: [
-        { icon: '📱', title: 'Télécharger l\'application', desc: 'Obtenez l\'application Klinova sur Android ou iOS. Consultez un médecin, gérez votre santé, trouvez les cliniques proches.', cta: 'Obtenir l\'app', href: '/download', primary: true },
-        { icon: '🌐', title: 'Créer un compte web', desc: 'Inscrivez-vous directement depuis votre navigateur, sans téléchargement. Accédez à vos dossiers, consultez un médecin et gérez votre santé sur n\'importe quel appareil.', cta: 'Créer un compte', href: '/login?mode=signup&role=patient', primary: false },
-        { icon: '🔑', title: 'Déjà un compte ?', desc: 'Connectez-vous pour voir vos dossiers médicaux, consultations passées et ordonnances.', cta: 'Se connecter', href: '/login', primary: false },
-        { icon: '💬', title: 'Triage WhatsApp', desc: 'Démarrez une consultation via WhatsApp dans votre langue. Aucun smartphone requis.', cta: 'Bientôt disponible', href: null, primary: false, soon: true },
+        { icon: IcoPhone, title: 'Télécharger l\'application', desc: 'Obtenez l\'application Klinova sur Android ou iOS. Consultez un médecin, gérez votre santé, trouvez les cliniques proches.', cta: 'Obtenir l\'app', href: '/download', primary: true },
+        { icon: IcoGlobe, title: 'Créer un compte web', desc: 'Inscrivez-vous directement depuis votre navigateur, sans téléchargement. Accédez à vos dossiers, consultez un médecin et gérez votre santé sur n\'importe quel appareil.', cta: 'Créer un compte', href: '/login?mode=signup&role=patient', primary: false },
+        { icon: IcoKey, title: 'Déjà un compte ?', desc: 'Connectez-vous pour voir vos dossiers médicaux, consultations passées et ordonnances.', cta: 'Se connecter', href: '/login', primary: false },
+        { icon: IcoChat, title: 'Triage WhatsApp', desc: 'Démarrez une consultation via WhatsApp dans votre langue. Aucun smartphone requis.', cta: 'Bientôt disponible', href: null, primary: false, soon: true },
       ],
     },
 
@@ -203,9 +214,9 @@ const T = {
         'Seuls les diplômes des médecins agréés sont vérifiés',
       ],
       cards: [
-        { icon: '🩺', title: 'Créer votre compte prestataire', desc: 'Inscrivez-vous avec vos diplômes et spécialité. Accédez à votre file de patients, ordonnances et références en un seul endroit.', cta: 'Créer un compte', href: '/login?mode=signup&role=doctor', primary: true },
-        { icon: '🔑', title: 'Déjà inscrit ?', desc: 'Connectez-vous à votre tableau de bord médecin pour gérer vos consultations, rédiger des ordonnances et consulter votre planning.', cta: 'Se connecter', href: '/login', primary: false },
-        { icon: '📍', title: 'Référencé automatiquement', desc: 'Votre profil apparaît dans l\'annuaire Klinova dès l\'activation de votre compte — les patients vous trouvent par ville, pays et spécialité.', cta: 'Voir l\'annuaire', href: '/find', primary: false },
+        { icon: IcoSteth, title: 'Créer votre compte prestataire', desc: 'Inscrivez-vous avec vos diplômes et spécialité. Accédez à votre file de patients, ordonnances et références en un seul endroit.', cta: 'Créer un compte', href: '/login?mode=signup&role=doctor', primary: true },
+        { icon: IcoKey, title: 'Déjà inscrit ?', desc: 'Connectez-vous à votre tableau de bord médecin pour gérer vos consultations, rédiger des ordonnances et consulter votre planning.', cta: 'Se connecter', href: '/login', primary: false },
+        { icon: IcoMapPin, title: 'Référencé automatiquement', desc: 'Votre profil apparaît dans l\'annuaire Klinova dès l\'activation de votre compte. Les patients vous trouvent par ville, pays et spécialité.', cta: 'Voir l\'annuaire', href: '/find', primary: false },
       ],
     },
 
@@ -227,9 +238,9 @@ const T = {
         'Fonctionne sur tout téléphone ou navigateur',
       ],
       cards: [
-        { icon: '🏥', title: 'Créer un compte clinique', desc: 'Enregistrez votre établissement sur Klinova. Gérez votre équipe, recevez des références numériques et accueillez les patients envoyés par les médecins Klinova.', cta: 'Créer un compte', href: '/login?mode=signup&role=frontdesk', primary: true },
-        { icon: '🔑', title: 'Déjà inscrit ?', desc: 'Connectez-vous pour gérer la file d\'attente de votre clinique, voir les références et accéder aux dossiers patients.', cta: 'Se connecter', href: '/login', primary: false },
-        { icon: '📍', title: 'Référencé automatiquement', desc: 'Votre établissement apparaît dans l\'annuaire Klinova dès la création de votre compte — trouvable par les patients proches, par ville, région et pays.', cta: 'Créer un compte', href: '/login?mode=signup&role=frontdesk', primary: false },
+        { icon: IcoBuilding, title: 'Créer un compte clinique', desc: 'Enregistrez votre établissement sur Klinova. Gérez votre équipe, recevez des références numériques et accueillez les patients envoyés par les médecins Klinova.', cta: 'Créer un compte', href: '/login?mode=signup&role=frontdesk', primary: true },
+        { icon: IcoKey, title: 'Déjà inscrit ?', desc: 'Connectez-vous pour gérer la file d\'attente de votre clinique, voir les références et accéder aux dossiers patients.', cta: 'Se connecter', href: '/login', primary: false },
+        { icon: IcoMapPin, title: 'Référencé automatiquement', desc: 'Votre établissement apparaît dans l\'annuaire Klinova dès la création de votre compte, trouvable par les patients proches par ville, région et pays.', cta: 'Créer un compte', href: '/login?mode=signup&role=frontdesk', primary: false },
       ],
     },
 
@@ -251,9 +262,9 @@ const T = {
         'Aucun coût initial important',
       ],
       cards: [
-        { icon: '💊', title: 'Créer votre compte pharmacie', desc: 'Enregistrez votre pharmacie sur Klinova. Recevez des ordonnances numériques, traitez les commandes et communiquez les résultats, tout en un seul système.', cta: 'Créer un compte', href: '/login?mode=signup&role=pharmacist', primary: true },
-        { icon: '🔑', title: 'Déjà inscrit ?', desc: 'Connectez-vous pour consulter les ordonnances entrantes et gérer la file de traitement de votre pharmacie.', cta: 'Se connecter', href: '/login', primary: false },
-        { icon: '📍', title: 'Référencé automatiquement', desc: 'Votre pharmacie apparaît dans l\'annuaire Klinova dès la création de votre compte — les patients proches vous trouvent par ville, région et pays.', cta: 'Voir l\'annuaire', href: '/find', primary: false },
+        { icon: IcoPill, title: 'Créer votre compte pharmacie', desc: 'Enregistrez votre pharmacie sur Klinova. Recevez des ordonnances numériques, traitez les commandes et communiquez les résultats, tout en un seul système.', cta: 'Créer un compte', href: '/login?mode=signup&role=pharmacist', primary: true },
+        { icon: IcoKey, title: 'Déjà inscrit ?', desc: 'Connectez-vous pour consulter les ordonnances entrantes et gérer la file de traitement de votre pharmacie.', cta: 'Se connecter', href: '/login', primary: false },
+        { icon: IcoMapPin, title: 'Référencé automatiquement', desc: 'Votre pharmacie apparaît dans l\'annuaire Klinova dès la création de votre compte. Les patients proches vous trouvent par ville, région et pays.', cta: 'Voir l\'annuaire', href: '/find', primary: false },
       ],
     },
 
@@ -275,9 +286,9 @@ const T = {
         'Support d\'intégration pour les ministères de la santé',
       ],
       cards: [
-        { icon: '🏛️', title: 'Créer un compte gouvernement', desc: 'Enregistrez votre organisation pour accéder au tableau de bord gouvernemental, tendances agrégées, niveaux d\'urgence et données OMS.', cta: 'Créer un compte', href: '/login?mode=signup&role=government', primary: true },
-        { icon: '🔑', title: 'Déjà un accès ?', desc: 'Connectez-vous à votre tableau de bord gouvernemental pour consulter les données de santé en direct pour votre région.', cta: 'Se connecter', href: '/login', primary: false },
-        { icon: '📋', title: 'Demander une démonstration', desc: 'Vous souhaitez voir la plateforme avant de vous engager ? Nous vous présenterons le tableau de bord et le modèle de gouvernance des données.', cta: 'Demander une démo', href: `mailto:contact@klinova.co?subject=${encodeURIComponent('Demande de démo gouvernement – Klinova')}&body=${encodeURIComponent('Bonjour, nous représentons [nom de l\'organisation] et souhaitons une démonstration.\n\nPays : \nOrganisation : \nContact : ')}`, primary: false },
+        { icon: IcoGovt, title: 'Créer un compte gouvernement', desc: 'Enregistrez votre organisation pour accéder au tableau de bord gouvernemental, tendances agrégées, niveaux d\'urgence et données OMS.', cta: 'Créer un compte', href: '/login?mode=signup&role=government', primary: true },
+        { icon: IcoKey, title: 'Déjà un accès ?', desc: 'Connectez-vous à votre tableau de bord gouvernemental pour consulter les données de santé en direct pour votre région.', cta: 'Se connecter', href: '/login', primary: false },
+        { icon: IcoClipboard, title: 'Demander une démonstration', desc: 'Vous souhaitez voir la plateforme avant de vous engager ? Nous vous présenterons le tableau de bord et le modèle de gouvernance des données.', cta: 'Demander une démo', href: `mailto:contact@klinova.co?subject=${encodeURIComponent('Demande de démo gouvernement – Klinova')}&body=${encodeURIComponent('Bonjour, nous représentons [nom de l\'organisation] et souhaitons une démonstration.\n\nPays : \nOrganisation : \nContact : ')}`, primary: false },
       ],
     },
   },
@@ -380,7 +391,7 @@ export default function GetStartedPage({ params }) {
               padding: '24px 28px', opacity: card.soon ? 0.55 : 1,
               borderLeft: card.primary ? `4px solid ${C.greenDeep}` : `1px solid ${C.line}`,
             }}>
-              <div style={{ fontSize: 26, marginBottom: 10 }}>{card.icon}</div>
+              <div style={{ marginBottom: 10 }}>{card.icon}</div>
               <h2 style={{ fontSize: 17, fontWeight: 700, color: C.ink, margin: '0 0 6px' }}>{card.title}</h2>
               <p style={{ fontSize: 13.5, color: C.mute, lineHeight: 1.6, margin: '0 0 18px' }}>{card.desc}</p>
               {card.href ? (

@@ -66,8 +66,8 @@ export default function DownloadPage() {
 
   const waMsg = encodeURIComponent(
     lang === 'fr'
-      ? 'Bonjour Klinova 👋 Je souhaite consulter un médecin. Pouvez-vous m\'aider ?'
-      : 'Hello Klinova 👋 I\'d like to consult a doctor. Can you help me get started?'
+      ? 'Bonjour Klinova, je souhaite consulter un médecin. Pouvez-vous m\'aider ?'
+      : 'Hello Klinova, I\'d like to consult a doctor. Can you help me get started?'
   )
   const waLink = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}` : null
 

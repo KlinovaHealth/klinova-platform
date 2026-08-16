@@ -160,10 +160,10 @@ export default function PatientsPage() {
             <img src="/klinova-logo-full.png" alt="Klinova" style={{ height:32, width:'auto', mixBlendMode:'multiply' }} />
           </a>
           <div className="nav-links">
-            <a href="/patients" className="active">Patients</a>
-            <a href="/partner">Partners</a>
-            <a href="/governments">Governments</a>
-            <a href="/#pricing">Pricing</a>
+            <a href="/governments">For Governments</a>
+            <a href="/patients" className="active">For Individuals</a>
+            <a href="/partner">For Partners</a>
+            <a href="mailto:contact@klinova.co">Contact</a>
           </div>
           <div className="nav-right">
             <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>Log in</a>
@@ -189,11 +189,11 @@ export default function PatientsPage() {
                 <span className="trust-item"><span className="trust-dot"/><span>Encrypted and private</span></span>
                 <span className="trust-item"><span className="trust-dot"/><span>Works on any phone</span></span>
               </div>
-              <div className="emergency">⚠️ Not for emergencies. Call 15 (Togo), 195 (Ghana), 15 (Benin), or 185 (Côte d'Ivoire).</div>
+              <div className="emergency">Not for emergencies. Call 15 (Togo), 195 (Ghana), 15 (Benin), or 185 (Côte d'Ivoire).</div>
             </div>
             <div className="hero-visual">
               <div style={{ width:220, height:220, borderRadius:'50%', background:`radial-gradient(circle, rgba(14,107,79,.15) 0%, transparent 70%)`, display:'flex', alignItems:'center', justifyContent:'center' }}>
-                <span style={{ fontSize:100 }}>📱</span>
+                <svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity:.7 }}><rect x="5" y="1" width="14" height="22" rx="3"/><path d="M12 18h.01"/></svg>
               </div>
             </div>
           </div>
@@ -212,7 +212,7 @@ export default function PatientsPage() {
             {[
               { n:'1', h:'Tell us how you feel', p:'Describe your symptoms by text, voice, or photo in any of our fourteen supported languages.' },
               { n:'2', h:'Get guided to the right care', p:'Klinova reviews your symptoms and tells you clearly how urgent your situation is.' },
-              { n:'3', h:'See a doctor', p:'Talk to a licensed doctor by chat, voice, or video — from anywhere, at any time.' },
+              { n:'3', h:'See a doctor', p:'Talk to a licensed doctor by chat, voice, or video, from anywhere, at any time.' },
               { n:'4', h:'Get your medicine', p:'Your prescription goes straight to the nearest pharmacy. Pick it up or have it delivered.' },
             ].map(s => (
               <div className="step" key={s.n}>
@@ -232,15 +232,15 @@ export default function PatientsPage() {
           <h2>Care built around how people actually live here.</h2>
           <div className="feat">
             {[
-              { icon:'🌍', h:'Care in your language', p:'Klinova supports 14 languages including Eʋe, Kabiyè, Twi, Fon, Dioula, Wolof, Bambara, Hausa, and more.' },
-              { icon:'💊', h:'Free via government programs', p:'Most patients pay nothing. If your country has a national health program, Klinova is covered. Pay-per-use also available.' },
-              { icon:'📍', h:'Find care near you', p:'See the nearest doctors and pharmacies. Your medicine is routed to the closest location.' },
-              { icon:'📄', h:'Records that follow you', p:'Your consultations, prescriptions, and results are encrypted and always accessible to you.' },
-              { icon:'💬', h:'Reach us anywhere', p:'Use the app, the website, or WhatsApp — whichever works best for you.' },
-              { icon:'📻', h:'Every phone counts', p:'No smartphone? Reach Klinova by SMS or with the help of a community health worker.' },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>, h:'Care in your language', p:'Klinova supports 14 languages including Ewe, Kabiye, Twi, Fon, Dioula, Wolof, Bambara, Hausa, and more.' },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"/></svg>, h:'Free via government programs', p:'Most patients pay nothing. If your country has a national health program, Klinova is covered. Pay-per-use plans are also available.' },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21c-4-4.5-6-7.5-6-10a6 6 0 0 1 12 0c0 2.5-2 5.5-6 10z"/><circle cx="12" cy="11" r="2"/></svg>, h:'Find care near you', p:'See the nearest doctors and pharmacies. Your medicine is routed to the closest location.' },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>, h:'Records that follow you', p:'Your consultations, prescriptions, and results are encrypted and always accessible to you.' },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.5 11c0 4.694-4.253 8.5-9.5 8.5a10.2 10.2 0 0 1-4.2-.9L1.5 20.5l1.6-4.8A8.1 8.1 0 0 1 1.5 11C1.5 6.306 5.753 2.5 11 2.5S20.5 6.306 20.5 11z"/></svg>, h:'Reach us anywhere', p:'Use the app, the website, or WhatsApp, whichever works best for you.' },
+              { ico:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="1" width="14" height="22" rx="3"/><path d="M12 18h.01"/></svg>, h:'Every phone counts', p:'No smartphone? Reach Klinova by SMS or with the help of a community health worker.' },
             ].map(f => (
               <div className="fcard" key={f.h}>
-                <div className="fcard-icon" style={{ fontSize:22 }}>{f.icon}</div>
+                <div className="fcard-icon">{f.ico}</div>
                 <h3>{f.h}</h3>
                 <p>{f.p}</p>
               </div>

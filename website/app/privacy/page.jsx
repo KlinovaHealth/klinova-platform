@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Privacy Policy — Klinova',
+  title: 'Privacy Policy | Klinova',
   description: 'Klinova Health privacy policy',
   alternates: { languages: { 'fr': '/privacy/fr' } },
 }
@@ -130,7 +130,7 @@ export default function PrivacyPage() {
             We do not sell your personal data. Full stop. The only situations where we share information are:
           </p>
           <Row>With the doctor you book a consultation with, so they can provide care.</Row>
-          <Row>With government health authorities, shared only as anonymized aggregate statistics — never as individual records.</Row>
+          <Row>With government health authorities, shared only as anonymized aggregate statistics, never as individual records.</Row>
         </Section>
 
         {/* 05 */}
@@ -158,11 +158,11 @@ export default function PrivacyPage() {
           </p>
           <Badge
             label="GDPR"
-            note="EU Regulation 2016/679 — governs how we collect, process, and store personal data for users in the EU and globally."
+            note="EU Regulation 2016/679, which governs how we collect, process, and store personal data for users in the EU and globally."
           />
           <Badge
             label="HIPAA"
-            note="45 CFR Parts 160 and 164 — governs the handling and safeguarding of protected health information."
+            note="45 CFR Parts 160 and 164, governing the handling and safeguarding of protected health information."
           />
           <Badge
             label="National laws"

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Politique de confidentialité — Klinova',
+  title: 'Politique de confidentialité | Klinova',
   description: 'Politique de confidentialité de Klinova Health',
   alternates: { languages: { 'en': '/privacy' } },
 }
@@ -87,7 +87,7 @@ export default function PrivacyFrPage() {
 
         {/* Introduction */}
         <p style={{ ...body, fontSize: 16, marginBottom: 48 }}>
-          Cette politique explique quelles informations Klinova Health collecte, pourquoi nous les collectons et comment nous les protégeons. Notre objectif est d&apos;être clairs et directs — pas de jargon juridique, pas de surprises.
+          Cette politique explique quelles informations Klinova Health collecte, pourquoi nous les collectons et comment nous les protégeons. Notre objectif est d&apos;être clairs et directs : pas de jargon juridique, pas de surprises.
         </p>
 
         {/* 01 */}
@@ -124,7 +124,7 @@ export default function PrivacyFrPage() {
             Nous ne vendons pas vos données personnelles. Point final. Les seules situations dans lesquelles nous partageons des informations sont :
           </p>
           <Row>Avec le médecin que vous consultez, afin qu&apos;il puisse vous prodiguer des soins.</Row>
-          <Row>Avec les autorités sanitaires gouvernementales, uniquement sous forme de statistiques anonymisées et agrégées — jamais sous forme de dossiers individuels.</Row>
+          <Row>Avec les autorités sanitaires gouvernementales, uniquement sous forme de statistiques anonymisées et agrégées, jamais sous forme de dossiers individuels.</Row>
         </Section>
 
         {/* 05 */}
@@ -152,11 +152,11 @@ export default function PrivacyFrPage() {
           </p>
           <Badge
             label="RGPD"
-            note="Règlement UE 2016/679 — régit la manière dont nous collectons, traitons et stockons les données personnelles de nos utilisateurs en Europe et dans le monde."
+            note="Règlement UE 2016/679, qui régit la manière dont nous collectons, traitons et stockons les données personnelles de nos utilisateurs en Europe et dans le monde."
           />
           <Badge
             label="HIPAA"
-            note="45 CFR Parties 160 et 164 — régit le traitement et la protection des informations de santé protégées."
+            note="45 CFR Parties 160 et 164, régissant le traitement et la protection des informations de santé protégées."
           />
           <Badge
             label="Législations nationales"

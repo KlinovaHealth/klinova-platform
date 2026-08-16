@@ -18,11 +18,17 @@ const C = {
 
 const fetcher = (url) => fetch(url).then(r => r.json())
 
+const IcoHome = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+const IcoSteth = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 3h1A2.5 2.5 0 0 1 8 5.5v5a5 5 0 0 0 10 0V8"/><circle cx="19" cy="7" r="1.5"/></svg>
+const IcoBldg  = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg>
+const IcoPill  = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 1 1 7-7l7 7a5 5 0 1 1-7 7z"/><line x1="9" y1="15" x2="15" y2="9"/></svg>
+const IcoGlobe = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9M12 3c2.5 3 4 5.5 4 9s-1.5 6-4 9"/></svg>
+
 const NAV = [
-  { key: 'overview',   icon: '🏠', label: 'Overview' },
-  { key: 'doctors',    icon: '🩺', label: 'Doctors' },
-  { key: 'clinics',    icon: '🏥', label: 'Clinics' },
-  { key: 'pharmacies', icon: '💊', label: 'Pharmacies' },
+  { key: 'overview',   icon: IcoHome,  label: 'Overview' },
+  { key: 'doctors',    icon: IcoSteth, label: 'Doctors' },
+  { key: 'clinics',    icon: IcoBldg,  label: 'Clinics' },
+  { key: 'pharmacies', icon: IcoPill,  label: 'Pharmacies' },
 ]
 
 export default function FindPage() {
@@ -131,7 +137,9 @@ export default function FindPage() {
                 background: 'rgba(255,255,255,.12)', color: '#fff', fontSize: 13,
                 fontFamily: 'inherit', width: 200, outline: 'none',
               }} />
-            <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', fontSize: 14, pointerEvents: 'none' }}>🔍</span>
+            <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'rgba(255,255,255,.5)', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            </span>
           </div>
 
           {/* Lang toggle */}
@@ -165,7 +173,7 @@ export default function FindPage() {
 
             <button onClick={detectLocation} disabled={geoLoading}
               style={{ width: '100%', marginTop: 8, padding: '8px 0', borderRadius: 8, border: `1px solid ${C.line}`, background: geoCity ? C.gold : C.sand, color: geoCity ? '#fff' : C.ink, fontSize: 12, fontWeight: 600, fontFamily: 'inherit', cursor: 'pointer' }}>
-              {geoLoading ? '…' : geoCity ? `📍 ${geoCity}` : `📍 ${lang === 'fr' ? 'Près de moi' : 'Near me'}`}
+              {geoLoading ? '…' : geoCity ? geoCity : (lang === 'fr' ? 'Près de moi' : 'Near me')}
             </button>
           </div>
 
@@ -223,20 +231,20 @@ export default function FindPage() {
               </h1>
               <p style={{ fontSize: 14, color: C.mute, margin: '0 0 28px' }}>
                 {lang === 'fr'
-                  ? 'Médecins, cliniques et pharmacies sur le réseau Klinova — mis à jour automatiquement.'
+                  ? 'Médecins, cliniques et pharmacies sur le réseau Klinova, mis à jour automatiquement.'
                   : 'Doctors, clinics, and pharmacies on the Klinova network, updated automatically as they join.'}
               </p>
 
               {/* Total cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 14, marginBottom: 32 }}>
                 {[
-                  { icon: '🩺', label: lang === 'fr' ? 'Médecins' : 'Doctors',    value: doctors.length,    color: C.green },
-                  { icon: '🏥', label: lang === 'fr' ? 'Cliniques' : 'Clinics',   value: clinics.length,    color: C.coral },
-                  { icon: '💊', label: lang === 'fr' ? 'Pharmacies' : 'Pharmacies', value: pharmacies.length, color: C.gold  },
-                  { icon: '🌍', label: lang === 'fr' ? 'Pays' : 'Countries',      value: byCountry.length,  color: C.deep  },
+                  { icon: IcoSteth, label: lang === 'fr' ? 'Médecins' : 'Doctors',    value: doctors.length,    color: C.green },
+                  { icon: IcoBldg,  label: lang === 'fr' ? 'Cliniques' : 'Clinics',   value: clinics.length,    color: C.coral },
+                  { icon: IcoPill,  label: lang === 'fr' ? 'Pharmacies' : 'Pharmacies', value: pharmacies.length, color: C.gold  },
+                  { icon: IcoGlobe, label: lang === 'fr' ? 'Pays' : 'Countries',      value: byCountry.length,  color: C.deep  },
                 ].map(({ icon, label, value, color }) => (
                   <div key={label} style={{ background: '#fff', border: `1px solid ${C.line}`, borderRadius: 14, padding: '18px 20px' }}>
-                    <div style={{ fontSize: 22, marginBottom: 8 }}>{icon}</div>
+                    <div style={{ marginBottom: 8, color: C.mute }}>{icon}</div>
                     <div style={{ fontSize: 28, fontWeight: 700, color, fontFamily: "'Fraunces', Georgia, serif", lineHeight: 1 }}>
                       {isLoading ? '…' : value}
                     </div>
