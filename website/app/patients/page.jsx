@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const C = {
   ink:'#15302A', green:'#0E6B4F', greenDeep:'#0A5440', greenSoft:'#E3EFE8',
@@ -104,6 +104,10 @@ export default function PatientsPage() {
   const [lang, setLang] = useState('en')
   const selected = COUNTRIES.find(c => c.code === country)
   const t = k => T[lang]?.[k] ?? T.en[k]
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
 
   return (
     <>
@@ -141,8 +145,8 @@ export default function PatientsPage() {
         .lp-btn.lp-on{background:${C.green};color:#fff}
         .hamburger{display:none;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
         .hamburger:hover{background:rgba(14,107,79,.08)}
-        .mob-drawer{display:none;position:fixed;inset:0;z-index:300;background:rgba(21,48,42,.45);backdrop-filter:blur(4px)}
-        .mob-nav{position:absolute;top:0;right:0;bottom:0;width:min(320px,88vw);background:${C.ivory};padding:80px 24px 32px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,.15)}
+        .mob-drawer{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:300;background:rgba(21,48,42,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+        .mob-nav{position:absolute;top:0;right:0;bottom:0;width:min(320px,88vw);background:${C.ivory};padding:80px 24px 32px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:-8px 0 32px rgba(0,0,0,.15)}
         .mob-nav a{font-size:17px;font-weight:600;color:${C.ink};text-decoration:none;padding:12px 0;border-bottom:1px solid ${C.line}}
         .mob-nav a:hover{color:${C.green}}
         /* HERO */

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const C = {
   ink:'#15302A', green:'#0E6B4F', greenDeep:'#0A5440', greenSoft:'#E3EFE8',
@@ -49,8 +49,117 @@ function LockIco({ s=20 }) {
   return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
 }
 
+const T = {
+  en: {
+    nav_ind:'For Individuals', nav_par:'For Partners', nav_gov:'For Governments', nav_contact:'Contact',
+    nav_login:'Log in', nav_cta:'Contact our team',
+    badge:'Government & NGO partnerships',
+    h1:'One doctor. Every', h1_accent:'1 in 5,000 villages.',
+    lede:'Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community without building a new clinic in each one. Individuals can also subscribe directly.',
+    cta1:'Request a briefing', cta2:'Download overview',
+    sl1:'Doctor-to-patient ratio in rural West Africa',
+    sl2:'Of preventable deaths occur outside major cities',
+    sl3:'Languages supported. Patients receive care in their own language.',
+    sl4:'Average time from contract signing to first village going live',
+    rural_ey:'The rural village model', rural_h:'Healthcare coverage where there are no roads to build clinics.',
+    rural_sub:"Klinova does not replace the healthcare system; it extends it. We connect the one doctor in the district center to the 5,000 patients spread across remote villages via WhatsApp, SMS, or the Klinova app.",
+    r1h:'Any phone, any village', r1p:'Patients use WhatsApp, SMS, or the Klinova app to reach a licensed doctor. No clinic visit required.',
+    r2h:'One doctor, many villages', r2p:'A single doctor deployed by Klinova can handle consultations for hundreds of villages per month through structured triage.',
+    r3h:'Escalation when needed', r3p:'When a patient requires in-person care, Klinova coordinates referral to the nearest government health center.',
+    r4h:'Real-time data for your ministry', r4p:'Your ministry of health receives live, anonymized data covering symptoms, geography, and volume, giving you what you need to plan resources.',
+    map_title:'Village coverage map', map_note:'Illustrative. Actual coverage varies by contract.',
+    offer_ey:'What you get', offer_h:'A complete telemedicine program, ready to deploy.',
+    offer_sub:'Klinova provides everything a ministry of health needs to launch a national telemedicine program, available white-labeled under your brand.',
+    o1h:'Primary care telemedicine', o1p:'Licensed doctors serving your citizens by app, WhatsApp, or SMS. Consultations documented, prescriptions issued digitally.',
+    o2h:'Medication delivery network', o2p:'Prescriptions route automatically to the nearest partner pharmacy. Last-mile delivery via our network of local riders.',
+    o3h:'Disease surveillance', o3p:"Anonymized, real-time symptom data by region. Outbreak detection. Exportable to your ministry's dashboards via API.",
+    o4h:'National patient registry', o4p:'Every patient seen is logged with a full consultation history, encrypted and GDPR-compliant. Portable between providers.',
+    o5h:'Multilingual, every region', o5p:'Klinova operates in 14 languages. Rural patients are served in Ewe, Kabiye, Twi, Hausa, Fon, and Dioula, not only French.',
+    o6h:'Works on any phone', o6p:'Smartphones, feature phones, SMS. Community health workers can triage on behalf of patients without smartphones.',
+    surv_ey:'Disease surveillance', surv_h:'See outbreaks before they become crises.',
+    s1h:'Geographic symptom mapping', s1p:'Every triage generates a location-tagged symptom report. Cluster detection runs automatically against WHO outbreak thresholds.',
+    s2h:'Real-time outbreak alerts', s2p:'Your ministry epidemiology team receives an instant alert when a symptom cluster exceeds threshold, before it reaches the hospital.',
+    s3h:'API export to your systems', s3p:'Data exports in FHIR R4 format, compatible with WHO DHIS2, OpenMRS, or any ministry health information system.',
+    s4h:'Privacy by design', s4p:'All exported data is anonymized and aggregated. No patient PII leaves Klinova without explicit patient consent.',
+    surv_map_title:'Active symptom signals', surv_note:'Live data, anonymized and aggregated',
+    comp_ey:'Compliance & data sovereignty', comp_h:'Built to meet government procurement standards.',
+    c1h:'Data sovereignty', c1p:'Patient data for each country is stored within its jurisdiction or in the designated regional zone agreed in the contract. Data is never transferred across borders without explicit bilateral agreement.',
+    c2h:'Security standards', c2p:'AES-256 field-level encryption for all PHI. TLS 1.3 in transit. Row-level security. Audit logs on every data access. HIPAA-aligned. Penetration tested.',
+    c3h:'Medical licensing', c3p:'All doctors on the Klinova platform hold valid registration with the national medical licensing authority in their country. Unlicensed practitioners are not permitted to see patients.',
+    c4h:'Procurement & contracting', c4p:'Klinova supports open tender processes and is available under government framework agreements. Pilot programs can be structured as 90-day proof-of-concept contracts.',
+    proc_ey:'How it works', proc_h:'From first conversation to village coverage.',
+    proc_sub:'We move as fast as government procurement allows, and we know how to navigate it.',
+    p1h:'Initial briefing', p1p:'30-minute call with our government partnerships team. We learn your priorities, geography, and constraints.',
+    p2h:'Proposal & pilot scope', p2p:'We submit a tailored proposal including pilot district, timeline, and cost per patient covered.',
+    p3h:'Pilot deployment', p3p:'90-day proof of concept covering a target district. First villages go live within 48 hours of contract signing.',
+    p4h:'National rollout', p4p:'Based on pilot results, scale to full national coverage under a multi-year program agreement.',
+    cta_ey:'Start the conversation', cta_h:'Ready to bring telemedicine to your citizens?',
+    cta_p:'Our government partnerships team is available for briefings, site visits, and proposal discussions. We work with ministries of health, national health insurance funds, and multilateral development partners.',
+    cta_b1:'Request a briefing', cta_b2:'Request our deck',
+    cta_email:'contact@klinova.co · We respond within one business day.',
+    ft_blurb:'The Invisible Grid powering African healthcare. Lomé, Togo.', ft_tag:'Born in Africa. Built for Life.',
+    ft_product:'Product', ft_partners:'Partners', ft_company:'Company', ft_copy:'© 2026 Klinova. All rights reserved.',
+  },
+  fr: {
+    nav_ind:'Pour les individus', nav_par:'Pour les partenaires', nav_gov:'Pour les gouvernements', nav_contact:'Contact',
+    nav_login:'Connexion', nav_cta:'Contacter notre équipe',
+    badge:'Partenariats gouvernementaux & ONG',
+    h1:'Un médecin. Chaque', h1_accent:'village sur 5 000.',
+    lede:"Desservir les zones rurales. Réduire l'engorgement des cliniques. Réduire les coûts. Klinova est l'infrastructure de télémédecine qui permet aux gouvernements d'étendre les soins primaires à chaque communauté sans construire de nouvelles cliniques. Les particuliers peuvent aussi s'abonner directement.",
+    cta1:'Demander un briefing', cta2:'Télécharger la présentation',
+    sl1:'Ratio médecin/patient en Afrique de l\'Ouest rurale',
+    sl2:'Des décès évitables surviennent hors des grandes villes',
+    sl3:'Langues prises en charge. Les patients reçoivent des soins dans leur langue.',
+    sl4:'Délai moyen entre la signature du contrat et le lancement du premier village',
+    rural_ey:'Le modèle village rural', rural_h:'Couverture sanitaire là où il n\'y a pas de routes pour construire des cliniques.',
+    rural_sub:"Klinova ne remplace pas le système de santé, il l'étend. Nous connectons le seul médecin du centre de district aux 5 000 patients dispersés dans les villages éloignés via WhatsApp, SMS ou l'application Klinova.",
+    r1h:'Tout téléphone, tout village', r1p:"Les patients utilisent WhatsApp, SMS ou l'application Klinova pour contacter un médecin agréé. Pas de visite en clinique requise.",
+    r2h:'Un médecin, de nombreux villages', r2p:'Un seul médecin déployé par Klinova peut gérer des consultations pour des centaines de villages par mois grâce au triage structuré.',
+    r3h:'Escalade si nécessaire', r3p:'Lorsqu\'un patient nécessite des soins en personne, Klinova coordonne l\'orientation vers le centre de santé gouvernemental le plus proche.',
+    r4h:'Données en temps réel pour votre ministère', r4p:'Votre ministère de la santé reçoit des données anonymisées en direct couvrant les symptômes, la géographie et le volume.',
+    map_title:'Carte de couverture villageoise', map_note:'Illustratif. La couverture réelle varie selon le contrat.',
+    offer_ey:'Ce que vous obtenez', offer_h:'Un programme complet de télémédecine, prêt à déployer.',
+    offer_sub:"Klinova fournit tout ce dont un ministère de la santé a besoin pour lancer un programme national de télémédecine, disponible en marque blanche sous votre propre marque.",
+    o1h:'Télémédecine de soins primaires', o1p:'Médecins agréés au service de vos citoyens par application, WhatsApp ou SMS. Consultations documentées, ordonnances émises numériquement.',
+    o2h:'Réseau de livraison de médicaments', o2p:'Les ordonnances sont acheminées automatiquement vers la pharmacie partenaire la plus proche. Livraison du dernier kilomètre via notre réseau de livreurs locaux.',
+    o3h:'Surveillance des maladies', o3p:"Données anonymisées en temps réel sur les symptômes par région. Détection des épidémies. Exportable vers les tableaux de bord de votre ministère via API.",
+    o4h:'Registre national des patients', o4p:'Chaque patient vu est enregistré avec un historique de consultation complet, chiffré et conforme au RGPD. Portable entre prestataires.',
+    o5h:'Multilingue, chaque région', o5p:"Klinova opère en 14 langues. Les patients ruraux sont servis en Ewe, Kabiye, Twi, Haoussa, Fon et Dioula, pas seulement en français.",
+    o6h:'Fonctionne sur tout téléphone', o6p:'Smartphones, téléphones basiques, SMS. Les agents de santé communautaires peuvent effectuer le triage au nom des patients sans smartphones.',
+    surv_ey:'Surveillance des maladies', surv_h:'Détecter les épidémies avant qu\'elles ne deviennent des crises.',
+    s1h:'Cartographie géographique des symptômes', s1p:"Chaque triage génère un rapport de symptômes géolocalisé. La détection de clusters s'exécute automatiquement par rapport aux seuils d'épidémie de l'OMS.",
+    s2h:'Alertes épidémiques en temps réel', s2p:"Votre équipe d'épidémiologie ministérielle reçoit une alerte instantanée lorsqu'un cluster de symptômes dépasse le seuil, avant qu'il n'atteigne l'hôpital.",
+    s3h:'Export API vers vos systèmes', s3p:'Exports de données au format FHIR R4, compatibles avec WHO DHIS2, OpenMRS ou tout système d\'information sanitaire ministériel.',
+    s4h:'Confidentialité dès la conception', s4p:'Toutes les données exportées sont anonymisées et agrégées. Aucune information personnelle de patient ne quitte Klinova sans consentement explicite.',
+    surv_map_title:'Signaux de symptômes actifs', surv_note:'Données en direct, anonymisées et agrégées',
+    comp_ey:'Conformité & souveraineté des données', comp_h:'Conçu pour répondre aux normes des marchés publics gouvernementaux.',
+    c1h:'Souveraineté des données', c1p:'Les données des patients pour chaque pays sont stockées dans sa juridiction ou dans la zone régionale désignée convenue dans le contrat.',
+    c2h:'Normes de sécurité', c2p:'Chiffrement au niveau des champs AES-256 pour toutes les PHI. TLS 1.3 en transit. Sécurité au niveau des lignes. Journaux d\'audit sur chaque accès aux données.',
+    c3h:'Licences médicales', c3p:'Tous les médecins de la plateforme Klinova détiennent une inscription valide auprès de l\'autorité nationale d\'octroi de licences médicales de leur pays.',
+    c4h:'Marchés publics & contrats', c4p:'Klinova prend en charge les processus d\'appels d\'offres ouverts et est disponible dans le cadre d\'accords-cadres gouvernementaux. Les programmes pilotes peuvent être structurés comme des contrats de preuve de concept de 90 jours.',
+    proc_ey:'Comment ça marche', proc_h:'De la première conversation à la couverture villageoise.',
+    proc_sub:"Nous avançons aussi vite que les marchés publics gouvernementaux le permettent, et nous savons comment les gérer.",
+    p1h:'Briefing initial', p1p:'Appel de 30 minutes avec notre équipe partenariats gouvernementaux. Nous apprenons vos priorités, géographie et contraintes.',
+    p2h:'Proposition & périmètre pilote', p2p:'Nous soumettons une proposition sur mesure incluant le district pilote, le calendrier et le coût par patient couvert.',
+    p3h:'Déploiement pilote', p3p:'Preuve de concept de 90 jours couvrant un district cible. Les premiers villages sont mis en ligne dans les 48 heures suivant la signature du contrat.',
+    p4h:'Déploiement national', p4p:'Sur la base des résultats du pilote, extension à la couverture nationale complète dans le cadre d\'un accord de programme pluriannuel.',
+    cta_ey:'Démarrer la conversation', cta_h:'Prêt à apporter la télémédecine à vos citoyens ?',
+    cta_p:"Notre équipe partenariats gouvernementaux est disponible pour des briefings, des visites de site et des discussions de propositions. Nous travaillons avec les ministères de la santé, les fonds nationaux d'assurance maladie et les partenaires de développement multilatéraux.",
+    cta_b1:'Demander un briefing', cta_b2:'Demander notre présentation',
+    cta_email:'contact@klinova.co · Nous répondons dans un délai d\'un jour ouvré.',
+    ft_blurb:'La grille invisible qui alimente la santé africaine. Lomé, Togo.', ft_tag:'Né en Afrique. Construit pour la Vie.',
+    ft_product:'Produit', ft_partners:'Partenaires', ft_company:'Entreprise', ft_copy:'© 2026 Klinova. Tous droits réservés.',
+  }
+}
+
 export default function GovernmentsPage() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [lang, setLang] = useState('en')
+  const t = k => T[lang]?.[k] ?? T.en[k]
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
   return (
     <>
       <style suppressHydrationWarning>{`
@@ -80,10 +189,14 @@ export default function GovernmentsPage() {
         .nav-links a:hover,.nav-links a.active{color:${C.ink};background:rgba(14,107,79,.07)}
         .nav-links a.active{color:${C.greenDeep}}
         .nav-right{display:flex;align-items:center;gap:8px;flex:none}
+        .lang-pill{display:inline-flex;align-items:center;background:rgba(14,107,79,.08);border:1px solid rgba(14,107,79,.15);border-radius:999px;overflow:hidden}
+        .lp-btn{border:none;background:transparent;font-family:${ui};font-size:12px;font-weight:700;letter-spacing:.06em;color:${C.mute};padding:5px 11px;cursor:pointer;transition:background .15s,color .15s}
+        .lp-btn:hover{background:rgba(14,107,79,.10);color:${C.ink}}
+        .lp-btn.lp-on{background:${C.green};color:#fff}
         .hamburger{display:none;background:none;border:none;cursor:pointer;color:${C.ink};padding:6px;border-radius:8px;line-height:0}
         .hamburger:hover{background:rgba(14,107,79,.08)}
-        .mob-drawer{display:none;position:fixed;inset:0;z-index:300;background:rgba(21,48,42,.45);backdrop-filter:blur(4px)}
-        .mob-nav{position:absolute;top:0;right:0;bottom:0;width:min(320px,88vw);background:${C.ivory};padding:80px 24px 32px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,.15)}
+        .mob-drawer{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:300;background:rgba(21,48,42,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+        .mob-nav{position:absolute;top:0;right:0;bottom:0;width:min(320px,88vw);background:${C.ivory};padding:80px 24px 32px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:-8px 0 32px rgba(0,0,0,.15)}
         .mob-nav a{font-size:17px;font-weight:600;color:${C.ink};text-decoration:none;padding:12px 0;border-bottom:1px solid ${C.line}}
         .mob-nav a:hover{color:${C.green}}
         /* HERO */
@@ -208,14 +321,18 @@ export default function GovernmentsPage() {
             <img src="/klinova-logo-full.png" alt="Klinova" style={{ height:32, width:'auto', mixBlendMode:'multiply' }} />
           </a>
           <div className="nav-links">
-            <a href="/patients">Patients</a>
-            <a href="/partner">Partners</a>
-            <a href="/governments" className="active">Governments</a>
-            <a href="/#pricing">Pricing</a>
+            <a href="/patients">{t('nav_ind')}</a>
+            <a href="/partner">{t('nav_par')}</a>
+            <a href="/governments" className="active">{t('nav_gov')}</a>
+            <a href="mailto:contact@klinova.co">{t('nav_contact')}</a>
           </div>
           <div className="nav-right">
-            <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>Log in</a>
-            <a href="mailto:contact@klinova.co?subject=Government Partnership" className="btn btn-primary" style={{ fontSize:13, padding:'10px 18px', whiteSpace:'nowrap' }}>Contact our team</a>
+            <div className="lang-pill" role="group" aria-label="Language">
+              <button className={lang==='en'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('en')}>EN</button>
+              <button className={lang==='fr'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('fr')}>FR</button>
+            </div>
+            <a href="/login" style={{ fontSize:13.5, fontWeight:600, color:C.ink, padding:'9px 16px', borderRadius:8, border:`1.5px solid ${C.line}`, background:'#fff', whiteSpace:'nowrap' }}>{t('nav_login')}</a>
+            <a href="mailto:contact@klinova.co?subject=Government Partnership" className="btn btn-primary" style={{ fontSize:13, padding:'10px 18px', whiteSpace:'nowrap' }}>{t('nav_cta')}</a>
             <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
               {menuOpen
                 ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -229,10 +346,14 @@ export default function GovernmentsPage() {
       {menuOpen && (
         <div className="mob-drawer" onClick={() => setMenuOpen(false)}>
           <nav className="mob-nav" onClick={e => e.stopPropagation()}>
-            <a href="/patients" onClick={() => setMenuOpen(false)}>For Individuals</a>
-            <a href="/partner" onClick={() => setMenuOpen(false)}>For Partners</a>
-            <a href="/governments" onClick={() => setMenuOpen(false)}>For Governments</a>
-            <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>Contact</a>
+            <a href="/patients" onClick={() => setMenuOpen(false)}>{t('nav_ind')}</a>
+            <a href="/partner" onClick={() => setMenuOpen(false)}>{t('nav_par')}</a>
+            <a href="/governments" onClick={() => setMenuOpen(false)}>{t('nav_gov')}</a>
+            <a href="mailto:contact@klinova.co" onClick={() => setMenuOpen(false)}>{t('nav_contact')}</a>
+            <div style={{ display:'flex', gap:8, justifyContent:'center', marginTop:16 }}>
+              <button className={lang==='en'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('en')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>EN</button>
+              <button className={lang==='fr'?'lp-btn lp-on':'lp-btn'} onClick={()=>setLang('fr')} style={{ borderRadius:8, border:`1px solid ${C.line}`, padding:'7px 22px' }}>FR</button>
+            </div>
           </nav>
         </div>
       )}
@@ -240,12 +361,12 @@ export default function GovernmentsPage() {
       {/* HERO */}
       <section className="hero">
         <div className="wrap">
-          <div className="hero-badge">Government &amp; NGO partnerships</div>
-          <h1>One doctor. Every<br/><span className="accent">1 in 5,000 villages.</span></h1>
-          <p className="lede">Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community without building a new clinic in each one. Individuals can also subscribe directly.</p>
+          <div className="hero-badge">{t('badge')}</div>
+          <h1>{t('h1')}<br/><span className="accent">{t('h1_accent')}</span></h1>
+          <p className="lede">{t('lede')}</p>
           <div className="cta">
-            <a href="#contact" className="btn btn-primary">Request a briefing</a>
-            <a href="mailto:contact@klinova.co" className="btn" style={{ background:'rgba(255,255,255,.1)', color:'#fff', border:'1.5px solid rgba(255,255,255,.2)', textDecoration:'none' }}>Download overview</a>
+            <a href="#contact" className="btn btn-primary">{t('cta1')}</a>
+            <a href="mailto:contact@klinova.co" className="btn" style={{ background:'rgba(255,255,255,.1)', color:'#fff', border:'1.5px solid rgba(255,255,255,.2)', textDecoration:'none' }}>{t('cta2')}</a>
           </div>
         </div>
       </section>
@@ -256,19 +377,19 @@ export default function GovernmentsPage() {
           <div className="stats-grid">
             <div className="stat-block">
               <div><span className="stat-num">1</span><span className="stat-unit">:</span><span className="stat-num">5,000</span></div>
-              <div className="stat-label">Doctor-to-patient ratio in rural West Africa</div>
+              <div className="stat-label">{t('sl1')}</div>
             </div>
             <div className="stat-block">
               <div><span className="stat-num">72</span><span className="stat-unit">%</span></div>
-              <div className="stat-label">Of preventable deaths occur outside major cities</div>
+              <div className="stat-label">{t('sl2')}</div>
             </div>
             <div className="stat-block">
               <div><span className="stat-num">14</span></div>
-              <div className="stat-label">Languages supported. Patients receive care in their own language.</div>
+              <div className="stat-label">{t('sl3')}</div>
             </div>
             <div className="stat-block">
               <div><span className="stat-num">48</span><span className="stat-unit">h</span></div>
-              <div className="stat-label">Average time from contract signing to first village going live</div>
+              <div className="stat-label">{t('sl4')}</div>
             </div>
           </div>
         </div>
@@ -277,17 +398,17 @@ export default function GovernmentsPage() {
       {/* RURAL VILLAGE MODEL */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">The rural village model</div>
-          <h2>Healthcare coverage where there are no roads to build clinics.</h2>
+          <div className="eyebrow">{t('rural_ey')}</div>
+          <h2>{t('rural_h')}</h2>
           <div className="rural-layout">
             <div>
-              <p className="sub">Klinova does not replace the healthcare system; it extends it. We connect the one doctor in the district center to the 5,000 patients spread across remote villages via WhatsApp, SMS, or the Klinova app.</p>
+              <p className="sub">{t('rural_sub')}</p>
               <div style={{ display:'flex', flexDirection:'column', gap:12, marginTop:28 }}>
                 {[
-                  { ico:<PhoneIco/>, h:'Any phone, any village', body:'Patients use WhatsApp, SMS, or the Klinova app to reach a licensed doctor. No clinic visit required.' },
-                  { ico:<UserIco/>, h:'One doctor, many villages', body:'A single doctor deployed by Klinova can handle consultations for hundreds of villages per month through structured triage.' },
-                  { ico:<ReferralIco/>, h:'Escalation when needed', body:'When a patient requires in-person care, Klinova coordinates referral to the nearest government health center.' },
-                  { ico:<ChartIco/>, h:'Real-time data for your ministry', body:'Your ministry of health receives live, anonymized data covering symptoms, geography, and volume, giving you what you need to plan resources.' },
+                  { ico:<PhoneIco/>, h:t('r1h'), body:t('r1p') },
+                  { ico:<UserIco/>, h:t('r2h'), body:t('r2p') },
+                  { ico:<ReferralIco/>, h:t('r3h'), body:t('r3p') },
+                  { ico:<ChartIco/>, h:t('r4h'), body:t('r4p') },
                 ].map(f => (
                   <div key={f.h} style={{ display:'flex', gap:14, alignItems:'flex-start' }}>
                     <div style={{ width:40, height:40, borderRadius:12, background:C.greenSoft, color:C.greenDeep, display:'grid', placeItems:'center', flexShrink:0 }}>{f.ico}</div>
@@ -300,7 +421,7 @@ export default function GovernmentsPage() {
               </div>
             </div>
             <div className="rural-graphic">
-              <div className="rural-graphic-title">Village coverage map</div>
+              <div className="rural-graphic-title">{t('map_title')}</div>
               {[
                 { label:'Kpove District · 12 villages', status:'active', txt:'Live' },
                 { label:'Bassar Region · 8 villages', status:'active', txt:'Live' },
@@ -314,7 +435,7 @@ export default function GovernmentsPage() {
                   <div className={`village-status ${v.status}`}>{v.txt}</div>
                 </div>
               ))}
-              <div style={{ marginTop:16, background:'rgba(255,255,255,.06)', borderRadius:12, padding:'12px 14px', fontSize:12, color:'rgba(255,255,255,.5)', textAlign:'center' }}>Illustrative. Actual coverage varies by contract.</div>
+              <div style={{ marginTop:16, background:'rgba(255,255,255,.06)', borderRadius:12, padding:'12px 14px', fontSize:12, color:'rgba(255,255,255,.5)', textAlign:'center' }}>{t('map_note')}</div>
             </div>
           </div>
         </div>
@@ -323,17 +444,17 @@ export default function GovernmentsPage() {
       {/* WHAT KLINOVA OFFERS GOVERNMENTS */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">What you get</div>
-          <h2>A complete telemedicine program, ready to deploy.</h2>
-          <p className="sub">Klinova provides everything a ministry of health needs to launch a national telemedicine program, available white-labeled under your brand.</p>
+          <div className="eyebrow">{t('offer_ey')}</div>
+          <h2>{t('offer_h')}</h2>
+          <p className="sub">{t('offer_sub')}</p>
           <div className="offer-grid">
             {[
-              { ico:<HeartIco/>, h:'Primary care telemedicine', p:'Licensed doctors serving your citizens by app, WhatsApp, or SMS. Consultations documented, prescriptions issued digitally.' },
-              { ico:<PackageIco/>, h:'Medication delivery network', p:'Prescriptions route automatically to the nearest partner pharmacy. Last-mile delivery via our network of local riders.' },
-              { ico:<SignalIco/>, h:'Disease surveillance', p:"Anonymized, real-time symptom data by region. Outbreak detection. Exportable to your ministry's dashboards via API." },
-              { ico:<DocumentIco/>, h:'National patient registry', p:'Every patient seen is logged with a full consultation history, encrypted and GDPR-compliant. Portable between providers.' },
-              { ico:<GlobeIco/>, h:'Multilingual, every region', p:'Klinova operates in 14 languages. Rural patients are served in Ewe, Kabiye, Twi, Hausa, Fon, and Dioula, not only French.' },
-              { ico:<PhoneIco/>, h:'Works on any phone', p:'Smartphones, feature phones, SMS. Community health workers can triage on behalf of patients without smartphones.' },
+              { ico:<HeartIco/>, h:t('o1h'), p:t('o1p') },
+              { ico:<PackageIco/>, h:t('o2h'), p:t('o2p') },
+              { ico:<SignalIco/>, h:t('o3h'), p:t('o3p') },
+              { ico:<DocumentIco/>, h:t('o4h'), p:t('o4p') },
+              { ico:<GlobeIco/>, h:t('o5h'), p:t('o5p') },
+              { ico:<PhoneIco/>, h:t('o6h'), p:t('o6p') },
             ].map(o => (
               <div className="offer-card" key={o.h}>
                 <div className="offer-icon">{o.ico}</div>
@@ -348,15 +469,15 @@ export default function GovernmentsPage() {
       {/* DISEASE SURVEILLANCE */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">Disease surveillance</div>
-          <h2>See outbreaks before they become crises.</h2>
+          <div className="eyebrow">{t('surv_ey')}</div>
+          <h2>{t('surv_h')}</h2>
           <div className="surv-layout">
             <div className="surv-features">
               {[
-                { ico:<MapPinIco/>, h:'Geographic symptom mapping', p:'Every triage generates a location-tagged symptom report. Cluster detection runs automatically against WHO outbreak thresholds.' },
-                { ico:<BellIco/>, h:'Real-time outbreak alerts', p:'Your ministry epidemiology team receives an instant alert when a symptom cluster exceeds threshold, before it reaches the hospital.' },
-                { ico:<UploadIco/>, h:'API export to your systems', p:'Data exports in FHIR R4 format, compatible with WHO DHIS2, OpenMRS, or any ministry health information system.' },
-                { ico:<LockIco/>, h:'Privacy by design', p:'All exported data is anonymized and aggregated. No patient PII leaves Klinova without explicit patient consent.' },
+                { ico:<MapPinIco/>, h:t('s1h'), p:t('s1p') },
+                { ico:<BellIco/>, h:t('s2h'), p:t('s2p') },
+                { ico:<UploadIco/>, h:t('s3h'), p:t('s3p') },
+                { ico:<LockIco/>, h:t('s4h'), p:t('s4p') },
               ].map(f => (
                 <div className="surv-feat" key={f.h}>
                   <div className="surv-feat-icon">{f.ico}</div>
@@ -368,7 +489,7 @@ export default function GovernmentsPage() {
               ))}
             </div>
             <div className="surv-map">
-              <div className="surv-map-title">Active symptom signals</div>
+              <div className="surv-map-title">{t('surv_map_title')}</div>
               {[
                 { label:'Fever + cough', pct:72, count:'1,204 cases' },
                 { label:'Diarrhea', pct:48, count:'803 cases' },
@@ -382,7 +503,7 @@ export default function GovernmentsPage() {
                   <div className="heat-count">{r.count}</div>
                 </div>
               ))}
-              <div style={{ marginTop:14, fontSize:11, color:'rgba(255,255,255,.35)', textAlign:'center' }}>Live data, anonymized and aggregated</div>
+              <div style={{ marginTop:14, fontSize:11, color:'rgba(255,255,255,.35)', textAlign:'center' }}>{t('surv_note')}</div>
             </div>
           </div>
         </div>
@@ -391,12 +512,12 @@ export default function GovernmentsPage() {
       {/* COMPLIANCE */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">Compliance &amp; data sovereignty</div>
-          <h2>Built to meet government procurement standards.</h2>
+          <div className="eyebrow">{t('comp_ey')}</div>
+          <h2>{t('comp_h')}</h2>
           <div className="compliance">
             <div className="comp-card">
-              <h3>Data sovereignty</h3>
-              <p>Patient data for each country is stored within its jurisdiction or in the designated regional zone agreed in the contract. Data is never transferred across borders without explicit bilateral agreement.</p>
+              <h3>{t('c1h')}</h3>
+              <p>{t('c1p')}</p>
               <div className="comp-tags">
                 <span className="comp-tag">In-country storage</span>
                 <span className="comp-tag">No cross-border transfer</span>
@@ -404,8 +525,8 @@ export default function GovernmentsPage() {
               </div>
             </div>
             <div className="comp-card">
-              <h3>Security standards</h3>
-              <p>AES-256 field-level encryption for all PHI. TLS 1.3 in transit. Row-level security. Audit logs on every data access. HIPAA-aligned. Penetration tested.</p>
+              <h3>{t('c2h')}</h3>
+              <p>{t('c2p')}</p>
               <div className="comp-tags">
                 <span className="comp-tag">AES-256-GCM</span>
                 <span className="comp-tag">TLS 1.3</span>
@@ -414,16 +535,16 @@ export default function GovernmentsPage() {
               </div>
             </div>
             <div className="comp-card">
-              <h3>Medical licensing</h3>
-              <p>All doctors on the Klinova platform hold valid registration with the national medical licensing authority in their country. Unlicensed practitioners are not permitted to see patients.</p>
+              <h3>{t('c3h')}</h3>
+              <p>{t('c3p')}</p>
               <div className="comp-tags">
                 <span className="comp-tag">Licensed providers only</span>
                 <span className="comp-tag">Country-by-country verification</span>
               </div>
             </div>
             <div className="comp-card">
-              <h3>Procurement &amp; contracting</h3>
-              <p>Klinova supports open tender processes and is available under government framework agreements. Pilot programs can be structured as 90-day proof-of-concept contracts.</p>
+              <h3>{t('c4h')}</h3>
+              <p>{t('c4p')}</p>
               <div className="comp-tags">
                 <span className="comp-tag">Open tender compatible</span>
                 <span className="comp-tag">90-day pilot option</span>
@@ -437,30 +558,14 @@ export default function GovernmentsPage() {
       {/* CONTRACT PROCESS */}
       <section>
         <div className="wrap">
-          <div className="eyebrow">How it works</div>
-          <h2>From first conversation to village coverage.</h2>
-          <p className="sub">We move as fast as government procurement allows, and we know how to navigate it.</p>
+          <div className="eyebrow">{t('proc_ey')}</div>
+          <h2>{t('proc_h')}</h2>
+          <p className="sub">{t('proc_sub')}</p>
           <div className="process">
-            <div className="pstep">
-              <div className="pstep-dot">1</div>
-              <h4>Initial briefing</h4>
-              <p>30-minute call with our government partnerships team. We learn your priorities, geography, and constraints.</p>
-            </div>
-            <div className="pstep">
-              <div className="pstep-dot">2</div>
-              <h4>Proposal &amp; pilot scope</h4>
-              <p>We submit a tailored proposal including pilot district, timeline, and cost per patient covered.</p>
-            </div>
-            <div className="pstep">
-              <div className="pstep-dot">3</div>
-              <h4>Pilot deployment</h4>
-              <p>90-day proof of concept covering a target district. First villages go live within 48 hours of contract signing.</p>
-            </div>
-            <div className="pstep">
-              <div className="pstep-dot">4</div>
-              <h4>National rollout</h4>
-              <p>Based on pilot results, scale to full national coverage under a multi-year program agreement.</p>
-            </div>
+            <div className="pstep"><div className="pstep-dot">1</div><h4>{t('p1h')}</h4><p>{t('p1p')}</p></div>
+            <div className="pstep"><div className="pstep-dot">2</div><h4>{t('p2h')}</h4><p>{t('p2p')}</p></div>
+            <div className="pstep"><div className="pstep-dot">3</div><h4>{t('p3h')}</h4><p>{t('p3p')}</p></div>
+            <div className="pstep"><div className="pstep-dot">4</div><h4>{t('p4h')}</h4><p>{t('p4p')}</p></div>
           </div>
         </div>
       </section>
@@ -469,14 +574,14 @@ export default function GovernmentsPage() {
       <section id="contact" style={{ borderBottom:'none' }}>
         <div className="wrap">
           <div className="contact-cta">
-            <div className="eyebrow">Start the conversation</div>
-            <h2>Ready to bring telemedicine to your citizens?</h2>
-            <p>Our government partnerships team is available for briefings, site visits, and proposal discussions. We work with ministries of health, national health insurance funds, and multilateral development partners.</p>
+            <div className="eyebrow">{t('cta_ey')}</div>
+            <h2>{t('cta_h')}</h2>
+            <p>{t('cta_p')}</p>
             <div className="contact-options">
-              <a href="mailto:contact@klinova.co?subject=Government Partnership - Briefing Request" className="btn btn-primary">Request a briefing</a>
-              <a href="mailto:contact@klinova.co?subject=Government Partnership - Overview Deck" className="btn btn-ghost">Request our deck</a>
+              <a href="mailto:contact@klinova.co?subject=Government Partnership - Briefing Request" className="btn btn-primary">{t('cta_b1')}</a>
+              <a href="mailto:contact@klinova.co?subject=Government Partnership - Overview Deck" className="btn btn-ghost">{t('cta_b2')}</a>
             </div>
-            <div style={{ marginTop:20, fontSize:13, color:C.mute }}>contact@klinova.co · We respond within one business day.</div>
+            <div style={{ marginTop:20, fontSize:13, color:C.mute }}>{t('cta_email')}</div>
           </div>
         </div>
       </section>
@@ -486,37 +591,37 @@ export default function GovernmentsPage() {
           <div className="footer-grid">
             <div>
               <div className="footer-logo-name">KLINOVA</div>
-              <div className="footer-blurb">The Invisible Grid powering African healthcare. Lome, Togo.</div>
-              <div className="footer-tagline">Born in Africa. Built for Life.</div>
+              <div className="footer-blurb">{t('ft_blurb')}</div>
+              <div className="footer-tagline">{t('ft_tag')}</div>
             </div>
             <div>
-              <div className="footer-col-title">Product</div>
+              <div className="footer-col-title">{t('ft_product')}</div>
               <div className="footer-col">
-                <a href="/patients">For patients</a>
-                <a href="/partner">For partners</a>
-                <a href="/governments">For governments</a>
-                <a href="/#pricing">Pricing</a>
+                <a href="/patients">{lang==='fr'?'Pour les patients':'For patients'}</a>
+                <a href="/partner">{lang==='fr'?'Pour les partenaires':'For partners'}</a>
+                <a href="/governments">{lang==='fr'?'Pour les gouvernements':'For governments'}</a>
+                <a href="/#pricing">{lang==='fr'?'Tarifs':'Pricing'}</a>
               </div>
             </div>
             <div>
-              <div className="footer-col-title">Partners</div>
+              <div className="footer-col-title">{t('ft_partners')}</div>
               <div className="footer-col">
-                <a href="/partner#clinics">Clinics</a>
+                <a href="/partner#clinics">{lang==='fr'?'Cliniques':'Clinics'}</a>
                 <a href="/partner#pharmacies">Pharmacies</a>
-                <a href="/partner#doctors">Doctors</a>
-                <a href="/governments">Governments</a>
+                <a href="/partner#doctors">{lang==='fr'?'Médecins':'Doctors'}</a>
+                <a href="/governments">{lang==='fr'?'Gouvernements':'Governments'}</a>
               </div>
             </div>
             <div>
-              <div className="footer-col-title">Company</div>
+              <div className="footer-col-title">{t('ft_company')}</div>
               <div className="footer-col">
                 <a href="mailto:contact@klinova.co">Contact</a>
-                <a href="/privacy">Privacy and data</a>
+                <a href="/privacy">{lang==='fr'?'Confidentialité et données':'Privacy and data'}</a>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
-            <span>© 2026 Klinova. All rights reserved.</span>
+            <span>{t('ft_copy')}</span>
             <span>Powered by Klinova</span>
           </div>
         </div>
