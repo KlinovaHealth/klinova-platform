@@ -430,7 +430,7 @@ export default function KlinovaMapSection() {
           <div>
             <h3 className="font-semibold text-ink">Disease &amp; Health Tracking Map</h3>
             <p className="text-xs text-ink/50 mt-0.5">
-              Live Klinova data · Mapbox · West Africa
+              Live Klinova data · West Africa
             </p>
           </div>
           <div className="flex flex-wrap gap-3 text-xs text-ink/60 shrink-0">
@@ -497,7 +497,7 @@ export default function KlinovaMapSection() {
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full shrink-0 bg-[#8E44AD]" /> Dentist</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full shrink-0 bg-[#D35400]" /> Lab</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full shrink-0 bg-[#C0392B]" /> WHO Alert</span>
-          <span className="text-ink/30 ml-1">Healthsites.io + OpenStreetMap · 7 West African countries</span>
+          <span className="text-ink/30 ml-1">7 West African countries</span>
           {counts.cases === 0 && (
             <span className="text-ink/30 italic">
               Patient locations appear once Klinova app &amp; WhatsApp triage are active
