@@ -62,6 +62,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
+  // MFA gate: doctor / admin / owner / government must have a verified TOTP factor
+  const SENSITIVE_ROLES = ['doctor', 'admin', 'owner', 'government']
+  const role = (user?.user_metadata?.role as string) ?? ''
+  if (user && isProtected && SENSITIVE_ROLES.includes(role) && path !== '/auth/mfa-setup') {
+    const factors = (user as any).factors ?? []
+    const hasMFA  = factors.some((f: any) => f.factor_type === 'totp' && f.status === 'verified')
+    if (!hasMFA) {
+      return NextResponse.redirect(new URL('/auth/mfa-setup', request.url))
+    }
+  }
+
   // Forward verified user identity as request headers so server components
   // can read them via headers(). Must be request headers, not response headers.
   if (user) {
@@ -83,6 +94,10 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/dashboard/:path*',
+    '/gov',
+    '/gov/:path*',
+    '/finance',
+    '/finance/:path*',
     '/account/:path*',
     '/partners/:path*',
     '/partners',
