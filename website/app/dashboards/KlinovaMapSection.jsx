@@ -26,16 +26,32 @@ function categorise(intent = '') {
 
 // ── Layer config ──────────────────────────────────────────────────────────────
 const LAYER_CFG = [
-  { id: 'heatmap',    label: 'Density',    bg: '#E74C3C', emoji: '🌡️' },
-  { id: 'symptoms',   label: 'Symptoms',   bg: '#9B59B6', emoji: '🩺' },
-  { id: 'outbreaks',  label: 'WHO Alerts', bg: '#C0392B', emoji: '⚠️' },
-  { id: 'hospitals',  label: 'Hospitals',  bg: '#2980B9', emoji: '🏥' },
-  { id: 'clinics',    label: 'Clinics',    bg: '#1ABC9C', emoji: '🏨' },
-  { id: 'pharmacies', label: 'Pharmacies', bg: '#27AE60', emoji: '💊' },
-  { id: 'dentists',   label: 'Dentists',   bg: '#8E44AD', emoji: '🦷' },
-  { id: 'labs',       label: 'Labs',       bg: '#D35400', emoji: '🔬' },
-  { id: 'urgency',    label: 'Urgency',    bg: '#D99A2B', emoji: '📍' },
+  { id: 'heatmap',    label: 'Density',    bg: '#E74C3C' },
+  { id: 'symptoms',   label: 'Symptoms',   bg: '#9B59B6' },
+  { id: 'outbreaks',  label: 'WHO Alerts', bg: '#C0392B' },
+  { id: 'hospitals',  label: 'Hospitals',  bg: '#2980B9' },
+  { id: 'clinics',    label: 'Clinics',    bg: '#1ABC9C' },
+  { id: 'pharmacies', label: 'Pharmacies', bg: '#27AE60' },
+  { id: 'dentists',   label: 'Dentists',   bg: '#8E44AD' },
+  { id: 'labs',       label: 'Labs',       bg: '#D35400' },
+  { id: 'urgency',    label: 'Urgency',    bg: '#D99A2B' },
 ]
+
+function LayerIcon({ id, size = 13 }) {
+  const p = { width: size, height: size, viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', strokeWidth: 1.75, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  switch (id) {
+    case 'heatmap':    return <svg {...p}><circle cx="8" cy="8" r="2.5" fill="currentColor" stroke="none"/><circle cx="8" cy="8" r="5" strokeOpacity=".5"/><circle cx="8" cy="8" r="7.5" strokeOpacity=".2"/></svg>
+    case 'symptoms':   return <svg {...p}><circle cx="8" cy="8" r="5"/><path d="M8 5.5v3M8 10.5v.5" strokeWidth="2"/></svg>
+    case 'outbreaks':  return <svg {...p}><path d="M8 2L14.5 13.5H1.5L8 2z"/><path d="M8 7v2.5M8 11.5h.01"/></svg>
+    case 'hospitals':  return <svg {...p}><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M8 6v4M6 8h4"/></svg>
+    case 'clinics':    return <svg {...p}><rect x="3" y="3" width="10" height="10" rx="1.5"/><path d="M5.5 8h5M8 5.5v5" strokeWidth="1.5"/></svg>
+    case 'pharmacies': return <svg {...p}><path d="M4 2h8v3l-4 4-4-4V2z"/><path d="M4 9l4 4 4-4"/></svg>
+    case 'dentists':   return <svg {...p}><path d="M5.5 2C4 2 2 3.5 2 6c0 4 2.5 8 3.5 8 .8 0 1.2-1.5 2.5-1.5S9.7 14 10.5 14C11.5 14 14 10 14 6c0-2.5-2-4-3.5-4-1 0-1.8 1-3 1S6.5 2 5.5 2z"/></svg>
+    case 'labs':       return <svg {...p}><path d="M6 2v5.5L2.5 13.5h11L10 7.5V2"/><path d="M5 2h6"/><path d="M5 10h3" strokeOpacity=".5"/></svg>
+    case 'urgency':    return <svg {...p}><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6 3.5 9.5 8 14.5 8 14.5S12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5z"/><circle cx="8" cy="6" r="1.8" fill="currentColor" stroke="none"/></svg>
+    default: return null
+  }
+}
 
 // ── Country selector ──────────────────────────────────────────────────────────
 const COUNTRY_SELECTOR = [
@@ -337,7 +353,7 @@ export default function KlinovaMapSection() {
             const p = e.features[0].properties
             let html = ''
             if (layerId === 'outbreaks') {
-              html = `<strong>⚠️ ${p.disease}</strong><br><small style="color:#888">${p.location}</small><br><span style="font-size:11px">${p.summary}</span>`
+              html = `<strong>${p.disease}</strong><br><small style="color:#888">${p.location}</small><br><span style="font-size:11px">${p.summary}</span>`
             } else if (layerId === 'symptoms' || layerId === 'urgency') {
               html = `<strong>${p.name}</strong><br><span style="color:#555;font-size:12px">${p.symptomLabel ?? ''}</span><br><small style="color:#888">${p.intent}</small>`
             } else {
@@ -392,7 +408,11 @@ export default function KlinovaMapSection() {
   if (noToken) {
     return (
       <section className="bg-white rounded-xl border border-border shadow-card p-8 text-center">
-        <p className="text-2xl mb-3">🗺️</p>
+        <div className="flex justify-center mb-3">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0E6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
         <h3 className="font-semibold text-ink mb-1">Map not configured</h3>
         <p className="text-sm text-ink/50">
           Add <code className="bg-ivory px-1.5 py-0.5 rounded text-xs">NEXT_PUBLIC_MAPBOX_TOKEN</code> to Vercel environment variables to enable the health map.
@@ -414,13 +434,13 @@ export default function KlinovaMapSection() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3 text-xs text-ink/60 shrink-0">
-            <span>🩺 {counts.cases} cases</span>
-            <span>⚠️ {counts.outbreaks} WHO alerts</span>
-            <span>🏥 {counts.hospitals} hospitals</span>
-            <span>🏨 {counts.clinics} clinics</span>
-            <span>💊 {counts.pharmacies} pharmacies</span>
-            <span>🦷 {counts.dentists} dentists</span>
-            <span>🔬 {counts.labs} labs</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#9B59B6] shrink-0"/>{counts.cases} cases</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#C0392B] shrink-0"/>{counts.outbreaks} WHO alerts</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#2980B9] shrink-0"/>{counts.hospitals} hospitals</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#1ABC9C] shrink-0"/>{counts.clinics} clinics</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#27AE60] shrink-0"/>{counts.pharmacies} pharmacies</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#8E44AD] shrink-0"/>{counts.dentists} dentists</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#D35400] shrink-0"/>{counts.labs} labs</span>
           </div>
         </div>
 
@@ -449,7 +469,7 @@ export default function KlinovaMapSection() {
               style={active[l.id]
                 ? { background: l.bg, borderColor: l.bg, color: '#fff' }
                 : { background: '#fff', borderColor: '#ddd', color: '#666' }}>
-              {l.emoji} {l.label}
+              <LayerIcon id={l.id} /> {l.label}
             </button>
           ))}
         </div>
