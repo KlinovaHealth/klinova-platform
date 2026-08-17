@@ -111,7 +111,7 @@ export default function MyPaySection({ userId }) {
               setPpSaved(true)
             }}
             style={{ fontSize: 13, fontWeight: 600, padding: '8px 16px', borderRadius: 8, border: 'none', background: '#0E6B4F', color: '#fff', cursor: ppSaving ? 'not-allowed' : 'pointer', opacity: ppSaving ? 0.7 : 1 }}>
-            {ppSaving ? 'Saving…' : ppSaved ? '✓ Saved' : 'Save'}
+            {ppSaving ? 'Saving…' : ppSaved ? 'Saved' : 'Save'}
           </button>
         </div>
       </div>

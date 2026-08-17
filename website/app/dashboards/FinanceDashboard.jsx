@@ -26,10 +26,10 @@ const EXPENSE_CATS = [
 const CURRENCIES   = ['XOF','USD','GHS','NGN','EUR']
 
 const PLATFORM_LABELS = {
-  consultations:    { label: 'Consultations',      emoji: '🩺' },
-  whatsapp_triage:  { label: 'WhatsApp Triage',    emoji: '💬' },
-  gov_subscription: { label: 'Gov Subscriptions',  emoji: '🏛️' },
-  pharmacy_order:   { label: 'Pharmacy Orders',    emoji: '💊' },
+  consultations:    { label: 'Consultations'     },
+  whatsapp_triage:  { label: 'WhatsApp Triage'   },
+  gov_subscription: { label: 'Gov Subscriptions' },
+  pharmacy_order:   { label: 'Pharmacy Orders'   },
 }
 
 const PERIODS = ['This Month','Last 3 Months','This Year','All Time']
@@ -274,7 +274,7 @@ export default function FinanceDashboard({ isOwner }) {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <FinCard label="Total Revenue" value={fmt(totalRevenue, mainCur)} sub={`Platform: ${fmt(platformRevenue, mainCur)}`} color="#0A5440" />
             <FinCard label="Total Expenses" value={fmt(manualExpenses, mainCur)} sub={`${filtered.filter(e=>e.type==='expense').length} entries`} color="#C0392B" />
-            <FinCard label="Net Profit" value={fmt(netProfit, mainCur)} sub={netProfit >= 0 ? 'Profitable ✓' : 'Operating at loss'} color={netProfit >= 0 ? '#0A5440' : '#C0392B'} />
+            <FinCard label="Net Profit" value={fmt(netProfit, mainCur)} sub={netProfit >= 0 ? 'Profitable' : 'Operating at loss'} color={netProfit >= 0 ? '#0A5440' : '#C0392B'} />
             <FinCard label={`Est. Tax (${taxRate}%)`} value={fmt(estimatedTax, mainCur)} sub={`After tax: ${fmt(afterTax, mainCur)}`} color="#D99A2B" />
           </div>
 
@@ -282,14 +282,13 @@ export default function FinanceDashboard({ isOwner }) {
           <section className="bg-white rounded-xl border border-border shadow-card p-5">
             <h3 className="font-semibold text-ink text-sm mb-3">Platform Revenue (Auto-calculated)</h3>
             <div className="space-y-2">
-              {Object.entries(PLATFORM_LABELS).map(([service, { label, emoji }]) => {
+              {Object.entries(PLATFORM_LABELS).map(([service, { label }]) => {
                 const count = platformCounts[service] ?? 0
                 const rate  = rates.find(r => r.service === service)
                 const rev   = rate ? rate.rate * count : 0
                 return (
                   <div key={service} className="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0">
                     <div className="flex items-center gap-2">
-                      <span>{emoji}</span>
                       <span className="text-sm text-ink">{label}</span>
                     </div>
                     <div className="text-right">
@@ -357,7 +356,11 @@ export default function FinanceDashboard({ isOwner }) {
                     </p>
                     <p className="text-xs text-ink/30">{new Date(e.entry_date).toLocaleDateString()}</p>
                   </div>
-                  <button onClick={() => deleteEntry(e.id)} className="text-ink/20 hover:text-red-400 text-xs">✕</button>
+                  <button onClick={() => deleteEntry(e.id)} className="text-ink/20 hover:text-red-400 text-xs" title="Delete entry">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M2 2l12 12M14 2L2 14"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
             ))}
@@ -372,12 +375,11 @@ export default function FinanceDashboard({ isOwner }) {
             <h3 className="font-semibold text-ink text-sm mb-1">Per-Service Revenue Rates</h3>
             <p className="text-xs text-ink/40 mb-4">Set how much revenue each platform activity generates. Used to auto-calculate total revenue.</p>
             <div className="space-y-3">
-              {Object.entries(PLATFORM_LABELS).map(([service, { label, emoji }]) => {
+              {Object.entries(PLATFORM_LABELS).map(([service, { label }]) => {
                 const r   = rates.find(r => r.service === service)
                 const val = rateEdits[service] ?? r?.rate ?? ''
                 return (
                   <div key={service} className="flex items-center gap-3">
-                    <span className="w-6 text-center">{emoji}</span>
                     <span className="text-sm text-ink flex-1">{label}</span>
                     <input type="number" value={val}
                       onChange={e => setRateEdits(p => ({...p, [service]: e.target.value}))}

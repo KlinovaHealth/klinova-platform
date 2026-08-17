@@ -126,7 +126,7 @@ export default function GovDashboard() {
             Government Health Dashboard
           </h2>
           <p className="text-sm text-ink/60 mt-0.5">
-            Real-time health intelligence — West Africa · Klinova&apos;s Invisible Grid
+            Real-time health intelligence · West Africa · Klinova&apos;s Invisible Grid
           </p>
         </div>
         <button
@@ -209,20 +209,23 @@ function AboutSection() {
             <div className="rounded-lg bg-[#F0F8F4] border border-[#C3E0D0] p-3">
               <p className="font-semibold text-[#0A5440] mb-1.5">What you can see</p>
               <ul className="space-y-1 text-ink/60">
-                <li>✓ Aggregate consultation counts</li>
-                <li>✓ Anonymous symptom cluster maps</li>
-                <li>✓ WHO Disease Outbreak News</li>
-                <li>✓ AI-generated public health advisories</li>
-                <li>✓ Urgency breakdowns by region</li>
+                {['Aggregate consultation counts','Anonymous symptom cluster maps','WHO Disease Outbreak News','AI-generated public health advisories','Urgency breakdowns by region'].map(item => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#0A5440" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="rounded-lg bg-[#FDF5F5] border border-[#F0C0C0] p-3">
               <p className="font-semibold text-red-700 mb-1.5">What is never exposed</p>
               <ul className="space-y-1 text-ink/60">
-                <li>✗ Patient names or contact details</li>
-                <li>✗ Individual medical histories</li>
-                <li>✗ Exact GPS coordinates</li>
-                <li>✗ Any re-identifiable information</li>
+                {['Patient names or contact details','Individual medical histories','Exact GPS coordinates','Any re-identifiable information'].map(item => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#C0392B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 2l12 12M14 2L2 14"/></svg>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -250,7 +253,10 @@ function AboutSection() {
             <button
               onClick={downloadStatement}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-white bg-[#0A5440] hover:opacity-90 shrink-0 self-start sm:self-auto">
-              📄 Download Data Statement
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/>
+              </svg>
+              Download Data Statement
             </button>
           </div>
         </div>

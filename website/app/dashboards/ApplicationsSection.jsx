@@ -98,7 +98,13 @@ export default function ApplicationsSection() {
         <p style={{ fontSize: 13, color: C.mute, padding: '16px 0' }}>Loading…</p>
       ) : rows.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '40px 0' }}>
-          <p style={{ fontSize: 28, margin: '0 0 8px' }}>{tab === 'pending' ? '✓' : '—'}</p>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
+            {tab === 'pending' ? (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E6B4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            ) : <span style={{ fontSize: 28 }}>—</span>}
+          </div>
           <p style={{ fontSize: 14, color: C.mute, margin: 0 }}>
             {tab === 'pending' ? 'No pending applications' : 'No rejected applications'}
           </p>

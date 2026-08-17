@@ -187,7 +187,7 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
           { key: 'inventory',      label: 'Inventory' },
           { key: 'prescriptions',  label: 'Prescriptions' },
           { key: 'reports',        label: 'Reports' },
-          { key: 'listing',        label: '📍 Your Listing' },
+          { key: 'listing',        label: 'Your Listing' },
         ].map(({ key, label }) => (
           <button key={key} onClick={() => setMainTab(key)}
             className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
@@ -208,7 +208,9 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
             {lowStock.length > 0 && (
               <div className="flex items-center gap-3 px-4 py-3 rounded-xl border"
                 style={{ background: '#FFF7E6', borderColor: '#F4CE80' }}>
-                <span className="text-lg">⚠️</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E0A23B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
                 <p className="text-sm font-medium" style={{ color: C.amber }}>
                   {lowStock.length} medication{lowStock.length > 1 ? 's' : ''} running low: {lowStock.map(s => s.medication_name).join(', ')}
                 </p>
@@ -217,7 +219,9 @@ export default function PharmacistDashboard({ userId, name, pharmacyId }) {
             {expiryAlerts.length > 0 && (
               <div className="flex items-center gap-3 px-4 py-3 rounded-xl border"
                 style={{ background: '#FFF0ED', borderColor: '#F5C0B0' }}>
-                <span className="text-lg">🕒</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CF5A3C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
                 <p className="text-sm font-medium" style={{ color: C.coral }}>
                   {expiryAlerts.length} item{expiryAlerts.length > 1 ? 's' : ''} expiring within 30 days
                 </p>
@@ -608,7 +612,11 @@ function PharmacyListingSection({ supabase, userId, pharmacyId, pharmacy }) {
     <div className="space-y-5">
       <div className="rounded-xl p-6 border" style={{ background: '#E3EFE8', borderColor: '#0E6B4F30' }}>
         <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0" style={{ background: C.gold }}>📍</div>
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: C.gold }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+            </svg>
+          </div>
           <div>
             <h3 className="font-semibold text-ink text-lg mb-1">Get listed on the map</h3>
             <p className="text-sm text-ink/70 leading-relaxed">
@@ -996,7 +1004,10 @@ function RxCard({ rx, onUpdate, color, t }) {
             </button>
           )}
           {rx.status === 'fulfilled' && (
-            <span className="text-xs font-medium" style={{ color: C.green }}>Done ✓</span>
+            <span className="text-xs font-medium flex items-center gap-1" style={{ color: C.green }}>
+              Done
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+            </span>
           )}
         </div>
       </div>

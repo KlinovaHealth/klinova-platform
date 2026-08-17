@@ -86,15 +86,20 @@ export default function FirstLoginPage() {
 
           {/* Strength hints */}
           <ul className="text-xs text-ink/50 space-y-0.5 pl-1">
-            <li className={password.length >= 8 ? 'text-kgreen' : ''}>
-              {password.length >= 8 ? '✓' : '○'} At least 8 characters
-            </li>
-            <li className={/[A-Z]/.test(password) ? 'text-kgreen' : ''}>
-              {/[A-Z]/.test(password) ? '✓' : '○'} One uppercase letter
-            </li>
-            <li className={/[0-9]/.test(password) ? 'text-kgreen' : ''}>
-              {/[0-9]/.test(password) ? '✓' : '○'} One number
-            </li>
+            {[
+              { met: password.length >= 8,      label: 'At least 8 characters' },
+              { met: /[A-Z]/.test(password),    label: 'One uppercase letter'  },
+              { met: /[0-9]/.test(password),    label: 'One number'            },
+            ].map(({ met, label }) => (
+              <li key={label} className={`flex items-center gap-1.5 ${met ? 'text-kgreen' : ''}`}>
+                {met ? (
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+                ) : (
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="8" r="5"/></svg>
+                )}
+                {label}
+              </li>
+            ))}
           </ul>
 
           <button

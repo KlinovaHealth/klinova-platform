@@ -239,8 +239,13 @@ export default function PayrollAdminSection({ userId }) {
                     </td>
                     <td style={{ padding: '9px 10px', textAlign: 'right' }}>
                       <button onClick={() => handleDelete(r.id)} disabled={deleting === r.id}
-                        style={{ fontSize: 11, color: '#CF5A3C', background: 'none', border: 'none', cursor: 'pointer', padding: '2px 6px' }}>
-                        {deleting === r.id ? '…' : '✕'}
+                        style={{ color: '#CF5A3C', background: 'none', border: 'none', cursor: 'pointer', padding: '2px 6px', display: 'flex', alignItems: 'center' }}
+                        title="Delete record">
+                        {deleting === r.id ? '…' : (
+                          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M2 2l12 12M14 2L2 14"/>
+                          </svg>
+                        )}
                       </button>
                     </td>
                   </tr>

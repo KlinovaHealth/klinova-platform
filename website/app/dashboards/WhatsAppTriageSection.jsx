@@ -115,8 +115,11 @@ export default function WhatsAppTriageSection({ doctorId }) {
                   </div>
 
                   {c.location_lat && (
-                    <div style={{ marginTop: 8, fontSize: 11, color: '#0E6B4F', fontWeight: 600 }}>
-                      📍 Location received · {c.location_lat.toFixed(4)}, {c.location_lng.toFixed(4)}
+                    <div style={{ marginTop: 8, fontSize: 11, color: '#0E6B4F', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+                      </svg>
+                      Location received · {c.location_lat.toFixed(4)}, {c.location_lng.toFixed(4)}
                     </div>
                   )}
                 </div>
@@ -129,7 +132,11 @@ export default function WhatsAppTriageSection({ doctorId }) {
             <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #0A5440', padding: '20px 20px', position: 'sticky', top: 16, alignSelf: 'start' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                 <h4 style={{ fontWeight: 700, fontSize: 15, color: '#15302A', margin: 0 }}>Case Detail</h4>
-                <button onClick={() => setSelected(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#15302A60', fontSize: 18 }}>✕</button>
+                <button onClick={() => setSelected(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#15302A60', lineHeight: 1, display: 'flex', alignItems: 'center' }}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 2l12 12M14 2L2 14"/>
+                  </svg>
+                </button>
               </div>
 
               <DetailRow label="Patient"      value={selected.patient_name || selected.wa_phone} />
@@ -157,8 +164,11 @@ export default function WhatsAppTriageSection({ doctorId }) {
               )}
 
               {selected.location_lat && (
-                <div style={{ marginTop: 10, fontSize: 13, color: '#0E6B4F', fontWeight: 600 }}>
-                  📍 {selected.location_lat.toFixed(5)}, {selected.location_lng.toFixed(5)}
+                <div style={{ marginTop: 10, fontSize: 13, color: '#0E6B4F', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+                  </svg>
+                  {selected.location_lat.toFixed(5)}, {selected.location_lng.toFixed(5)}
                 </div>
               )}
 

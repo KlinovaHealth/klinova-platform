@@ -55,33 +55,33 @@ function LayerIcon({ id, size = 13 }) {
 
 // ── Country selector ──────────────────────────────────────────────────────────
 const COUNTRY_SELECTOR = [
-  { code: null, label: 'All Region',    flag: '🌍', center: [-1.0, 8.0],   zoom: 5 },
-  { code: 'TG', label: 'Togo',          flag: '🇹🇬', center: [0.82, 8.0],  zoom: 7 },
-  { code: 'GH', label: 'Ghana',         flag: '🇬🇭', center: [-1.0, 7.9],  zoom: 7 },
-  { code: 'BJ', label: 'Benin',         flag: '🇧🇯', center: [2.3, 9.3],   zoom: 7 },
-  { code: 'CI', label: "Côte d'Ivoire", flag: '🇨🇮', center: [-5.5, 7.5],  zoom: 7 },
-  { code: 'BF', label: 'Burkina Faso',  flag: '🇧🇫', center: [-1.5, 12.0], zoom: 7 },
-  { code: 'NG', label: 'Nigeria',       flag: '🇳🇬', center: [8.0, 9.0],   zoom: 6 },
-  { code: 'SN', label: 'Senegal',       flag: '🇸🇳', center: [-14.5, 14.0],zoom: 7 },
+  { code: null, label: 'All Region',    center: [-1.0, 8.0],   zoom: 5 },
+  { code: 'TG', label: 'Togo',          center: [0.82, 8.0],  zoom: 7 },
+  { code: 'GH', label: 'Ghana',         center: [-1.0, 7.9],  zoom: 7 },
+  { code: 'BJ', label: 'Benin',         center: [2.3, 9.3],   zoom: 7 },
+  { code: 'CI', label: "Côte d'Ivoire", center: [-5.5, 7.5],  zoom: 7 },
+  { code: 'BF', label: 'Burkina Faso',  center: [-1.5, 12.0], zoom: 7 },
+  { code: 'NG', label: 'Nigeria',       center: [8.0, 9.0],   zoom: 6 },
+  { code: 'SN', label: 'Senegal',       center: [-14.5, 14.0],zoom: 7 },
 ]
 
 const REGIONAL_COUNTRIES = [
-  { name: 'Togo',           flag: '🇹🇬', keywords: ['togo', 'lomé', 'lome'],                    capital: 'Lomé'       },
-  { name: 'Ghana',          flag: '🇬🇭', keywords: ['ghana', 'accra'],                           capital: 'Accra'      },
-  { name: 'Benin',          flag: '🇧🇯', keywords: ['benin', 'cotonou', 'porto-novo'],           capital: 'Cotonou'    },
-  { name: 'Nigeria',        flag: '🇳🇬', keywords: ['nigeria', 'lagos', 'abuja'],                capital: 'Abuja'      },
-  { name: 'Burkina Faso',   flag: '🇧🇫', keywords: ['burkina', 'ouagadougou'],                   capital: 'Ouaga.'     },
-  { name: "Côte d'Ivoire",  flag: '🇨🇮', keywords: ['ivory', 'ivoire', 'abidjan', 'yamousso'],  capital: 'Abidjan'    },
-  { name: 'Senegal',        flag: '🇸🇳', keywords: ['senegal', 'dakar'],                         capital: 'Dakar'      },
-  { name: 'Niger',          flag: '🇳🇪', keywords: ['niamey', ' niger'],                         capital: 'Niamey'     },
-  { name: 'Mali',           flag: '🇲🇱', keywords: ['mali', 'bamako'],                           capital: 'Bamako'     },
-  { name: 'Guinea',         flag: '🇬🇳', keywords: ['guinea', 'conakry'],                        capital: 'Conakry'    },
-  { name: 'Sierra Leone',   flag: '🇸🇱', keywords: ['sierra leone', 'freetown'],                 capital: 'Freetown'   },
-  { name: 'Liberia',        flag: '🇱🇷', keywords: ['liberia', 'monrovia'],                      capital: 'Monrovia'   },
-  { name: 'Cameroon',       flag: '🇨🇲', keywords: ['cameroon', 'yaoundé', 'yaounde', 'douala'], capital: 'Yaoundé'    },
-  { name: 'DR Congo',       flag: '🇨🇩', keywords: ['congo', 'kinshasa', 'drc'],                 capital: 'Kinshasa'   },
-  { name: 'Mauritania',     flag: '🇲🇷', keywords: ['mauritania', 'nouakchott'],                 capital: 'Nouakchott' },
-  { name: 'Gambia',         flag: '🇬🇲', keywords: ['gambia', 'banjul'],                         capital: 'Banjul'     },
+  { name: 'Togo',           keywords: ['togo', 'lomé', 'lome'],                    capital: 'Lomé'       },
+  { name: 'Ghana',          keywords: ['ghana', 'accra'],                           capital: 'Accra'      },
+  { name: 'Benin',          keywords: ['benin', 'cotonou', 'porto-novo'],           capital: 'Cotonou'    },
+  { name: 'Nigeria',        keywords: ['nigeria', 'lagos', 'abuja'],                capital: 'Abuja'      },
+  { name: 'Burkina Faso',   keywords: ['burkina', 'ouagadougou'],                   capital: 'Ouaga.'     },
+  { name: "Côte d'Ivoire",  keywords: ['ivory', 'ivoire', 'abidjan', 'yamousso'],  capital: 'Abidjan'    },
+  { name: 'Senegal',        keywords: ['senegal', 'dakar'],                         capital: 'Dakar'      },
+  { name: 'Niger',          keywords: ['niamey', ' niger'],                         capital: 'Niamey'     },
+  { name: 'Mali',           keywords: ['mali', 'bamako'],                           capital: 'Bamako'     },
+  { name: 'Guinea',         keywords: ['guinea', 'conakry'],                        capital: 'Conakry'    },
+  { name: 'Sierra Leone',   keywords: ['sierra leone', 'freetown'],                 capital: 'Freetown'   },
+  { name: 'Liberia',        keywords: ['liberia', 'monrovia'],                      capital: 'Monrovia'   },
+  { name: 'Cameroon',       keywords: ['cameroon', 'yaoundé', 'yaounde', 'douala'], capital: 'Yaoundé'    },
+  { name: 'DR Congo',       keywords: ['congo', 'kinshasa', 'drc'],                 capital: 'Kinshasa'   },
+  { name: 'Mauritania',     keywords: ['mauritania', 'nouakchott'],                 capital: 'Nouakchott' },
+  { name: 'Gambia',         keywords: ['gambia', 'banjul'],                         capital: 'Banjul'     },
 ]
 
 const SEV_COLOR = { critical: '#E74C3C', warning: '#E67E22', info: '#3498DB' }
@@ -452,7 +452,6 @@ export default function KlinovaMapSection() {
               style={selectedCountry === c.code
                 ? { background: '#2980B9', borderColor: '#2980B9', color: '#fff' }
                 : { background: '#fff', borderColor: '#ddd', color: '#555' }}>
-              <span>{c.flag}</span>
               <span>{c.label}</span>
               {loadingFac && selectedCountry === c.code && (
                 <span className="ml-1 w-2.5 h-2.5 border border-current border-t-transparent rounded-full animate-spin inline-block" />
@@ -548,7 +547,6 @@ export default function KlinovaMapSection() {
                   background:  topSev ? SEV_BG[topSev]          : '#FAFAF8',
                 }}>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-base leading-none">{country.flag}</span>
                   <span className="text-xs font-semibold text-ink truncate">{country.name}</span>
                 </div>
                 {alerts.length > 0 ? (
@@ -561,7 +559,10 @@ export default function KlinovaMapSection() {
                     {alerts.length > 2 && <p className="text-xs text-ink/40">+{alerts.length - 2} more</p>}
                   </div>
                 ) : (
-                  <p className="text-xs text-green-600">No active alerts ✓</p>
+                  <p className="text-xs text-green-600 flex items-center gap-1">
+                    <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+                    No active alerts
+                  </p>
                 )}
                 <p className="text-xs text-ink/30 mt-auto">{country.capital}</p>
               </div>

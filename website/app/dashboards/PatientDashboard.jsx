@@ -278,9 +278,11 @@ function LocationSection({ userId, supabase }) {
   return (
     <section className="bg-white rounded-xl border border-border shadow-card p-5">
       <div className="flex items-start gap-4">
-        <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
           style={{ background: hasLocation ? '#E3EFE8' : '#F5EFE3' }}>
-          📍
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={hasLocation ? '#0E6B4F' : '#6E7F76'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-ink mb-1">

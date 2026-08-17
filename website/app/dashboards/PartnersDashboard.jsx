@@ -15,10 +15,10 @@ const C = {
 }
 
 const ROLE_META = {
-  doctor:     { label: 'Doctors',          color: C.deep,  icon: '🩺' },
-  frontdesk:  { label: 'Clinics / Hospitals', color: C.green, icon: '🏥' },
-  pharmacist: { label: 'Pharmacies',       color: C.gold,  icon: '💊' },
-  government: { label: 'Governments / NGOs', color: C.ink, icon: '🏛️' },
+  doctor:     { label: 'Doctors',             color: C.deep  },
+  frontdesk:  { label: 'Clinics / Hospitals', color: C.green },
+  pharmacist: { label: 'Pharmacies',          color: C.gold  },
+  government: { label: 'Governments / NGOs',  color: C.ink   },
 }
 
 const fetcher = () => fetch('/api/admin/partners').then(r => r.json())
@@ -44,7 +44,6 @@ export default function PartnersDashboard() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {Object.entries(ROLE_META).map(([role, meta]) => (
           <div key={role} className="bg-white rounded-xl border border-border shadow-card p-5">
-            <div className="text-2xl mb-2">{meta.icon}</div>
             <p className="text-3xl font-bold" style={{ color: meta.color }}>
               {role === 'pharmacist' ? counts.pharmacy_entity ?? 0 : counts[role] ?? 0}
             </p>
@@ -145,7 +144,7 @@ export default function PartnersDashboard() {
                       <td className="py-2.5 pr-4">
                         <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-full"
                           style={{ background: `${meta?.color ?? C.mute}18`, color: meta?.color ?? C.mute }}>
-                          {meta?.icon} {meta?.label ?? u.role}
+                          {meta?.label ?? u.role}
                         </span>
                       </td>
                       <td className="py-2.5 pr-4 text-ink/60">{u.email}</td>
@@ -165,14 +164,13 @@ export default function PartnersDashboard() {
         <p className="text-sm text-ink/55 mb-4">Share these links to onboard new partners directly — no manual setup needed.</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
-            { role: 'doctors',    label: 'Invite a Doctor',      icon: '🩺', color: C.deep  },
-            { role: 'clinics',    label: 'Invite a Clinic',       icon: '🏥', color: C.green },
-            { role: 'pharmacy',   label: 'Invite a Pharmacy',     icon: '💊', color: C.gold  },
-            { role: 'government', label: 'Invite Government/NGO', icon: '🏛️', color: C.ink   },
-          ].map(({ role, label, icon, color }) => (
+            { role: 'doctors',    label: 'Invite a Doctor',      color: C.deep  },
+            { role: 'clinics',    label: 'Invite a Clinic',       color: C.green },
+            { role: 'pharmacy',   label: 'Invite a Pharmacy',     color: C.gold  },
+            { role: 'government', label: 'Invite Government/NGO', color: C.ink   },
+          ].map(({ role, label, color }) => (
             <div key={role} className="flex items-center justify-between p-4 rounded-xl border border-border bg-ivory gap-3">
               <div className="flex items-center gap-3">
-                <span className="text-xl">{icon}</span>
                 <div>
                   <p className="text-sm font-semibold text-ink">{label}</p>
                   <p className="text-xs text-ink/50">klinova.co/get-started/{role}</p>

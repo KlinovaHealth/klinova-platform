@@ -234,7 +234,11 @@ function Inner({ role, userName, children, financeAdmin }) {
         }}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 20, fontWeight: 600, color: '#fff' }}>Klinova</span>
-            <button onClick={() => setDrawerOpen(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.7)', fontSize: 20, cursor: 'pointer', lineHeight: 1 }}>✕</button>
+            <button onClick={() => setDrawerOpen(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.7)', cursor: 'pointer', lineHeight: 1, display: 'flex', alignItems: 'center' }}>
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 2l12 12M14 2L2 14"/>
+              </svg>
+            </button>
           </div>
           <SidebarContents meta={meta} nav={nav} initials={initials} userName={userName} lang={lang} toggleLang={toggleLang} signOut={signOut} t={t} onNavClick={() => setDrawerOpen(false)} />
         </div>

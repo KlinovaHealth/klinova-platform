@@ -67,7 +67,11 @@ export default async function DashboardPage() {
       <div style={{ minHeight: '100vh', background: '#F5EFE3', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ background: '#fff', borderRadius: 20, padding: '48px 40px', maxWidth: 480, width: '100%', textAlign: 'center', boxShadow: '0 4px 24px rgba(0,0,0,.08)' }}>
           <img src="/klinova-logo-white.png" alt="Klinova" style={{ height: 56, width: 'auto', marginBottom: 28 }} />
-          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#FEF3DC', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 26 }}>⏳</div>
+          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#FEF3DC', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D99A2B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
           <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: '#15302A', margin: '0 0 10px' }}>Application under review</h1>
           <p style={{ fontSize: 15, color: '#6E7F76', lineHeight: 1.6, margin: '0 0 24px' }}>
             Your {label} application has been received. Our team will review it and get back to you within <strong style={{ color: '#15302A' }}>48 hours</strong>.
@@ -86,7 +90,11 @@ export default async function DashboardPage() {
       <div style={{ minHeight: '100vh', background: '#F5EFE3', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ background: '#fff', borderRadius: 20, padding: '48px 40px', maxWidth: 480, width: '100%', textAlign: 'center', boxShadow: '0 4px 24px rgba(0,0,0,.08)' }}>
           <img src="/klinova-logo-white.png" alt="Klinova" style={{ height: 56, width: 'auto', marginBottom: 28 }} />
-          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#FBEEE8', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 26 }}>✕</div>
+          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#FBEEE8', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#CF5A3C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </div>
           <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 22, fontWeight: 600, color: '#15302A', margin: '0 0 10px' }}>Application not approved</h1>
           <p style={{ fontSize: 15, color: '#6E7F76', lineHeight: 1.6, margin: '0 0 24px' }}>
             Unfortunately your application did not meet our current requirements. If you believe this is an error, please reach out to us directly.
