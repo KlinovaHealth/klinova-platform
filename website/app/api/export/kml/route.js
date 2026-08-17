@@ -3,6 +3,30 @@ import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
+async function getAuthUser(request) {
+  // Prefer Bearer token (sent by browser client)
+  const authHeader = request.headers.get('authorization') ?? ''
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
+  if (token) {
+    const sc = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      { auth: { persistSession: false } }
+    )
+    const { data: { user } } = await sc.auth.getUser(token)
+    if (user) return user
+  }
+  // Fall back to session cookie
+  const cookieStore = await cookies()
+  const sc = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    { cookies: { getAll: () => cookieStore.getAll(), setAll: () => {} } }
+  )
+  const { data: { user } } = await sc.auth.getUser()
+  return user ?? null
+}
+
 function gridSnap(val, step = 0.09) {
   return Math.round(val / step) * step
 }
@@ -80,21 +104,7 @@ ${placemarks}
 }
 
 export async function GET(request) {
-  const cookieStore = await cookies()
-
-  // Auth via session cookie (same pattern as middleware)
-  const supabaseAuth = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    {
-      cookies: {
-        getAll: () => cookieStore.getAll(),
-        setAll: () => {},
-      },
-    }
-  )
-
-  const { data: { user } } = await supabaseAuth.auth.getUser()
+  const user = await getAuthUser(request)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
