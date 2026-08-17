@@ -1,45 +1,36 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAuth } from '@/hooks/useAuth'
-import { createClient } from '@/lib/supabase-client'
+export const dynamic = 'force-dynamic'
+import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
+import { createAdminClient } from '@/lib/supabase-server'
 import DashboardLayout from '@/app/dashboards/DashboardLayout'
 import GovDashboard from '@/app/dashboards/GovDashboard'
 
 const ALLOWED = ['owner', 'admin', 'government']
 
-export default function GovPage() {
-  const { user, role, profile, loading } = useAuth()
-  const router = useRouter()
-  const [govSubscribed, setGovSubscribed] = useState(null)
-  const [checkingGov, setCheckingGov] = useState(false)
+export default async function GovPage() {
+  const headersList = await headers()
+  const userId   = headersList.get('x-user-id')
+  const userName = headersList.get('x-user-name') ?? ''
 
-  useEffect(() => {
-    if (!loading && !ALLOWED.includes(role)) {
-      router.replace('/dashboard')
-    }
-    // Only government role needs subscription check
-    if (!loading && role === 'government' && user) {
-      setCheckingGov(true)
-      const supabase = createClient()
-      supabase.from('users').select('gov_subscribed').eq('id', user.id).single()
-        .then(({ data }) => { setGovSubscribed(data?.gov_subscribed ?? false); setCheckingGov(false) })
-    }
-  }, [loading, role, user, router])
+  if (!userId) redirect('/login')
 
-  if (loading || checkingGov) return (
-    <div className="min-h-screen bg-ivory flex items-center justify-center">
-      <div className="text-kgreen text-sm animate-pulse">Loading…</div>
-    </div>
-  )
+  const admin = createAdminClient()
+  const { data: profile } = await admin
+    .from('users')
+    .select('role, full_name, gov_subscribed')
+    .eq('id', userId)
+    .single()
 
-  if (!ALLOWED.includes(role)) return null
+  const role = profile?.role ?? null
+  if (!role || !ALLOWED.includes(role)) redirect('/dashboard')
+
+  const fullName = profile?.full_name ?? userName
 
   const isGov = role === 'government'
-  const subscribed = isGov ? govSubscribed : true
+  const subscribed = isGov ? (profile?.gov_subscribed ?? false) : true
 
   return (
-    <DashboardLayout role={role} userName={profile?.full_name}>
+    <DashboardLayout role={role} userName={fullName}>
       {isGov && !subscribed ? <SubscribeWall /> : <GovDashboard />}
     </DashboardLayout>
   )
