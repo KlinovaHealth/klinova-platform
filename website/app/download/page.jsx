@@ -18,8 +18,7 @@ const C = {
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=co.klinova.app'
 const APP_STORE_URL  = 'https://apps.apple.com/app/klinova/id6745274697'
-// Replace with actual number when available, e.g. '22890123456'
-const WHATSAPP_NUMBER = null
+const WHATSAPP_NUMBER = '18137860818'
 
 const T = {
   en: {

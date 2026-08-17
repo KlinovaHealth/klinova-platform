@@ -69,6 +69,26 @@ const URGENCY_COLORS = {
   emergency: '#9B59B6',
 }
 
+async function downloadKML(supabase) {
+  const { data: { session } } = await supabase.auth.getSession()
+  const token = session?.access_token
+  if (!token) return alert('Please log in again to export.')
+
+  const res = await fetch('/api/export/kml', {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!res.ok) { alert('Export failed — please try again.'); return }
+  const blob = await res.blob()
+  const url  = URL.createObjectURL(blob)
+  const a    = Object.assign(document.createElement('a'), {
+    href: url, download: `klinova-health-${new Date().toISOString().slice(0,10)}.kml`,
+  })
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
 export default function GovDashboard() {
   const supabase = createClient()
 
@@ -78,38 +98,47 @@ export default function GovDashboard() {
     return count ?? 0
   }, { refreshInterval: 30000 })
 
-  const { data: triageCount = 0 } = useSWR('gov-triage-count', async () => {
-    const { count } = await supabase
-      .from('whatsapp_triage').select('*', { count: 'exact', head: true })
-    return count ?? 0
+  // Uses secure aggregate function — no raw PHI exposed to government role
+  const { data: triageStats = [] } = useSWR('gov-triage-stats', async () => {
+    const { data } = await supabase.rpc('get_triage_district_stats')
+    return data ?? []
   }, { refreshInterval: 30000 })
 
-  const { data: urgencyRows = [] } = useSWR('gov-urgency', async () => {
-    const { data } = await supabase
-      .from('whatsapp_triage')
-      .select('urgency')
+  const triageCount = triageStats.reduce((sum, r) => sum + Number(r.cases), 0)
+
+  const urgencyRows = (() => {
     const counts = {}
-    ;(data ?? []).forEach(r => {
-      counts[r.urgency] = (counts[r.urgency] ?? 0) + 1
+    triageStats.forEach(r => {
+      if (r.urgency) counts[r.urgency] = (counts[r.urgency] ?? 0) + Number(r.cases)
     })
     const order = ['emergency', 'high', 'medium', 'low']
-    return order
-      .filter(u => counts[u])
-      .map(u => ({ urgency: u, count: counts[u] }))
-  }, { refreshInterval: 30000 })
+    return order.filter(u => counts[u]).map(u => ({ urgency: u, count: counts[u] }))
+  })()
 
   const total = urgencyRows.reduce((s, r) => s + r.count, 0)
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-          className="text-2xl font-semibold text-ink">
-          Government Health Dashboard
-        </h2>
-        <p className="text-sm text-ink/60 mt-0.5">
-          Real-time health intelligence — West Africa · Klinova&apos;s Invisible Grid
-        </p>
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+            className="text-2xl font-semibold text-ink">
+            Government Health Dashboard
+          </h2>
+          <p className="text-sm text-ink/60 mt-0.5">
+            Real-time health intelligence — West Africa · Klinova&apos;s Invisible Grid
+          </p>
+        </div>
+        <button
+          onClick={() => downloadKML(supabase)}
+          title="Download pseudonymised triage data for Google Earth"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white shrink-0"
+          style={{ background: '#0A5440' }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Open in Google Earth
+        </button>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

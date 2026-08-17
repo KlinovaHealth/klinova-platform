@@ -1,4 +1,5 @@
 import { createAdminClient } from '@/lib/supabase-server'
+import { detectEmergency } from '@/lib/emergency'
 
 const WA_VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN ?? 'klinova_verify'
 const WA_TOKEN        = process.env.WHATSAPP_ACCESS_TOKEN
@@ -290,6 +291,16 @@ async function handleText({ phone, text, name }) {
   }
 
   const lang = session.lang
+
+  // Emergency detection — intercept before any menu/symptom flow
+  const { isEmergency } = detectEmergency(trimmed)
+  if (isEmergency) {
+    const emergMsg = EMERGENCY[lang] ?? EMERGENCY.en
+    await sendWhatsAppMessage(phone, emergMsg)
+    // Still store the triage entry so a clinician sees the alert
+    await analyseAndStore({ phone, name, text: trimmed, lang, supabase, forceUrgency: 'emergency' })
+    return
+  }
 
   // Menu reply (1–4)
   if (['1','2','3','4'].includes(trimmed)) {
