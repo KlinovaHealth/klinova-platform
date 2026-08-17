@@ -1,18 +1,12 @@
+import { createServerClient } from '@supabase/ssr'
 import { createClient } from '@supabase/supabase-js'
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } }
-)
-
-// Snap lat/lng to a ~10km grid cell centre — removes precise location
 function gridSnap(val, step = 0.09) {
   return Math.round(val / step) * step
 }
 
-// Urgency → KML icon colour (hex AABBGGRR format used by KML)
 const URGENCY_STYLE = {
   emergency: { id: 'emergency', color: 'ff0000ff', scale: 1.3 },
   high:      { id: 'high',      color: 'ff0080ff', scale: 1.1 },
@@ -86,19 +80,33 @@ ${placemarks}
 }
 
 export async function GET(request) {
-  // Auth check — government or admin only
-  const authHeader = request.headers.get('authorization') ?? ''
-  const token = authHeader.replace('Bearer ', '').trim()
-  if (!token) {
+  const cookieStore = await cookies()
+
+  // Auth via session cookie (same pattern as middleware)
+  const supabaseAuth = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        getAll: () => cookieStore.getAll(),
+        setAll: () => {},
+      },
+    }
+  )
+
+  const { data: { user } } = await supabaseAuth.auth.getUser()
+  if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
-  if (authErr || !user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  // Role check via admin client (bypasses RLS)
+  const admin = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    { auth: { persistSession: false } }
+  )
 
-  const { data: profile } = await supabase
+  const { data: profile } = await admin
     .from('users')
     .select('role')
     .eq('id', user.id)
@@ -115,13 +123,11 @@ export async function GET(request) {
   const from    = searchParams.get('from')    || null
   const to      = searchParams.get('to')      || null
 
-  // Fetch de-identified triage records that have a location
-  let query = supabase
+  let query = admin
     .from('whatsapp_triage')
     .select('created_at, urgency, lang, country, category, location_lat, location_lng')
     .not('location_lat', 'is', null)
     .not('location_lng', 'is', null)
-    // Exclude records where PHI was already nulled or where no category assigned
     .order('created_at', { ascending: false })
     .limit(5000)
 
