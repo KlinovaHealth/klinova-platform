@@ -116,6 +116,26 @@ const EMERGENCY = {
   pid: '🚨 THIS NA EMERGENCY! Go nearest hospital NOW or call ambulance!\n\nKlinova doctor don know about you. No wait.',
 }
 
+const DELIVERY_ASK = {
+  en:  'Please share your location pin so we can deliver medicine to you.',
+  fr:  'Partagez votre localisation pour que nous puissions vous livrer des médicaments.',
+  ee:  'Ŋlɔ wò xɔxɔme eye míawɔ atsɔ ame na wò.',
+  tw:  'Fa wo beaeɛ brɛ yɛn na yɛmfa adeɛ aba wo.',
+  ha:  'Raba wurin ka domin mu kawo magani zuwa gareka.',
+  yo:  'Pín ipò rẹ kí a lè fi oogun ránṣẹ́ sí ọ.',
+  pid: 'Share your location make we bring medicine reach you.',
+}
+
+const DELIVERY_OK = {
+  en:  url => `Your delivery request has been received!\n\nA pharmacist will deliver to your location:\n${url}\n\nWe will contact you shortly.`,
+  fr:  url => `Votre demande de livraison a été reçue !\n\nUn pharmacien vous livrera à :\n${url}\n\nNous vous contacterons bientôt.`,
+  ee:  url => `Miwɔ wò ŋɔŋlɔ!\n\nPharmacist aɖe ava na wò :\n${url}\n\nMíaƒo gbe kple wò yayra.`,
+  tw:  url => `Yɛadwen wo nkɔmmɔ!\n\nPharmacist bɛba wo nkyɛn:\n${url}\n\nYɛbɛfrɛ wo ntɛm.`,
+  ha:  url => `An karɓi bukatarka!\n\nPharmacist zai kawo magani:\n${url}\n\nZa mu tuntuɓe ka.`,
+  yo:  url => `A ti gba ìbéèrè rẹ!\n\nPharmacist yóò mú oogun wá sí:\n${url}\n\nA óo kan sí yín.`,
+  pid: url => `We don receive your order!\n\nPharmacist go bring medicine come:\n${url}\n\nWe go call you soon.`,
+}
+
 function m(lang, key, arg) {
   const l = MSG[lang] ?? MSG.en
   const val = l[key] ?? MSG.en[key]

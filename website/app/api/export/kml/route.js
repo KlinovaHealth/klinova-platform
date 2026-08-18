@@ -57,9 +57,9 @@ function buildPlacemark(row, idx) {
   const urgency = (row.urgency || 'unknown').toLowerCase()
   const styleId = URGENCY_STYLE[urgency]?.id ?? 'unknown'
   const date = new Date(row.created_at).toISOString().slice(0, 10)
-  const lang = (row.lang || 'unknown').toUpperCase()
+  const lang = (row.language || 'unknown').toUpperCase()
   const country = (row.country || 'unknown').toUpperCase()
-  const category = row.category || 'general'
+  const category = row.intent || 'general'
 
   return `  <Placemark id="t${idx}">
     <styleUrl>#${styleId}</styleUrl>
@@ -135,7 +135,7 @@ export async function GET(request) {
 
   let query = admin
     .from('whatsapp_triage')
-    .select('created_at, urgency, lang, country, category, location_lat, location_lng')
+    .select('created_at, urgency, language, country, intent, location_lat, location_lng')
     .not('location_lat', 'is', null)
     .not('location_lng', 'is', null)
     .order('created_at', { ascending: false })
