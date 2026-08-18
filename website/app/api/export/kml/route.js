@@ -3,8 +3,8 @@ import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
-async function getAuthUser(request) {
-  // Prefer Bearer token (sent by browser client)
+// Returns { user, token } — token is null when cookie auth is used
+async function getAuthContext(request) {
   const authHeader = request.headers.get('authorization') ?? ''
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
   if (token) {
@@ -14,9 +14,8 @@ async function getAuthUser(request) {
       { auth: { persistSession: false } }
     )
     const { data: { user } } = await sc.auth.getUser(token)
-    if (user) return user
+    if (user) return { user, token }
   }
-  // Fall back to session cookie
   const cookieStore = await cookies()
   const sc = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -24,7 +23,18 @@ async function getAuthUser(request) {
     { cookies: { getAll: () => cookieStore.getAll(), setAll: () => {} } }
   )
   const { data: { user } } = await sc.auth.getUser()
-  return user ?? null
+  return { user: user ?? null, token: null }
+}
+
+// Authenticated client using the user's own JWT — respects RLS policies
+function makeAuthClient(token) {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    token
+      ? { global: { headers: { Authorization: `Bearer ${token}` } }, auth: { persistSession: false } }
+      : { auth: { persistSession: false } }
+  )
 }
 
 function gridSnap(val, step = 0.09) {
@@ -105,19 +115,15 @@ ${placemarks}
 
 export async function GET(request) {
   try {
-  const user = await getAuthUser(request)
+  const { user, token } = await getAuthContext(request)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized — no valid session' }, { status: 401 })
   }
 
-  // Role check via admin client (bypasses RLS)
-  const admin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY,
-    { auth: { persistSession: false } }
-  )
+  // Use authenticated client (user's JWT) — works with the RLS policy for owner/admin/government
+  const authClient = makeAuthClient(token)
 
-  const { data: profile, error: profileErr } = await admin
+  const { data: profile, error: profileErr } = await authClient
     .from('users')
     .select('role')
     .eq('id', user.id)
@@ -138,7 +144,7 @@ export async function GET(request) {
   const from    = searchParams.get('from')    || null
   const to      = searchParams.get('to')      || null
 
-  let query = admin
+  let query = authClient
     .from('whatsapp_triage')
     .select('created_at, urgency, language, country, intent, location_lat, location_lng')
     .not('location_lat', 'is', null)
