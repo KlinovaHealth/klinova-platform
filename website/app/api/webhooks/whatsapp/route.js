@@ -18,8 +18,8 @@ const sessions = new Map()
 const MSG = {
   en: {
     lang_prompt: `Welcome to Klinova 👋\n\nPlease choose your language:\n\n1️⃣ Français\n2️⃣ English\n3️⃣ Eʋegbe (Ewe)\n4️⃣ Twi\n5️⃣ Hausa\n6️⃣ Yorùbá\n7️⃣ Pidgin\n\nReply with 1, 2, 3, 4, 5, 6 or 7.`,
-    welcome:     n => `Hi ${n} 👋 Welcome to Klinova!\n\nHow can we help you today?\n\n1️⃣ Start a consultation\n2️⃣ Find a clinic near me\n3️⃣ Find a pharmacy near me\n4️⃣ Speak to a doctor\n\nReply with a number, or just describe how you feel.`,
-    returning:   n => `Welcome back ${n} 👋\n\n1️⃣ New consultation\n2️⃣ Find a clinic\n3️⃣ Find a pharmacy\n4️⃣ Talk to a doctor\n\nOr just tell us how you feel.`,
+    welcome:     n => `Hi ${n} 👋 Welcome to Klinova!\n\nHow can we help you today?\n\n1️⃣ Start a consultation\n2️⃣ Find a clinic near me\n3️⃣ Find a pharmacy near me\n4️⃣ Speak to a doctor\n5️⃣ Request medicine delivery\n\nReply with a number, or just describe how you feel.`,
+    returning:   n => `Welcome back ${n} 👋\n\n1️⃣ New consultation\n2️⃣ Find a clinic\n3️⃣ Find a pharmacy\n4️⃣ Talk to a doctor\n5️⃣ Request delivery\n\nOr just tell us how you feel.`,
     symptom_go:    'Got it. Please describe your symptoms — voice note or text, any language. 🎙️',
     doctor_soon:   '👨‍⚕️ A Klinova doctor will review your case shortly. First, please describe your symptoms.',
     ask_location:  'Please share your 📍 location pin so we can find the nearest option for you.',
@@ -30,8 +30,8 @@ const MSG = {
     pharma_header: '💊 Nearest pharmacies:',
   },
   fr: {
-    welcome:     n => `Bonjour ${n} 👋 Bienvenue sur Klinova !\n\nComment pouvons-nous vous aider ?\n\n1️⃣ Démarrer une consultation\n2️⃣ Trouver une clinique\n3️⃣ Trouver une pharmacie\n4️⃣ Parler à un médecin\n\nRépondez par un chiffre ou décrivez comment vous vous sentez.`,
-    returning:   n => `Bonjour ${n} 👋\n\n1️⃣ Nouvelle consultation\n2️⃣ Trouver une clinique\n3️⃣ Trouver une pharmacie\n4️⃣ Parler à un médecin\n\nOu dites-nous comment vous vous sentez.`,
+    welcome:     n => `Bonjour ${n} 👋 Bienvenue sur Klinova !\n\nComment pouvons-nous vous aider ?\n\n1️⃣ Démarrer une consultation\n2️⃣ Trouver une clinique\n3️⃣ Trouver une pharmacie\n4️⃣ Parler à un médecin\n5️⃣ Demander une livraison\n\nRépondez par un chiffre ou décrivez comment vous vous sentez.`,
+    returning:   n => `Bonjour ${n} 👋\n\n1️⃣ Nouvelle consultation\n2️⃣ Trouver une clinique\n3️⃣ Trouver une pharmacie\n4️⃣ Parler à un médecin\n5️⃣ Livraison à domicile\n\nOu dites-nous comment vous vous sentez.`,
     symptom_go:    'Compris. Décrivez vos symptômes — message vocal ou texte, dans la langue de votre choix. 🎙️',
     doctor_soon:   '👨‍⚕️ Un médecin Klinova examinera votre dossier bientôt. Décrivez d\'abord vos symptômes.',
     ask_location:  'Partagez votre 📍 localisation pour trouver l\'option la plus proche.',
@@ -367,6 +367,11 @@ async function handleMenuChoice({ phone, choice, session, lang, name, supabase }
     session.intent = 'doctor'
     await sendWhatsAppMessage(phone, m(lang, 'doctor_soon'))
     await sendWhatsAppMessage(phone, m(lang, 'symptom_go'))
+  } else if (choice === '5') {
+    // Request medicine delivery
+    session.state  = 'awaiting_location'
+    session.intent = 'delivery'
+    await sendWhatsAppMessage(phone, DELIVERY_ASK[lang] ?? DELIVERY_ASK.en)
   }
   sessions.set(phone, session)
 }
@@ -388,6 +393,27 @@ async function handleLocation({ phone, lat, lng }) {
     .limit(1)
 
   await sendWhatsAppMessage(phone, m(lang, 'loc_received'))
+
+  // Delivery: save request and confirm with patient's pinned map link
+  if (intent === 'delivery') {
+    const mapsUrl = `https://maps.google.com/?q=${lat},${lng}`
+    const confirmMsg = (DELIVERY_OK[lang] ?? DELIVERY_OK.en)(mapsUrl)
+    await sendWhatsAppMessage(phone, confirmMsg)
+    await supabase.from('whatsapp_triage').insert({
+      wa_phone:     phone,
+      intent:       'delivery',
+      urgency:      'medium',
+      status:       'awaiting_location',
+      location_lat: lat,
+      location_lng: lng,
+      country:      session.country ?? null,
+      language:     lang,
+      summary:      'Patient requested medicine delivery to their location.',
+    })
+    session.state = 'done'
+    sessions.set(phone, session)
+    return
+  }
 
   // Emergency: always show nearest hospitals + doctor contact
   if (intent === 'emergency' || session.state === 'emergency') {
@@ -413,7 +439,13 @@ async function handleLocation({ phone, lat, lng }) {
   if (intent === 'consultation') {
     const clinics = await nearestFacilities(lat, lng, 'clinic', 3)
     if (clinics.length) {
-      const list = clinics.map((f, i) => `${i+1}. ${f.name ?? 'Clinic'} — ${f.dist.toFixed(1)} km`).join('\n')
+      const list = clinics.map((f, i) => {
+        const fLat = f.location?.y, fLng = f.location?.x
+        const mapsUrl = fLat && fLng
+          ? `\nhttps://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${fLat},${fLng}`
+          : ''
+        return `${i+1}. ${f.name ?? 'Clinic'} — ${f.dist.toFixed(1)} km${mapsUrl}`
+      }).join('\n\n')
       await sendWhatsAppMessage(phone, `${m(lang, 'clinic_header')}\n\n${list}`)
     }
     session.state = 'done'
@@ -423,15 +455,19 @@ async function handleLocation({ phone, lat, lng }) {
 
   // Explicit clinic / pharmacy search
   if (intent === 'clinic' || intent === 'pharmacy') {
-    const type     = intent === 'pharmacy' ? 'pharmacy' : 'clinic'
-    const header   = m(lang, intent === 'pharmacy' ? 'pharma_header' : 'clinic_header')
+    const type       = intent === 'pharmacy' ? 'pharmacy' : 'clinic'
+    const header     = m(lang, intent === 'pharmacy' ? 'pharma_header' : 'clinic_header')
     const facilities = await nearestFacilities(lat, lng, type)
     if (!facilities.length) {
       await sendWhatsAppMessage(phone, m(lang, 'no_facility'))
     } else {
-      const list = facilities.map((f, i) =>
-        `${i+1}. ${f.name ?? (type === 'pharmacy' ? 'Pharmacy' : 'Clinic')} — ${f.dist.toFixed(1)} km`
-      ).join('\n')
+      const list = facilities.map((f, i) => {
+        const fLat = f.location?.y, fLng = f.location?.x
+        const mapsUrl = fLat && fLng
+          ? `\nhttps://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${fLat},${fLng}`
+          : ''
+        return `${i+1}. ${f.name ?? (type === 'pharmacy' ? 'Pharmacy' : 'Clinic')} — ${f.dist.toFixed(1)} km${mapsUrl}`
+      }).join('\n\n')
       await sendWhatsAppMessage(phone, `${header}\n\n${list}`)
     }
     session.state = 'done'
