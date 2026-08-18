@@ -77,7 +77,11 @@ async function downloadKML(supabase) {
   const res = await fetch('/api/export/kml', {
     headers: { Authorization: `Bearer ${token}` },
   })
-  if (!res.ok) { alert('Export failed — please try again.'); return }
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({ error: `HTTP ${res.status}` }))
+    alert(`Export failed (${res.status}): ${body.error ?? res.statusText}`)
+    return
+  }
   const blob = await res.blob()
   const url  = URL.createObjectURL(blob)
   const a    = Object.assign(document.createElement('a'), {

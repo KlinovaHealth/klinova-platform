@@ -104,9 +104,10 @@ ${placemarks}
 }
 
 export async function GET(request) {
+  try {
   const user = await getAuthUser(request)
   if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    return NextResponse.json({ error: 'Unauthorized — no valid session' }, { status: 401 })
   }
 
   // Role check via admin client (bypasses RLS)
@@ -116,14 +117,18 @@ export async function GET(request) {
     { auth: { persistSession: false } }
   )
 
-  const { data: profile } = await admin
+  const { data: profile, error: profileErr } = await admin
     .from('users')
     .select('role')
     .eq('id', user.id)
     .single()
 
+  if (profileErr) {
+    return NextResponse.json({ error: `Profile lookup failed: ${profileErr.message}` }, { status: 500 })
+  }
+
   if (!profile || !['government', 'admin', 'owner'].includes(profile.role)) {
-    return NextResponse.json({ error: 'Forbidden — government role required' }, { status: 403 })
+    return NextResponse.json({ error: `Forbidden — role is "${profile?.role}"` }, { status: 403 })
   }
 
   // Query params
@@ -148,7 +153,7 @@ export async function GET(request) {
 
   const { data: rows, error: dbErr } = await query
   if (dbErr) {
-    return NextResponse.json({ error: 'Database error' }, { status: 500 })
+    return NextResponse.json({ error: `DB error: ${dbErr.message}` }, { status: 500 })
   }
 
   const kml = buildKML(rows ?? [], new Date().toISOString(), { country, urgency, from, to })
@@ -161,4 +166,7 @@ export async function GET(request) {
       'Cache-Control': 'no-store',
     },
   })
+  } catch (err) {
+    return NextResponse.json({ error: `Unexpected error: ${err?.message ?? err}` }, { status: 500 })
+  }
 }
