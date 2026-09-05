@@ -123,7 +123,7 @@ const T = {
     nav_login: 'Log in',
     nav_create: 'Create account',
     trust1: 'Citizens access care at no cost',
-    trust2: 'Deploy in 48 hours from contract',
+    trust2: 'Designed for rapid deployment',
     trust3: 'Works on any phone',
 
     lband_eyebrow: 'Speak naturally',
@@ -136,7 +136,7 @@ const T = {
     step1_h: 'Tell us how you feel',
     step1_p: 'Describe your symptoms by text, voice, or photo in any of our fourteen supported languages.',
     step2_h: 'Get guided to the right care',
-    step2_p: 'Klinova reviews your symptoms and clearly tells you how urgent your situation is.',
+    step2_p: "Klinova's triage system reviews your symptoms and helps guide you toward the appropriate level of care.",
     step3_h: 'See a doctor',
     step3_p: 'Talk to a licensed doctor by chat, voice, or video and pay with mobile money.',
     step4_h: 'Get your medicine',
@@ -181,7 +181,7 @@ const T = {
     pill1: 'Outbreak detection',
     pill2: 'Live coverage maps',
     pill3: "Klinova's Invisible Grid",
-    pill4: 'GDPR & HIPAA compliant',
+    pill4: 'Data protection aligned',
     gov_step1_n: '01', gov_step1_h: 'Request a Demo',          gov_step1_p: 'Schedule a live walkthrough with the Klinova team.',
     gov_step2_n: '02', gov_step2_h: 'Sign a Data Agreement',   gov_step2_p: 'We provide a standard MOU template aligned with WHO data-governance guidelines.',
     gov_step3_n: '03', gov_step3_h: 'Onboarding & Integration',gov_step3_p: 'Connect your Ministry\'s systems. Typical setup is 4–6 weeks with dedicated support.',
@@ -228,10 +228,10 @@ const T = {
     advisory_h: 'Built on clinical expertise.',
     advisory_p: "Klinova's triage logic, prescription workflows, and patient safety standards are developed alongside practicing physicians and public health professionals across the region. No patient is seen without a credentialed provider.",
     compliance_h: 'Your data, protected by law.',
-    compliance_p: "We comply with GDPR (EU Regulation 2016/679), HIPAA (45 CFR Parts 160 and 164), and applicable national health data laws in Togo, Ghana, Benin, and Côte d'Ivoire. All records are end-to-end encrypted. You own your data.",
+    compliance_p: "Built to align with applicable health-data protection requirements, including GDPR and HIPAA safeguards where applicable. Health data is encrypted in transit and at rest, with field-level protections for sensitive health information. You own your data.",
     privacy_link: 'Read our full privacy and data policy',
     pilot_eyebrow: 'Pilot partners',
-    pilot_h: 'Trusted by early partners across West Africa.',
+    pilot_h: 'Partnering across West Africa.',
     pilot_note: 'Klinova is actively onboarding founding clinic, pharmacy, and hospital partners. Early partners help shape the platform and receive priority onboarding and support.',
     pilot_join: 'Apply for founding partner status',
     cta_eyebrow: 'Get started with Klinova',
@@ -277,7 +277,7 @@ const T = {
     price_clinic_desc: 'Dashboard + calendar access, pinned on our map. Pay a small referral fee only when a pre-triaged patient actually walks in.',
     price_transport_label: 'Transport & Delivery',
     price_transport_tag: 'Free for patients',
-    price_transport_desc: 'Deliver medications and transport patients included in every Care Plan. Klinova routes thousands of guaranteed, GPS-mapped deliveries to your drivers every month.',
+    price_transport_desc: 'Deliver medications and transport patients included in every Care Plan. Klinova is designed to route GPS-mapped medication deliveries to participating delivery providers.',
     cta_transport_subj: 'Transport & Delivery Partnership – Klinova',
     price_note: 'Prices shown in local currency. No hidden fees. Cancel anytime.',
 
@@ -306,9 +306,9 @@ const T = {
     already_account: 'Already have an account?',
     sign_in: 'Sign in →',
 
-    pilot_status: 'Pilot launching in Togo and Ghana',
-    test_eyebrow: 'Testimonials',
-    test_h: 'Trusted by our early users.',
+    pilot_status: 'First real-world pilot · Togo · by Summer 2027',
+    test_eyebrow: 'Early feedback',
+    test_h: 'From our design partners.',
     test1_q: 'Klinova has transformed the way we work. Consultations are better documented and patient follow-up has become simple and effective.',
     test1_name: 'Dr. Ama Koudou',
     test1_role: 'General Practitioner',
@@ -333,7 +333,7 @@ const T = {
     nav_create: 'Créer un compte',
     btn2: 'Cliniques et partenaires',
     trust1: 'Les citoyens accèdent aux soins gratuitement',
-    trust2: 'Déploiement en 48 heures dès la signature',
+    trust2: 'Conçu pour un déploiement rapide',
     trust3: 'Sur tout téléphone',
 
     lband_eyebrow: 'Parlez naturellement',
@@ -346,7 +346,7 @@ const T = {
     step1_h: 'Dites-nous comment vous allez',
     step1_p: "Décrivez vos symptômes par texte, voix ou photo dans l'une de nos quatorze langues disponibles.",
     step2_h: 'Soyez orienté vers le bon soin',
-    step2_p: "Klinova analyse vos symptômes et vous indique clairement la marche à suivre.",
+    step2_p: "Le système de triage de Klinova analyse vos symptômes et vous aide à vous orienter vers le niveau de soins approprié.",
     step3_h: 'Consultez un médecin',
     step3_p: 'Parlez à un médecin agréé par chat, voix ou vidéo et payez avec mobile money.',
     step4_h: 'Recevez vos médicaments',
@@ -391,7 +391,7 @@ const T = {
     pill1: 'Détection des épidémies',
     pill2: 'Cartes de couverture en direct',
     pill3: "Klinova's Invisible Grid",
-    pill4: 'Conforme RGPD & HIPAA',
+    pill4: 'Protection des données alignée',
     gov_step1_n: '01', gov_step1_h: 'Demander une démonstration',   gov_step1_p: "Planifiez un aperçu en direct avec l'équipe Klinova.",
     gov_step2_n: '02', gov_step2_h: 'Signer un accord de données',  gov_step2_p: 'Nous fournissons un modèle de protocole d\'accord conforme aux directives de gouvernance des données de l\'OMS.',
     gov_step3_n: '03', gov_step3_h: 'Intégration et onboarding',    gov_step3_p: 'Connectez les systèmes de votre Ministère. La configuration typique prend 4 à 6 semaines.',
@@ -438,10 +438,10 @@ const T = {
     advisory_h: 'Construit sur l\'expertise clinique.',
     advisory_p: "Les protocoles de triage, les processus de prescription et les normes de sécurité des patients de Klinova sont développés aux côtés de médecins praticiens et de professionnels de santé publique à travers la région. Aucun patient n'est vu sans un prestataire accrédité.",
     compliance_h: 'Vos données, protégées par la loi.',
-    compliance_p: "Nous respectons le RGPD (Règlement UE 2016/679), la HIPAA (45 CFR Parts 160 et 164) et les lois nationales applicables sur les données de santé au Togo, au Ghana, au Bénin et en Côte d'Ivoire. Tous les dossiers sont chiffrés de bout en bout. Vous possédez vos données.",
+    compliance_p: "Conçu pour s'aligner sur les exigences applicables en matière de protection des données de santé, notamment les garanties RGPD et HIPAA le cas échéant. Les données de santé sont chiffrées en transit et au repos, avec des protections au niveau des champs pour les informations sensibles. Vous possédez vos données.",
     privacy_link: 'Lire notre politique complète de confidentialité et données',
     pilot_eyebrow: 'Partenaires pilotes',
-    pilot_h: 'Approuvé par les premiers partenaires en Afrique de l\'Ouest.',
+    pilot_h: 'En déploiement en Afrique de l\'Ouest.',
     pilot_note: "Klinova intègre activement des cliniques, pharmacies et hôpitaux partenaires fondateurs. Les premiers partenaires contribuent à façonner la plateforme et bénéficient d'un accompagnement prioritaire.",
     pilot_join: 'Rejoindre le programme de partenaires fondateurs',
     cta_eyebrow: 'Commencer avec Klinova',
@@ -487,7 +487,7 @@ const T = {
     price_clinic_desc: 'Accès au tableau de bord + calendrier, épinglé sur notre carte. Frais de recommandation uniquement quand un patient pré-triagé se présente.',
     price_transport_label: 'Transport & Livraison',
     price_transport_tag: 'Gratuit pour les patients',
-    price_transport_desc: 'Livrez les médicaments et transportez les patients inclus dans chaque Care Plan. Klinova achemine des milliers de livraisons GPS garanties vers vos chauffeurs chaque mois.',
+    price_transport_desc: 'Livrez les médicaments et transportez les patients inclus dans chaque Care Plan. Klinova est conçu pour acheminer des livraisons de médicaments géolocalisées vers les prestataires de livraison participants.',
     cta_transport_subj: 'Partenariat Transport & Livraison – Klinova',
     price_note: 'Prix affichés en devise locale. Sans frais cachés. Résiliable à tout moment.',
 
@@ -516,9 +516,9 @@ const T = {
     already_account: 'Vous avez déjà un compte ?',
     sign_in: 'Se connecter →',
 
-    pilot_status: 'Pilote en cours de lancement au Togo et au Ghana',
-    test_eyebrow: 'Témoignages',
-    test_h: 'Ils nous font confiance.',
+    pilot_status: 'Premier pilote réel · Togo · d\'ici l\'été 2027',
+    test_eyebrow: 'Retours préliminaires',
+    test_h: 'Ce que disent nos partenaires de conception.',
     test1_q: 'Klinova a transformé notre façon de travailler. Les consultations sont mieux documentées et le suivi patient est devenu simple et efficace.',
     test1_name: 'Dr. Ama Koudou',
     test1_role: 'Médecin généraliste',
@@ -1252,34 +1252,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* TESTIMONIALS */}
-        <section className="band-alt">
-          <div className="wrap">
-            <div className="band-center" style={{ marginBottom: 44 }}>
-              <div className="eyebrow">{t('test_eyebrow')}</div>
-              <h2>{t('test_h')}</h2>
-            </div>
-            <div className="tgrid">
-              {[
-                { q:'test1_q', name:'test1_name', role:'test1_role', place:'test1_place' },
-                { q:'test2_q', name:'test2_name', role:'test2_role', place:'test2_place' },
-                { q:'test3_q', name:'test3_name', role:'test3_role', place:'test3_place' },
-              ].map((item, i) => (
-                <div className="tcard" key={i}>
-                  <div className="tstars">{[1,2,3,4,5].map(s => <IconStar key={s} filled />)}</div>
-                  <p className="tquote">{t(item.q)}</p>
-                  <div className="tperson">
-                    <div className="tavatar">{t(item.name).split(' ').slice(-1)[0][0]}</div>
-                    <div>
-                      <div className="tname">{t(item.name)}</div>
-                      <div className="trole">{t(item.role)} &middot; {t(item.place)}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* TESTIMONIALS removed pending post-pilot validation */}
 
         {/* PRICING */}
         {(() => {

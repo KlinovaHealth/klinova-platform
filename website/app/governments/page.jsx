@@ -57,10 +57,10 @@ const T = {
     h1:'One doctor. Every', h1_accent:'1 in 5,000 villages.',
     lede:'Serve rural areas. Reduce clinic overcrowding. Save costs. Klinova is the telemedicine backbone that lets governments extend quality primary care to every community without building a new clinic in each one. Individuals can also subscribe directly.',
     cta1:'Request a briefing', cta2:'Download overview',
-    sl1:'Doctor-to-patient ratio in rural West Africa',
-    sl2:'Of preventable deaths occur outside major cities',
-    sl3:'Languages supported. Patients receive care in their own language.',
-    sl4:'Average time from contract signing to first village going live',
+    sl1:'Supported languages',
+    sl2:'Initial country markets',
+    sl3:'Deployed environments undergoing pre-pilot validation',
+    sl4:'First real-world pilot · Togo · by Summer 2027',
     rural_ey:'The rural village model', rural_h:'Healthcare coverage where there are no roads to build clinics.',
     rural_sub:"Klinova does not replace the healthcare system; it extends it. We connect the one doctor in the district center to the 5,000 patients spread across remote villages via WhatsApp, SMS, or the Klinova app.",
     r1h:'Any phone, any village', r1p:'Patients use WhatsApp, SMS, or the Klinova app to reach a licensed doctor. No clinic visit required.',
@@ -76,12 +76,12 @@ const T = {
     o4h:'National patient registry', o4p:'Every patient seen is logged with a full consultation history, encrypted and GDPR-compliant. Portable between providers.',
     o5h:'Multilingual, every region', o5p:'Klinova operates in 14 languages. Rural patients are served in Ewe, Kabiye, Twi, Hausa, Fon, and Dioula, not only French.',
     o6h:'Works on any phone', o6p:'Smartphones, feature phones, SMS. Community health workers can triage on behalf of patients without smartphones.',
-    surv_ey:'Disease surveillance', surv_h:'See outbreaks before they become crises.',
+    surv_ey:'Disease surveillance', surv_h:'Designed to help identify emerging health threats earlier.',
     s1h:'Geographic symptom mapping', s1p:'Every triage generates a location-tagged symptom report. Cluster detection runs automatically against WHO outbreak thresholds.',
-    s2h:'Real-time outbreak alerts', s2p:'Your ministry epidemiology team receives an instant alert when a symptom cluster exceeds threshold, before it reaches the hospital.',
+    s2h:'Real-time outbreak alerts', s2p:'When a symptom cluster pattern exceeds a monitoring threshold, your ministry\'s epidemiology team receives an alert for further investigation.',
     s3h:'API export to your systems', s3p:'Data exports in FHIR R4 format, compatible with WHO DHIS2, OpenMRS, or any ministry health information system.',
     s4h:'Privacy by design', s4p:'All exported data is anonymized and aggregated. No patient PII leaves Klinova without explicit patient consent.',
-    surv_map_title:'Active symptom signals', surv_note:'Live data, anonymized and aggregated',
+    surv_map_title:'Illustrative surveillance signals', surv_note:'Synthetic demonstration data · No real patient records',
     comp_ey:'Compliance & data sovereignty', comp_h:'Built to meet government procurement standards.',
     c1h:'Data sovereignty', c1p:'Patient data for each country is stored within its jurisdiction or in the designated regional zone agreed in the contract. Data is never transferred across borders without explicit bilateral agreement.',
     c2h:'Security standards', c2p:'AES-256 field-level encryption for all PHI. TLS 1.3 in transit. Row-level security. Audit logs on every data access. HIPAA-aligned. Penetration tested.',
@@ -91,7 +91,7 @@ const T = {
     proc_sub:'We move as fast as government procurement allows, and we know how to navigate it.',
     p1h:'Initial briefing', p1p:'30-minute call with our government partnerships team. We learn your priorities, geography, and constraints.',
     p2h:'Proposal & pilot scope', p2p:'We submit a tailored proposal including pilot district, timeline, and cost per patient covered.',
-    p3h:'Pilot deployment', p3p:'90-day proof of concept covering a target district. First villages go live within 48 hours of contract signing.',
+    p3h:'Pilot deployment', p3p:'90-day proof of concept covering a target district. Designed for rapid deployment from contract signing.',
     p4h:'National rollout', p4p:'Based on pilot results, scale to full national coverage under a multi-year program agreement.',
     cta_ey:'Start the conversation', cta_h:'Ready to bring telemedicine to your citizens?',
     cta_p:'Our government partnerships team is available for briefings, site visits, and proposal discussions. We work with ministries of health, national health insurance funds, and multilateral development partners.',
@@ -107,10 +107,10 @@ const T = {
     h1:'Un médecin. Chaque', h1_accent:'village sur 5 000.',
     lede:"Desservir les zones rurales. Réduire l'engorgement des cliniques. Réduire les coûts. Klinova est l'infrastructure de télémédecine qui permet aux gouvernements d'étendre les soins primaires à chaque communauté sans construire de nouvelles cliniques. Les particuliers peuvent aussi s'abonner directement.",
     cta1:'Demander un briefing', cta2:'Télécharger la présentation',
-    sl1:'Ratio médecin/patient en Afrique de l\'Ouest rurale',
-    sl2:'Des décès évitables surviennent hors des grandes villes',
-    sl3:'Langues prises en charge. Les patients reçoivent des soins dans leur langue.',
-    sl4:'Délai moyen entre la signature du contrat et le lancement du premier village',
+    sl1:'Langues prises en charge',
+    sl2:'Marchés pays initiaux',
+    sl3:'Environnements déployés en validation pré-pilote',
+    sl4:'Premier pilote réel · Togo · d\'ici l\'été 2027',
     rural_ey:'Le modèle village rural', rural_h:'Couverture sanitaire là où il n\'y a pas de routes pour construire des cliniques.',
     rural_sub:"Klinova ne remplace pas le système de santé, il l'étend. Nous connectons le seul médecin du centre de district aux 5 000 patients dispersés dans les villages éloignés via WhatsApp, SMS ou l'application Klinova.",
     r1h:'Tout téléphone, tout village', r1p:"Les patients utilisent WhatsApp, SMS ou l'application Klinova pour contacter un médecin agréé. Pas de visite en clinique requise.",
@@ -126,12 +126,12 @@ const T = {
     o4h:'Registre national des patients', o4p:'Chaque patient vu est enregistré avec un historique de consultation complet, chiffré et conforme au RGPD. Portable entre prestataires.',
     o5h:'Multilingue, chaque région', o5p:"Klinova opère en 14 langues. Les patients ruraux sont servis en Ewe, Kabiye, Twi, Haoussa, Fon et Dioula, pas seulement en français.",
     o6h:'Fonctionne sur tout téléphone', o6p:'Smartphones, téléphones basiques, SMS. Les agents de santé communautaires peuvent effectuer le triage au nom des patients sans smartphones.',
-    surv_ey:'Surveillance des maladies', surv_h:'Détecter les épidémies avant qu\'elles ne deviennent des crises.',
+    surv_ey:'Surveillance des maladies', surv_h:'Conçu pour aider à identifier les menaces sanitaires émergentes plus tôt.',
     s1h:'Cartographie géographique des symptômes', s1p:"Chaque triage génère un rapport de symptômes géolocalisé. La détection de clusters s'exécute automatiquement par rapport aux seuils d'épidémie de l'OMS.",
-    s2h:'Alertes épidémiques en temps réel', s2p:"Votre équipe d'épidémiologie ministérielle reçoit une alerte instantanée lorsqu'un cluster de symptômes dépasse le seuil, avant qu'il n'atteigne l'hôpital.",
+    s2h:'Alertes épidémiques en temps réel', s2p:"Lorsqu'un groupe de symptômes dépasse un seuil de surveillance, l'équipe d'épidémiologie de votre ministère reçoit une alerte pour investigation complémentaire.",
     s3h:'Export API vers vos systèmes', s3p:'Exports de données au format FHIR R4, compatibles avec WHO DHIS2, OpenMRS ou tout système d\'information sanitaire ministériel.',
     s4h:'Confidentialité dès la conception', s4p:'Toutes les données exportées sont anonymisées et agrégées. Aucune information personnelle de patient ne quitte Klinova sans consentement explicite.',
-    surv_map_title:'Signaux de symptômes actifs', surv_note:'Données en direct, anonymisées et agrégées',
+    surv_map_title:'Signaux de surveillance illustratifs', surv_note:'Données de démonstration synthétiques · Aucun dossier patient réel',
     comp_ey:'Conformité & souveraineté des données', comp_h:'Conçu pour répondre aux normes des marchés publics gouvernementaux.',
     c1h:'Souveraineté des données', c1p:'Les données des patients pour chaque pays sont stockées dans sa juridiction ou dans la zone régionale désignée convenue dans le contrat.',
     c2h:'Normes de sécurité', c2p:'Chiffrement au niveau des champs AES-256 pour toutes les PHI. TLS 1.3 en transit. Sécurité au niveau des lignes. Journaux d\'audit sur chaque accès aux données.',
@@ -141,7 +141,7 @@ const T = {
     proc_sub:"Nous avançons aussi vite que les marchés publics gouvernementaux le permettent, et nous savons comment les gérer.",
     p1h:'Briefing initial', p1p:'Appel de 30 minutes avec notre équipe partenariats gouvernementaux. Nous apprenons vos priorités, géographie et contraintes.',
     p2h:'Proposition & périmètre pilote', p2p:'Nous soumettons une proposition sur mesure incluant le district pilote, le calendrier et le coût par patient couvert.',
-    p3h:'Déploiement pilote', p3p:'Preuve de concept de 90 jours couvrant un district cible. Les premiers villages sont mis en ligne dans les 48 heures suivant la signature du contrat.',
+    p3h:'Déploiement pilote', p3p:'Preuve de concept de 90 jours couvrant un district cible. Conçu pour un déploiement rapide dès la signature du contrat.',
     p4h:'Déploiement national', p4p:'Sur la base des résultats du pilote, extension à la couverture nationale complète dans le cadre d\'un accord de programme pluriannuel.',
     cta_ey:'Démarrer la conversation', cta_h:'Prêt à apporter la télémédecine à vos citoyens ?',
     cta_p:"Notre équipe partenariats gouvernementaux est disponible pour des briefings, des visites de site et des discussions de propositions. Nous travaillons avec les ministères de la santé, les fonds nationaux d'assurance maladie et les partenaires de développement multilatéraux.",
@@ -389,19 +389,19 @@ export default function GovernmentsPage() {
         <div className="wrap">
           <div className="stats-grid">
             <div className="stat-block">
-              <div><span className="stat-num">1</span><span className="stat-unit">:</span><span className="stat-num">5,000</span></div>
+              <div><span className="stat-num">14</span></div>
               <div className="stat-label">{t('sl1')}</div>
             </div>
             <div className="stat-block">
-              <div><span className="stat-num">72</span><span className="stat-unit">%</span></div>
+              <div><span className="stat-num">4</span></div>
               <div className="stat-label">{t('sl2')}</div>
             </div>
             <div className="stat-block">
-              <div><span className="stat-num">14</span></div>
+              <div><span className="stat-num">2</span></div>
               <div className="stat-label">{t('sl3')}</div>
             </div>
             <div className="stat-block">
-              <div><span className="stat-num">48</span><span className="stat-unit">h</span></div>
+              <div><span className="stat-num" style={{ fontSize: 28 }}>Summer 2027</span></div>
               <div className="stat-label">{t('sl4')}</div>
             </div>
           </div>
@@ -434,13 +434,14 @@ export default function GovernmentsPage() {
               </div>
             </div>
             <div className="rural-graphic">
+              <div style={{ fontSize:10, fontWeight:800, letterSpacing:'.12em', textTransform:'uppercase', color:'rgba(217,154,43,.7)', marginBottom:8 }}>Illustrative pilot coverage</div>
               <div className="rural-graphic-title">{t('map_title')}</div>
               {[
-                { label:'Kpove District · 12 villages', status:'active', txt:'Live' },
-                { label:'Bassar Region · 8 villages', status:'active', txt:'Live' },
-                { label:'Centrale Region · 5 villages', status:'pending', txt:'Onboarding' },
-                { label:'Savanes Region · 18 villages', status:'pending', txt:'Planned Q4' },
-                { label:'Maritime Region · 22 villages', status:'active', txt:'Live' },
+                { label:'Kpove District · 12 villages', status:'active', txt:'Example deployment' },
+                { label:'Bassar Region · 8 villages', status:'active', txt:'Example deployment' },
+                { label:'Centrale Region · 5 villages', status:'pending', txt:'Example expansion' },
+                { label:'Savanes Region · 18 villages', status:'pending', txt:'Example planned' },
+                { label:'Maritime Region · 22 villages', status:'pending', txt:'Example planned' },
               ].map(v => (
                 <div className="village-row" key={v.label}>
                   <div className={`village-dot ${v.status}`}/>
