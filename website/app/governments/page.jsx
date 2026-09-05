@@ -636,7 +636,9 @@ export default function GovernmentsPage() {
           </div>
           <div className="footer-bottom">
             <span>{t('ft_copy')}</span>
-            <span>Powered by Klinova</span>
+            <a href="https://kinaraos.com" target="_blank" rel="noopener noreferrer" style={{ color: '#5A7A6E', textDecoration: 'none' }}>
+              {lang === 'fr' ? 'Klinova · Alimenté par Kinara OS' : 'Klinova · Powered by Kinara OS'}
+            </a>
           </div>
         </div>
       </footer>
