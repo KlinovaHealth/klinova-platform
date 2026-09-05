@@ -537,7 +537,7 @@ const T = {
     eyebrow1: 'Dɔwɔwɔ Kpɔkpɔ na Ɣetoɖoƒe Afrika',
     h1_p1:   'Ðoðowo si gbɔa ',
     h1_accent: 'wò gbɔgbɔm.',
-    lede: 'Kpɔ dɔwɔla le wò fōn ŋu, xɔ wò ŋɔ sɛ, kpɔ atike si le wò ƒuƒo si — app ŋu, web ŋu, alo WhatsApp. Xe ŋkume le mobile money ŋu.',
+    lede: 'Kpɔ dɔwɔla le wò fōn ŋu, xɔ wò ŋɔ sɛ, kpɔ atike si le wò ƒuƒo si, app ŋu, web ŋu, alo WhatsApp. Xe ŋkume le mobile money ŋu.',
     btn1: 'Xɔ App a',
     btn2: 'Na kliniki kple abɔbɔlawo',
     trust1: 'Mobile money wɔa nu',
@@ -557,7 +557,7 @@ const T = {
     eyebrow1: 'Kɔnɖɔʋ kɛ Afiriki Ɩlɩm',
     h1_p1:   'Ɛsɛ nakʋ kɛ ',
     h1_accent: 'wɛtʋ yɔlɩzɩɣʋ.',
-    lede: 'Naɣ dɔkɩtɩ ñɔ-tɛlefooni cɔlɔ, ñɔ-sɛbɛtʋ ñɩkɩ, naɣ ɖaʋ kpam — app, web, ñɔ WhatsApp. Cɛlɩ mobile money.',
+    lede: 'Naɣ dɔkɩtɩ ñɔ-tɛlefooni cɔlɔ, ñɔ-sɛbɛtʋ ñɩkɩ, naɣ ɖaʋ kpam, app, web, ñɔ WhatsApp. Cɛlɩ mobile money.',
     btn1: "Kpaɣ app ŋ",
     btn2: 'Kliniki nɛ abalɩtʋ mɛnsɩ',
     trust1: 'Mobile money ñɩkɩɣ',
@@ -577,7 +577,7 @@ const T = {
     eyebrow1: 'Telephone Ayarehwɛ ma Ɔwɛst Afrika',
     h1_p1:   'Ayarehwɛ a ɔkasa ',
     h1_accent: 'wʼkasa mu.',
-    lede: 'Hu onyansafo wo wo telephone mu, nya wo krataa, na nya nnuro kɔse — app, web, anaa WhatsApp. Tua mobile money.',
+    lede: 'Hu onyansafo wo wo telephone mu, nya wo krataa, na nya nnuro kɔse, app, web, anaa WhatsApp. Tua mobile money.',
     btn1: 'Gye app no',
     btn2: 'Ma klinik ne nkabomu',
     trust1: 'Mobile money na yɛtua',
@@ -597,7 +597,7 @@ const T = {
     eyebrow1: 'Gbeyiyi Wɛkɛ tɔn Afrika Sɛjɛ mɛ',
     h1_p1:   'Gbeyiyi e ',
     h1_accent: 'ɖo gbe nú we.',
-    lede: "Kpɔ dɔkɔtɛ ɔ do tɛlifɔnu towe mɛ, sɔ sɛ́gbɛ n'ɔ, mɔ alɔgɔ e — app mɛ, web ɔ jí, alɔkpa WhatsApp. Sɔ xɔ mobile money.",
+    lede: "Kpɔ dɔkɔtɛ ɔ do tɛlifɔnu towe mɛ, sɔ sɛ́gbɛ n'ɔ, mɔ alɔgɔ e, app mɛ, web ɔ jí, alɔkpa WhatsApp. Sɔ xɔ mobile money.",
     btn1: 'Yì app ɔ xɔ',
     btn2: 'Nú klinik lɛ kpo xwédo lɛ kpo',
     trust1: 'Mobile money ɖi wɛ nɔ zun',
@@ -617,7 +617,7 @@ const T = {
     eyebrow1: 'Kɛnɛyabɔ Telefɔni la Afiriki Kɔrɔn',
     h1_p1:   'Kɛnɛya ka ',
     h1_accent: 'kuma i ka kan na.',
-    lede: 'Ye dɔkɔtɔrɔ i ka telefɔni la, sɔrɔ i ka sɛbɛn, ye farima — app la, web, wala WhatsApp. Sara mobile money.',
+    lede: 'Ye dɔkɔtɔrɔ i ka telefɔni la, sɔrɔ i ka sɛbɛn, ye farima, app la, web, wala WhatsApp. Sara mobile money.',
     btn1: 'Sɔrɔ app nin',
     btn2: 'Kliniki ni baara bolo mɔgɔw ye',
     trust1: 'Mobile money bɛ sarali',
@@ -637,7 +637,7 @@ const T = {
     eyebrow1: 'Dɔktɛli Kpli Afrika Blɔliɛn',
     h1_p1:   'Tɔtɔ ',
     h1_accent: 'i kaan su.',
-    lede: 'Wun dɔktɛli ɔ i fɔn su, fa i sɛnlɛ, wun dawa kɔ kpɔ — app su, web, annɔ WhatsApp. Tɔ mobile money.',
+    lede: 'Wun dɔktɛli ɔ i fɔn su, fa i sɛnlɛ, wun dawa kɔ kpɔ, app su, web, annɔ WhatsApp. Tɔ mobile money.',
     btn1: 'Fa app ɔ',
     btn2: 'Kliniki nɛn baara kpɔ',
     trust1: 'Mobile money naan tɔ',
@@ -657,7 +657,7 @@ const T = {
     eyebrow1: 'Télémédecine ci Afrig Penku',
     h1_p1:   'Bajëfam bu ',
     h1_accent: 'waxu sa làkk.',
-    lede: 'Gis doteur gi ci sa téléphone bi, jël ordonnance bi, def ragal bi ci weñ — ci app, web, walla WhatsApp. Fey ak mobile money.',
+    lede: 'Gis doteur gi ci sa téléphone bi, jël ordonnance bi, def ragal bi ci weñ, ci app, web, walla WhatsApp. Fey ak mobile money.',
     btn1: 'Jëfal app bi',
     btn2: 'Ngir klinik yi ak xarit yi',
     trust1: 'Mobile money nañu fey',
@@ -677,7 +677,7 @@ const T = {
     eyebrow1: 'Kɛnɛyabɔ Telefɔni la Afiriki Kɔrɔn',
     h1_p1:   'Kɛnɛya ka ',
     h1_accent: 'kuma i ka kan na.',
-    lede: 'Ye dɔkɔtɔrɔ i ka telefɔni la, sɔrɔ i ka sɛbɛn, ye dawa kɔni — app la, web la, wala WhatsApp. Sara mobile money.',
+    lede: 'Ye dɔkɔtɔrɔ i ka telefɔni la, sɔrɔ i ka sɛbɛn, ye dawa kɔni, app la, web la, wala WhatsApp. Sara mobile money.',
     btn1: 'Ta application in',
     btn2: 'Kliniki ni tɔgɔ bolo mɔgɔw ye',
     trust1: 'Mobile money bɛ sarali',
@@ -697,7 +697,7 @@ const T = {
     eyebrow1: 'Kiwon Lafiya ta Wayar tarho don Yammacin Afirka',
     h1_p1:   'Kiwon lafiya da ke ',
     h1_accent: 'magana da yaranka.',
-    lede: 'Duba likita daga wayarka, sami takardar magani, ka sami magunguna kusa — ta app, yanar gizo, ko WhatsApp. Biya da mobile money.',
+    lede: 'Duba likita daga wayarka, sami takardar magani, ka sami magunguna kusa, ta app, yanar gizo, ko WhatsApp. Biya da mobile money.',
     btn1: 'Sami app ɗin',
     btn2: 'Ga asibiti da abokan tarayya',
     trust1: 'Mobile money na karɓa',
@@ -1055,6 +1055,10 @@ export default function Home() {
                 </span>
               </h1>
               <p className="lede">{t('lede')}</p>
+              <p style={{ fontSize: 12, color: C.mute, marginTop: 8, marginBottom: 4 }}>
+                {lang === 'fr' ? 'Alimenté par' : 'Powered by'}{' '}
+                <a href="https://kinaraos.com" target="_blank" rel="noopener noreferrer" style={{ color: C.green, fontWeight: 700, textDecoration: 'none' }}>Kinara OS</a>
+              </p>
               <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:4 }}>
                 <span style={{ display:'inline-flex', alignItems:'center', gap:6, background:'#EBF5F0', border:'1px solid #B2D8C8', borderRadius:999, padding:'5px 12px', fontSize:12, fontWeight:700, color:C.greenDeep, letterSpacing:'.03em' }}>
                   <span style={{ width:7, height:7, borderRadius:'50%', background:C.green, display:'inline-block', animation:'pulse 2s ease-in-out infinite' }} />
@@ -1129,7 +1133,7 @@ export default function Home() {
             <div className="band-center" style={{ marginBottom: 44 }}>
               <div className="eyebrow">{lang === 'fr' ? 'Pour qui' : 'Who it\'s for'}</div>
               <h2 style={{ fontFamily: display }}>{lang === 'fr' ? 'Une plateforme pour tous.' : 'One platform. Every role.'}</h2>
-              <p className="sub">{lang === 'fr' ? 'Patients, professionnels de santé et gouvernements — chacun a sa propre expérience avec Klinova.' : 'Patients, healthcare providers, and governments each have their own experience with Klinova.'}</p>
+              <p className="sub">{lang === 'fr' ? 'Patients, professionnels de santé et gouvernements, chacun a sa propre expérience avec Klinova.' : 'Patients, healthcare providers, and governments each have their own experience with Klinova.'}</p>
             </div>
             <div className="audience-3col">
               {/* Governments — PRIMARY */}
@@ -1165,7 +1169,7 @@ export default function Home() {
                 </div>
                 <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.mute }}>{lang === 'fr' ? 'Pour les partenaires' : 'For partners'}</div>
                 <h3 style={{ fontFamily: display, fontSize: 22, fontWeight: 600, color: C.ink, margin: 0, lineHeight: 1.2 }}>{lang === 'fr' ? "Rejoignez le reseau de sante de l'Afrique." : "Join Africa's healthcare grid."}</h3>
-                <p style={{ fontSize: 14, color: C.mute, lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Cliniques, pharmacies, medecins et transporteurs — connectez-vous au reseau Klinova et recevez des patients references.' : 'Clinics, pharmacies, doctors, employers, and delivery providers join the Klinova network and receive verified patient referrals.'}</p>
+                <p style={{ fontSize: 14, color: C.mute, lineHeight: 1.65, margin: 0, flex: 1 }}>{lang === 'fr' ? 'Cliniques, pharmacies, medecins et transporteurs, connectez-vous au reseau Klinova et recevez des patients references.' : 'Clinics, pharmacies, doctors, employers, and delivery providers join the Klinova network and receive verified patient referrals.'}</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <a href="/partner" style={{ display: 'inline-block', background: C.green, color: '#fff', fontWeight: 700, fontSize: 13.5, borderRadius: 10, padding: '10px 18px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{lang === 'fr' ? 'Devenir partenaire →' : 'Become a partner →'}</a>
                 </div>
@@ -1413,6 +1417,42 @@ export default function Home() {
           )
         })()}
 
+        {/* POWERED BY KINARA OS */}
+        <section style={{ background: C.sand, borderBottom: `1px solid ${C.line}` }}>
+          <div className="wrap">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
+              <div>
+                <div className="eyebrow" style={{ marginBottom: 12 }}>Infrastructure</div>
+                <h2 style={{ fontFamily: display, fontWeight: 600, fontSize: 'clamp(28px,3.4vw,40px)', lineHeight: 1.08, letterSpacing: '-.02em', marginTop: 0 }}>
+                  {lang === 'fr' ? 'Alimenté par Kinara OS' : 'Powered by Kinara OS'}
+                </h2>
+                <p className="sub" style={{ marginTop: 14, maxWidth: '44ch' }}>
+                  {lang === 'fr'
+                    ? "Klinova fonctionne sur Kinara OS, une infrastructure de coordination gouvernée conçue pour connecter les soins de santé, les pharmacies, la logistique et les systèmes publics tout en permettant aux institutions de garder le contrôle de leurs données."
+                    : "Klinova runs on Kinara OS, governed coordination infrastructure built to connect healthcare, pharmacies, logistics, and public systems while allowing institutions to maintain control of their data."}
+                </p>
+                <a href="https://kinaraos.com" target="_blank" rel="noopener noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 22, fontSize: 14, fontWeight: 700, color: C.greenDeep, textDecoration: 'none' }}>
+                  {lang === 'fr' ? 'Explorer Kinara OS' : 'Explore Kinara OS'} →
+                </a>
+              </div>
+              <div style={{ background: C.greenDeep, borderRadius: 20, padding: 36, color: '#fff' }}>
+                <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: C.goldSoft, marginBottom: 16 }}>
+                  {lang === 'fr' ? 'Relation' : 'Relationship'}
+                </p>
+                <p style={{ fontFamily: display, fontSize: 20, fontWeight: 600, color: '#fff', lineHeight: 1.3, marginBottom: 12 }}>
+                  {lang === 'fr' ? 'Klinova a construit Kinara OS. Kinara OS alimente Klinova.' : 'Klinova built Kinara OS. Kinara OS powers Klinova.'}
+                </p>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.7)', lineHeight: 1.65 }}>
+                  {lang === 'fr'
+                    ? "L'infrastructure qui coordonne les dossiers patients, les reseaux de pharmacies, la logistique et la surveillance sanitaire dans les quatre pays de Klinova est gouvernee par Kinara OS."
+                    : "The infrastructure that coordinates patient records, pharmacy networks, logistics, and health surveillance across Klinova's four country markets is governed by Kinara OS."}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       {/* FOOTER */}
@@ -1425,6 +1465,9 @@ export default function Home() {
               </a>
               <p className="blurb">{t('footer_blurb')}</p>
               <p style={{ fontSize: 12, fontWeight: 700, color: C.gold, letterSpacing: '.06em', textTransform: 'uppercase', marginTop: 12 }}>{t('card_h')}</p>
+              <a href="https://kinaraos.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: '#6E8E81', marginTop: 6, display: 'block', textDecoration: 'none' }}>
+                {lang === 'fr' ? 'Alimenté par Kinara OS' : 'Powered by Kinara OS'}
+              </a>
             </div>
             <div>
               <h4>{t('footer_product')}</h4>
@@ -1454,7 +1497,9 @@ export default function Home() {
           </div>
           <div className="fbottom">
             <span>{t('footer_cr')}</span>
-            <span>Powered by Klinova</span>
+            <a href="https://kinaraos.com" target="_blank" rel="noopener noreferrer" style={{ color: '#5A7A6E', textDecoration: 'none' }}>
+              {lang === 'fr' ? 'Klinova · Alimenté par Kinara OS' : 'Klinova · Powered by Kinara OS'}
+            </a>
           </div>
         </div>
       </footer>

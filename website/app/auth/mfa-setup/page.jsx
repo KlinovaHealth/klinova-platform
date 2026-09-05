@@ -45,7 +45,7 @@ export default function MFASetup() {
     const { data: challenge, error: cErr } = await supabase.auth.mfa.challenge({ factorId })
     if (cErr) { setError(cErr.message); setLoading(false); return }
     const { error: vErr } = await supabase.auth.mfa.verify({ factorId, challengeId: challenge.id, code })
-    if (vErr) { setError('Invalid code — try again.'); setLoading(false); return }
+    if (vErr) { setError('Invalid code, try again.'); setLoading(false); return }
     setStep('done')
     setTimeout(() => router.replace('/dashboard'), 1500)
   }

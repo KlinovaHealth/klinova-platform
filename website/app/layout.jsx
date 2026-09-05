@@ -2,9 +2,9 @@ import './globals.css'
 
 export const metadata = {
   metadataBase: new URL('https://klinova.co'),
-  title: 'Klinova — Healthcare that speaks your language',
+  title: 'Klinova, Healthcare that speaks your language',
   description:
-    'Telemedicine and digital health for West Africa. See a trusted doctor from your phone, get your prescription, and find medicine nearby — across Togo, Ghana, Benin, and Côte d\'Ivoire.',
+    'Telemedicine and digital health for West Africa. See a trusted doctor from your phone, get your prescription, and find medicine nearby, across Togo, Ghana, Benin, and Côte d\'Ivoire.',
   keywords: [
     'telemedicine', 'Togo', 'Ghana', 'Benin', "Côte d'Ivoire",
     'West Africa', 'digital health', 'mobile money', 'e-prescription', 'Klinova',
@@ -16,9 +16,9 @@ export const metadata = {
     shortcut: '/favicon-256.png',
   },
   openGraph: {
-    title: 'Klinova — Healthcare that speaks your language',
+    title: 'Klinova, Healthcare that speaks your language',
     description:
-      'Telemedicine and digital health for West Africa. See a doctor, get your prescription, find medicine nearby — by app, web, or WhatsApp.',
+      'Telemedicine and digital health for West Africa. See a doctor, get your prescription, find medicine nearby, by app, web, or WhatsApp.',
     url: 'https://klinova.co',
     siteName: 'Klinova',
     images: [{ url: '/klinova-logo-full.png', width: 1920, height: 1920, alt: 'Klinova' }],
@@ -27,7 +27,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Klinova — Healthcare that speaks your language',
+    title: 'Klinova, Healthcare that speaks your language',
     description: 'Telemedicine and digital health for West Africa.',
     images: ['/klinova-logo-full.png'],
   },
