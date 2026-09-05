@@ -909,7 +909,7 @@ export default function Home() {
         .audience-card .btn { font-size:13px; padding:10px 14px; }
         .audience-card.audience-primary .btn-primary { background:#fff; color:${C.greenDeep}; box-shadow:none; }
         /* Nav logo sizing */
-        .nav-logo-img { height: 64px; }
+        .nav-logo-img { height: 80px; }
         /* Hamburger */
         .hamburger { display: flex; background: none; border: none; cursor: pointer; color: ${C.ink}; padding: 6px; border-radius: 8px; line-height: 0; }
         .hamburger:hover { background: rgba(14,107,79,.08); }
@@ -937,7 +937,7 @@ export default function Home() {
         @media(max-width:960px){
           .nav-links{display:none}
           nav{justify-content:space-between}
-          .nav-logo-img{height:48px}
+          .nav-logo-img{height:60px}
           .hero-grid{grid-template-columns:1fr;gap:36px}
           .hero-img-card{order:-1}
           .steps{grid-template-columns:1fr 1fr}
@@ -958,7 +958,7 @@ export default function Home() {
         }
         @media(max-width:540px){
           nav{padding:0 14px;height:58px;justify-content:space-between}
-          .nav-logo-img{height:36px}
+          .nav-logo-img{height:45px}
           nav{padding:0 14px;height:58px;justify-content:space-between}
           .wrap{padding:0 18px}
           section{padding:48px 0}
@@ -1432,7 +1432,7 @@ export default function Home() {
                     : "Klinova runs on Kinara OS, governed coordination infrastructure built to connect healthcare, pharmacies, logistics, and public systems while allowing institutions to maintain control of their data."}
                 </p>
                 <a href="https://kinaraos.com" target="_blank" rel="noopener noreferrer"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 22, fontSize: 14, fontWeight: 700, color: C.greenDeep, textDecoration: 'none' }}>
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 22, fontSize: 14, fontWeight: 700, color: C.greenDeep, textDecoration: 'none', border: `1.5px solid ${C.greenDeep}`, borderRadius: 10, padding: '10px 20px' }}>
                   {lang === 'fr' ? 'Explorer Kinara OS' : 'Explore Kinara OS'} →
                 </a>
               </div>
