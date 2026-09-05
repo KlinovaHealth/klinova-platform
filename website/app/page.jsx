@@ -188,8 +188,8 @@ const T = {
     gov_step4_n: '04', gov_step4_h: 'Launch & Monitor',        gov_step4_p: 'Your team receives a live dashboard, staff training, and ongoing technical support.',
 
     eyebrow6: 'Why we exist',
-    ratio: '1 : 5,000',
-    impact_p: 'Across Africa, there is roughly one doctor for every 5,000 people. Klinova closes this gap. By building the digital network that connects patients, clinics, and delivery partners on one unified grid, we multiply the reach of every available doctor. We are making reliable healthcare accessible to anyone, anywhere on the continent.',
+    ratio: '',
+    impact_p: 'Healthcare access remains critically limited across much of sub-Saharan Africa. Klinova helps close this gap by building the digital network that connects patients, clinics, and delivery partners on one unified platform, multiplying the reach of every available provider and making quality care accessible beyond the walls of any single clinic.',
     card_h: 'Born in Africa. Built for Life.',
     card_p: 'Klinova is built by a team that knows this region deeply: its languages, its devices, and how people pay. We started in Togo and are growing across West Africa.',
 
@@ -306,7 +306,7 @@ const T = {
     already_account: 'Already have an account?',
     sign_in: 'Sign in →',
 
-    pilot_status: 'First real-world pilot · Togo · by Summer 2027',
+    pilot_status: 'First real-world pilots planned · Togo · Ghana · by Summer 2027',
     test_eyebrow: 'Early feedback',
     test_h: 'From our design partners.',
     test1_q: 'Klinova has transformed the way we work. Consultations are better documented and patient follow-up has become simple and effective.',
@@ -398,8 +398,8 @@ const T = {
     gov_step4_n: '04', gov_step4_h: 'Lancement et suivi',           gov_step4_p: 'Votre équipe reçoit un tableau de bord en direct, une formation et un support technique continu.',
 
     eyebrow6: "Notre raison d'être",
-    ratio: '1 : 5 000',
-    impact_p: "En Afrique, on compte environ un médecin pour 5 000 personnes. Klinova comble cet écart. En construisant le réseau numérique qui connecte patients, cliniques et partenaires de livraison sur une même plateforme, nous multiplions la portée de chaque médecin disponible. Nous rendons des soins fiables accessibles à tous, partout sur le continent.",
+    ratio: '',
+    impact_p: "L'accès aux soins reste très limité dans une grande partie de l'Afrique subsaharienne. Klinova aide à combler cet écart en construisant le réseau numérique qui connecte patients, cliniques et partenaires de livraison sur une même plateforme, multipliant la portée de chaque professionnel de santé disponible et rendant des soins de qualité accessibles au-delà des murs d'une seule clinique.",
     card_h: "Né en Afrique. Conçu pour la vie.",
     card_p: "Klinova est développé par une équipe qui connaît profondément cette région : ses langues, ses appareils et ses modes de paiement. Nous avons débuté au Togo et nous étendons à toute l'Afrique de l'Ouest.",
 
@@ -516,7 +516,7 @@ const T = {
     already_account: 'Vous avez déjà un compte ?',
     sign_in: 'Se connecter →',
 
-    pilot_status: 'Premier pilote réel · Togo · d\'ici l\'été 2027',
+    pilot_status: 'Premiers pilotes prévus · Togo · Ghana · d\'ici l\'été 2027',
     test_eyebrow: 'Retours préliminaires',
     test_h: 'Ce que disent nos partenaires de conception.',
     test1_q: 'Klinova a transformé notre façon de travailler. Les consultations sont mieux documentées et le suivi patient est devenu simple et efficace.',
@@ -1246,7 +1246,7 @@ export default function Home() {
           <div className="wrap impact">
             <div>
               <div className="eyebrow">{t('eyebrow6')}</div>
-              <div className="stat">{t('ratio')}</div>
+              {t('ratio') && <div className="stat">{t('ratio')}</div>}
               <p>{t('impact_p')}</p>
             </div>
             <div style={{ background: C.green, borderRadius: 20, padding: 32 }}>
